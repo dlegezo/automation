@@ -10,7 +10,7 @@ def get_virustotal_ioc_stream(token: str) -> list:
     return resp.json()['data']
 
 
-def get_file_contacted_domains(token, file_hash: str) -> list[str]:
+def get_file_contacted_domains(token: str, file_hash: str) -> list[str]:
     url = auth.VT_FILE_ITW_DOMAINS_URL.format(file_hash)
     headers = {'x-apikey': token}
     resp = requests.get(url, headers=headers)
@@ -21,9 +21,9 @@ def get_file_contacted_domains(token, file_hash: str) -> list[str]:
     return []
 
 
-def update_gist(gist_id, filename, ioc_domains, token):
+def update_gist(gist_id: str, filename: str, ioc_domains: set, token: str, malware: str) -> dict:
     csv_content = "malware,ioc\n" + "\n".join(
-        f"coruna,{domain}" for domain in ioc_domains
+        f"{malware}, {domain}" for domain in ioc_domains
     )
     url = auth.GIST_UPDATE_URL.format(gist_id)
     headers = {'Authorization': f'token {token}'}
@@ -45,7 +45,7 @@ def main():
     for ioc in ioc_hashes:
         for domain in get_file_contacted_domains(auth.VT_TOKEN, ioc['id']):
             ioc_domains.add(domain)
-    update_gist(auth.GIST_ID, 'iocs.csv', ioc_domains, auth.GIST_TOKEN)
+    update_gist(auth.GIST_ID, 'iocs.csv', ioc_domains, auth.GIST_TOKEN, 'coruna')
 
 
 if __name__ == "__main__":
