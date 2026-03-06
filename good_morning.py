@@ -21,13 +21,16 @@ def get_file_contacted_domains(token, file_hash: str) -> list[str]:
     return []
 
 
-def update_gist(gist_id, filename, content, token):
+def update_gist(gist_id, filename, ioc_domains, token):
+    csv_content = "malware,ioc\n" + "\n".join(
+        f"coruna,{domain}" for domain in ioc_domains
+    )
     url = auth.GIST_UPDATE_URL.format(gist_id)
     headers = {'Authorization': f'token {token}'}
     data = {
         'files': {
             filename: {
-                'content': content
+                'content': csv_content
             }
         }
     }
@@ -39,14 +42,10 @@ def update_gist(gist_id, filename, content, token):
 def main():
     ioc_hashes = get_virustotal_ioc_stream(auth.VT_TOKEN)
     ioc_domains = set()
-
     for ioc in ioc_hashes:
         for domain in get_file_contacted_domains(auth.VT_TOKEN, ioc['id']):
             ioc_domains.add(domain)
-    csv_content = "malware,ioc\n" + "\n".join(
-        f"coruna,{domain}" for domain in ioc_domains
-    )
-    update_gist(auth.GIST_ID, 'iocs.csv', csv_content, auth.GIST_TOKEN)
+    update_gist(auth.GIST_ID, 'iocs.csv', ioc_domains, auth.GIST_TOKEN)
 
 
 if __name__ == "__main__":
