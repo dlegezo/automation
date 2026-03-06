@@ -3,11 +3,16 @@ import json
 import auth
 
 
-def get_virustotal_ioc_stream(token: str) -> list:
+def get_virustotal_ioc_stream(token: str, source: str) -> list:
     headers = {'x-apikey': token}
     resp = requests.get(auth.VT_IOC_STREAM_URL, headers=headers)
     resp.raise_for_status()
-    return resp.json()['data']
+    data = resp.json()['data']
+    iocs = []
+    for ioc in data:
+        if source in ioc.get('context_attributes').get('tags'):
+            iocs.append(ioc)
+    return iocs
 
 
 def get_file_contacted_domains(token: str, file_hash: str) -> list[str]:
@@ -40,7 +45,7 @@ def update_gist(gist_id: str, filename: str, ioc_domains: set, token: str, malwa
 
 
 def main():
-    ioc_hashes = get_virustotal_ioc_stream(auth.VT_TOKEN)
+    ioc_hashes = get_virustotal_ioc_stream(auth.VT_TOKEN, 'ios_coruna_gti')
     ioc_domains = set()
     for ioc in ioc_hashes:
         for domain in get_file_contacted_domains(auth.VT_TOKEN, ioc['id']):
