@@ -6,15 +6,12 @@ from typing import Dict, List
 
 def get_virustotal_ioc_stream(token: str, source: str) -> List[Dict]:
     headers = {'x-apikey': token}
-    params = {'limit': 10,  # max available is 40
-              'filter': 'notification_tag:"G_Hunting_Exploit_MapJoinEncoder_1"'}
+    params = {'limit': 15,  # max available is 40
+              'filter': f'notification_tag:"{source}"'}
     resp = requests.get(os.environ['VT_IOC_STREAM_URL'], headers=headers, params=params)
     resp.raise_for_status()
     data = resp.json()['data']
-    iocs = []
-    for ioc in data:
-        if source in ioc.get('context_attributes').get('tags'):
-            iocs.append(ioc)
+    iocs = list({ioc['id']: ioc for ioc in data}.values())
     return iocs
 
 
@@ -56,8 +53,10 @@ def main():
     vt_token = os.environ['VT_TOKEN']
     gist_id = os.environ['GIST_ID']
     gist_token = os.environ['GIST_TOKEN']
+    with open('config.json', 'r') as f:
+        config = json.load(f)
 
-    ioc_hashes = get_virustotal_ioc_stream(vt_token, 'g_hunting_exploit_mapjoinencoder_1')
+    ioc_hashes = get_virustotal_ioc_stream(vt_token, config['source'])
     ioc_domains = {}
     for ioc in ioc_hashes:
         contacted = get_file_contacted_domains(vt_token, ioc['id'])
