@@ -1,11 +1,13 @@
 import os
 import requests
 import json
+from typing import Dict, List
 
 
-def get_virustotal_ioc_stream(token: str, source: str) -> list:
+def get_virustotal_ioc_stream(token: str, source: str) -> List[Dict]:
     headers = {'x-apikey': token}
-    params = {'limit': 40} # max available is 40
+    params = {'limit': 10,  # max available is 40
+              'filter': 'notification_tag:"G_Hunting_Exploit_MapJoinEncoder_1"'}
     resp = requests.get(os.environ['VT_IOC_STREAM_URL'], headers=headers, params=params)
     resp.raise_for_status()
     data = resp.json()['data']
@@ -16,21 +18,26 @@ def get_virustotal_ioc_stream(token: str, source: str) -> list:
     return iocs
 
 
-def get_file_contacted_domains(token: str, file_hash: str) -> list[str]:
+def get_file_contacted_domains(token: str, file_hash: str) -> Dict[str, List[str]]:
     url = os.environ['VT_FILE_ITW_DOMAINS_URL'].format(file_hash)
     headers = {'x-apikey': token}
     resp = requests.get(url, headers=headers)
+    res = []
     if resp.status_code == 200:
         domain_data = resp.json().get('data', [])
-        return [entry['id'] for entry in domain_data]
-    print(f"Error {resp.status_code} for {file_hash}")
-    return []
+        for entry in domain_data:
+            res.append(entry['id'])
+    else:
+        print(f"Error {resp.status_code} for {file_hash}")
+        return {}
+    return {file_hash: res}
 
 
-def update_gist(gist_id: str, token: str, filename: str, iocs: set, type:str, malware: str) -> dict:
-    csv_content = "malware, type, ioc\n" + "\n".join(
-        f"{malware}, {type}, {ioc}" for ioc in iocs
-    )
+def update_gist(gist_id: str, token: str, filename: str, iocs: Dict[str, List[str]], type: str, malware: str) -> Dict:
+    csv_content = "malware, type, parent, ioc\n"
+    for parent, ioc_list in iocs.items():
+        for ioc in ioc_list:
+            csv_content += f"{malware}, {type}, {parent}, {ioc}\n"
     url = os.environ['GIST_UPDATE_URL'].format(gist_id)
     headers = {'Authorization': f'token {token}'}
     data = {
@@ -50,11 +57,11 @@ def main():
     gist_id = os.environ['GIST_ID']
     gist_token = os.environ['GIST_TOKEN']
 
-    ioc_hashes = get_virustotal_ioc_stream(vt_token, 'ios_coruna_gti')
-    ioc_domains = set()
+    ioc_hashes = get_virustotal_ioc_stream(vt_token, 'g_hunting_exploit_mapjoinencoder_1')
+    ioc_domains = {}
     for ioc in ioc_hashes:
-        for domain in get_file_contacted_domains(vt_token, ioc['id']):
-            ioc_domains.add(domain)
+        contacted = get_file_contacted_domains(vt_token, ioc['id'])
+        ioc_domains.update(contacted)
     update_gist(gist_id, gist_token, 'iocs.csv', ioc_domains, 'domain', 'coruna')
 
 
