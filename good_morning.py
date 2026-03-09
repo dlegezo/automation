@@ -1,6 +1,6 @@
+import os
 import requests
 import json
-import auth
 
 
 def get_virustotal_ioc_stream(token: str, source: str) -> list:
@@ -26,9 +26,9 @@ def get_file_contacted_domains(token: str, file_hash: str) -> list[str]:
     return []
 
 
-def update_gist(gist_id: str, filename: str, ioc_domains: set, token: str, malware: str) -> dict:
-    csv_content = "malware,ioc\n" + "\n".join(
-        f"{malware}, {domain}" for domain in ioc_domains
+def update_gist(gist_id: str, token: str, filename: str, iocs: set, type:str, malware: str) -> dict:
+    csv_content = "malware, type, ioc\n" + "\n".join(
+        f"{malware}, {type}, {ioc}" for ioc in iocs
     )
     url = auth.GIST_UPDATE_URL.format(gist_id)
     headers = {'Authorization': f'token {token}'}
@@ -45,12 +45,16 @@ def update_gist(gist_id: str, filename: str, ioc_domains: set, token: str, malwa
 
 
 def main():
-    ioc_hashes = get_virustotal_ioc_stream(auth.VT_TOKEN, 'ios_coruna_gti')
+    vt_token = os.environ['VT_TOKEN']
+    gist_id = os.environ['GIST_ID']
+    gist_token = os.environ['GIST_TOKEN']
+
+    ioc_hashes = get_virustotal_ioc_stream(vt_token, 'ios_coruna_gti')
     ioc_domains = set()
     for ioc in ioc_hashes:
-        for domain in get_file_contacted_domains(auth.VT_TOKEN, ioc['id']):
+        for domain in get_file_contacted_domains(vt_token, ioc['id']):
             ioc_domains.add(domain)
-    update_gist(auth.GIST_ID, 'iocs.csv', ioc_domains, auth.GIST_TOKEN, 'coruna')
+    update_gist(gist_id, gist_token, 'iocs.csv', ioc_domains, 'domain', 'coruna')
 
 
 if __name__ == "__main__":
