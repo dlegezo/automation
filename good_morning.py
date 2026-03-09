@@ -5,7 +5,8 @@ import json
 
 def get_virustotal_ioc_stream(token: str, source: str) -> list:
     headers = {'x-apikey': token}
-    resp = requests.get(auth.VT_IOC_STREAM_URL, headers=headers)
+    params = {'limit': 40} # max available is 40
+    resp = requests.get(os.environ['VT_IOC_STREAM_URL'], headers=headers, params=params)
     resp.raise_for_status()
     data = resp.json()['data']
     iocs = []
@@ -16,7 +17,7 @@ def get_virustotal_ioc_stream(token: str, source: str) -> list:
 
 
 def get_file_contacted_domains(token: str, file_hash: str) -> list[str]:
-    url = auth.VT_FILE_ITW_DOMAINS_URL.format(file_hash)
+    url = os.environ['VT_FILE_ITW_DOMAINS_URL'].format(file_hash)
     headers = {'x-apikey': token}
     resp = requests.get(url, headers=headers)
     if resp.status_code == 200:
@@ -30,7 +31,7 @@ def update_gist(gist_id: str, token: str, filename: str, iocs: set, type:str, ma
     csv_content = "malware, type, ioc\n" + "\n".join(
         f"{malware}, {type}, {ioc}" for ioc in iocs
     )
-    url = auth.GIST_UPDATE_URL.format(gist_id)
+    url = os.environ['GIST_UPDATE_URL'].format(gist_id)
     headers = {'Authorization': f'token {token}'}
     data = {
         'files': {
