@@ -65,7 +65,7 @@ def update_gist(gist_id: str, token: str, filename: str, csv_content: str, base_
         'Accept': 'application/vnd.github.v3+json'
     }
     data = {'files': {filename: {'content': csv_content}}}
-    resp = requests.patch(url, headers=headers, json=data, timeout=30)  # Use json= not data=
+    resp = requests.patch(url, headers=headers, json=data, timeout=30)
     resp.raise_for_status()
     logger.info(f"Gist {gist_id} updated")
     return resp.json()
@@ -87,7 +87,7 @@ def main():
     config = load_config()
     limit = config.get('limit', 20)
 
-    ioc_data = {}  # {source: {hash: [domains]}}
+    ioc_data = {}
 
     for src in config['sources']:
         source_name = src if isinstance(src, str) else src.get('name', 'unknown')
