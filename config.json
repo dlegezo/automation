@@ -3,21 +3,15 @@
     "required_env": ["VT_TOKEN", "GIST_ID", "GIST_TOKEN", "VT_IOC_STREAM_URL", "VT_FILE_ITW_DOMAINS_URL", "GIST_UPDATE_URL"],
     "sources": [
       {
-        "name": "coruna",
+        "name": ["muddywater_dropper_dinodance_vbs", 
+          "muddywater_launcher_dinodance", 
+          "muddywater_backdoor_dinodance", 
+          "coruna_exploit_mapjoinencoder", 
+          "muddywater_ateraagent"],
         "type": "vt_ioc_stream",
         "token_env": "VT_TOKEN",
         "ioc_url_env": "VT_IOC_STREAM_URL",
         "domains_url_env": "VT_FILE_ITW_DOMAINS_URL",
-        "yara_rule": "coruna_exploit_mapjoinencoder",
-        "limit": 15
-      },
-      {
-        "name": "muddywater",
-        "type": "vt_ioc_stream",
-        "token_env": "VT_TOKEN",
-        "ioc_url_env": "VT_IOC_STREAM_URL",
-        "domains_url_env": "VT_FILE_ITW_DOMAINS_URL",
-        "yara_rule": "muddywater_ateraagent",
         "limit": 15
       }
     ],

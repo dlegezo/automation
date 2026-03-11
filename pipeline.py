@@ -26,17 +26,17 @@ def run_pipeline(config: Dict) -> None:
     pipeline_config = config['pipeline']
 
     for src_config in pipeline_config['sources']:
-        source_name = src_config['name']
         source_type = src_config['type']
-        yara_rule = src_config['yara_rule']
-
-        logger.info(f"Loading source {source_name} ({source_type})")
+        logger.info(f"Loading source {source_type}")
         module = importlib.import_module(f'sources.{source_type}')
         source_class = getattr(module, source_type.title())
         source = source_class(src_config)
 
-        hash_domains = source.load_iocs(yara_rule, limit=pipeline_config.get('limit', 20))
-        ioc_store[source_name] = hash_domains
+        source_names = src_config['name']
+        for source_name in (source_names if isinstance(source_names, list) else [source_names]):
+            logger.info(f"Processing yara rule {source_name}")
+            hash_domains = source.load_iocs(source_name, limit=pipeline_config.get('limit', 20))
+            ioc_store[source_name] = hash_domains
 
     logger.info(f"Pipeline complete: {sum(len(hm) for hm in ioc_store.values())} hash-domain pairs")
 
