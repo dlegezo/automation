@@ -1,13 +1,15 @@
 {
   "pipeline": {
-    "required_env": ["VT_TOKEN", "GIST_ID", "GIST_TOKEN", "VT_IOC_STREAM_URL", "VT_FILE_ITW_DOMAINS_URL", "GIST_UPDATE_URL"],
+    "required_env": ["VT_TOKEN", "VT_IOC_STREAM_URL", "VT_FILE_ITW_DOMAINS_URL", 
+      "GIST_ID", "GIST_TOKEN", "GIST_UPDATE_URL"],
     "sources": [
       {
         "name": ["muddywater_dropper_dinodance_vbs", 
           "muddywater_launcher_dinodance", 
           "muddywater_backdoor_dinodance", 
-          "coruna_exploit_mapjoinencoder", 
-          "muddywater_ateraagent"],
+          "muddywater_ateraagent",
+          "muddywater_rotrot_strings",
+          "muddywater_muddyc2go_launcher"],
         "type": "vt_ioc_stream",
         "token_env": "VT_TOKEN",
         "ioc_url_env": "VT_IOC_STREAM_URL",
