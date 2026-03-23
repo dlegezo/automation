@@ -31,11 +31,15 @@ def run_pipeline(config: Dict) -> None:
         source_class = getattr(module, source_type.title())
         source = source_class(config_sources)
 
-        source_names = config_sources['name']
-        for source_name in (source_names if isinstance(source_names, list) else [source_names]):
-            logger.info(f"Processing yara rule {source_name}")
-            hash_domains = source.get_iocs(source_name, limit=config_pipeline.get('limit', 20))
-            ioc_store[source_name] = hash_domains
+        if source_type == 'vt_ioc_stream':
+            source_names = config_sources['name']
+            for source_name in (source_names if isinstance(source_names, list) else [source_names]):
+                logger.info(f"Processing yara rule {source_name}")
+                hash_domains = source.get_iocs(source_name, limit=config_pipeline.get('limit', 20))
+                ioc_store[source_name] = hash_domains
+        elif source_type == 'gist_to_check':
+            iocs = source.get_iocs(ioc_store)
+            logger.info(f"Got {iocs} IOCs from Gist")
 
     logger.info(f"Pipeline complete: {sum(len(hm) for hm in ioc_store.values())} hash-domain pairs")
 

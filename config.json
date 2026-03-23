@@ -11,11 +11,20 @@
           "muddywater_rotrot_strings",
           "muddywater_muddyc2go_launcher"],
         "type": "vt_ioc_stream",
+        "format": "api",
         "token_env": "VT_TOKEN",
         "ioc_url_env": "VT_IOC_STREAM_URL",
         "domains_url_env": "VT_FILE_ITW_DOMAINS_URL",
         "limit": 15
-      }
+      },
+      {
+        "type": "gist_to_check",
+        "format": "csv",
+        "gist_id_env": "GIST_ID",
+        "token_env": "GIST_TOKEN",
+        "url_env": "GIST_UPDATE_URL",
+        "filename": "to_check.csv"
+        }
     ],
     "outputs": [
       {
