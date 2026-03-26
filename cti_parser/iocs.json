@@ -1,5 +1,5 @@
 {
-  "$schema": "./iocs-schema.json",
+  "$schema": "./schemes/iocs-schema.json",
   "$id": "iocs.json",
   "reports": [
     {
