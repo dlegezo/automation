@@ -56,7 +56,9 @@
                                     "sha256",
                                     "md5",
                                     "process_legit",
-                                    "domain_legit"
+                                    "domain_legit",
+                                    "ip_legit",
+                                    "lolbin"
                                 ],
                                 "description": "Type of IOC"
                             },

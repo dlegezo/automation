@@ -193,43 +193,43 @@
       ],
       "iocs": [
         {
-          "id": "infra-01",
+          "id": "ioc-1",
           "type": "ip",
           "value": "107.189.19.52",
           "comment": "C2 server for additional payload retrieval"
         },
         {
-          "id": "infra-02",
+          "id": "ioc-2",
           "type": "ip_legit",
           "value": "169.150.227.0/24",
           "comment": "Commercial VPN segment used for egress to Israel targets"
         },
         {
-          "id": "infra-03",
+          "id": "ioc-3",
           "type": "ip_legit",
           "value": "146.185.219.235",
           "comment": "Israeli VPN node used for egress"
         },
         {
-          "id": "tool-01",
-          "type": "software",
+          "id": "ioc-4",
+          "type": "lolbin",
           "value": "NetBird",
           "comment": "Zero-trust mesh network deployed for internal lateral movement"
         },
         {
-          "id": "tool-02",
-          "type": "software",
+          "id": "ioc-5",
+          "type": "lolbin",
           "value": "VeraCrypt",
           "comment": "Disk encryption utility downloaded for destructive encryption"
         },
         {
-          "id": "process-01",
+          "id": "ioc-6",
           "type": "process_legit",
           "value": "rundll32.exe comsvcs.dll MiniDump",
           "comment": "LSASS credential dumping pre-wiping"
         },
         {
-          "id": "process-02",
+          "id": "ioc-7",
           "type": "process_legit",
           "value": "wmic.exe process call create",
           "comment": "Copies registry hives from VSS (SYSTEM hive)"
@@ -237,43 +237,37 @@
       ],
       "infection_chain": [
         {
-          "id": "step-01",
+          "id": "step-1",
           "iocs": [
-            "infra-02",
-            "infra-01",
-            "infra-04",
-            "file-04",
-            "process-01",
-            "file-01",
-            "file-02"
+            "ioc-1"
           ],
           "ttps": [],
           "queries": [
-            "query-01",
-            "query-02"
+            "query-1",
+            "query-2"
           ],
           "comment": "Compromised VPN credentials -> RDP lateral -> NetBird deployment -> Recon (ADRecon, LSASS dump) -> Could wait for months -> Disable Defender -> GPO wiper deployment -> Multi-stage wiping"
         }
       ],
       "queries": [
         {
-          "id": "query-01",
+          "id": "query-1",
           "type": "kql",
           "value": "Process | where ProcessImageName in~('rundll32.exe', 'wmic.exe', 'powershell.exe') | where ProcessCommandLine contains 'comsvcs.dll' or ProcessCommandLine contains 'MiniDump' or ProcessCommandLine contains 'ADRecon'",
           "iocs": [
-            "process-01",
-            "process-02"
+            "ioc-6",
+            "ioc-7"
           ],
           "comment": "Pre-wiping recon: LSASS dump, registry copy, ADRecon execution"
         },
         {
-          "id": "query-02",
+          "id": "query-2",
           "type": "kql",
           "value": "DeviceNetworkEvents | where RemoteIP in ('107.189.19.52', '169.150.227.0/24', '146.185.219.235') | where ActionType == 'ConnectionSuccess'",
           "iocs": [
-            "infra-01",
-            "infra-02",
-            "infra-03"
+            "ioc-1",
+            "ioc-2",
+            "ioc-3"
           ],
           "comment": "Suspicious C2/VPN connections from Iranian actors"
         }
