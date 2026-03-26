@@ -43,7 +43,6 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "format": "string",
                                 "description": "Unique identifier for the IOC"
                             },
                             "type": {
@@ -79,12 +78,53 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "format": "string",
                                 "description": "Unique MITRE identifier for the TTP"
                             },
                             "comment": {
                                 "type": "string",
                                 "description": "Additional comments or context about the TTP"
+                            }
+                        }
+                    }
+                },
+                "queries": {
+                    "type": "array",
+                    "description": "List of queries associated with the report",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "id",
+                            "type",
+                            "value"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "Unique identifier for the query"
+                            },
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "kql",
+                                    "yara",
+                                    "spl"
+                                ],
+                                "description": "Type of query"
+                            },
+                            "value": {
+                                "type": "string",
+                                "description": "The query string used to search for the IOCs in security tools"
+                            },
+                            "iocs": {
+                                "type": "array",
+                                "description": "List of IOC IDs that this query is associated with",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "comment": {
+                                "type": "string",
+                                "description": "Additional comments or context about the query"
                             }
                         }
                     }
