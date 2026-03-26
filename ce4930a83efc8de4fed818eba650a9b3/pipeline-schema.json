@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pipeline-schema.json",
+  "description": "CTI reports for parsing (inputs) and publishing formats (outputs)",
+  "source": {
+    "type": "array",
+    "description": "List of CTI reports (inputs)",
+    "items": {
+      "type": "object",
+      "required": [
+        "url",
+        "created",
+        "type"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the CTI report, web or local file path"
+        },
+        "created": {
+          "type": "string",
+          "pattern": "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$",
+          "description": "Date when the report was created, in format DD/MM/YYYY"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "http",
+            "pdf"
+          ],
+          "description": "Type of the report file"
+        },
+        "comment": {
+          "type": "string",
+          "description": "Additional comments about the report"
+        }
+      }
+    }
+  },
+  "publishing": {
+    "type": "array",
+    "description": "List of files where the extracted intelligence will be published (outputs)",
+    "items": {
+      "type": "object",
+      "required": [
+        "url",
+        "type"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL network or local path of the published intelligence"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "markdown",
+            "json",
+            "csv",
+            "yaml"
+          ],
+          "description": "Output format for the published intelligence"
+        }
+      }
+    }
+  }
+}

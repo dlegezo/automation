@@ -1,0 +1,333 @@
+{
+  "$schema": "./iocs-schema.json",
+  "$id": "iocs.json",
+  "reports": [
+    {
+      "url": "https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/",
+      "created": "10/03/2026",
+      "tags": [
+        "Sednit",
+        "APT28",
+        "SlimAgent",
+        "BeardShell",
+        "Russia",
+        "Ukraine"
+      ],
+      "iocs": [
+        {
+          "id": "file-01",
+          "type": "sha1",
+          "value": "5603E99151F8803C13D48D83B8A64D071542F01B",
+          "file_name": "eapphost.dll",
+          "file_type": "dynamic library",
+          "platform": "Windows",
+          "capabilities": "Keylogging, screen capture, clipboard data collection",
+          "detection": "Win64/Spy.KeyLogger.LS",
+          "comment": "SlimAgent keylogger"
+        },
+        {
+          "id": "file-02",
+          "type": "sha1",
+          "value": "6D39F49AA11CE0574D581F10DB0F9BAE423CE3D5",
+          "file_name": "tcpiphlpsvc.dll",
+          "file_type": "dynamic library",
+          "platform": "Windows",
+          "capabilities": "Remote access, data collection",
+          "detection": "Win64/BeardShell.A",
+          "comment": "BeardShell trojan"
+        },
+        {
+          "id": "infra-01",
+          "type": "domain_legit",
+          "value": "https://icedrive.net/",
+          "comment": "BeardShell C2 infrastructure, legit service abused by the malware"
+        },
+        {
+          "id": "infra-02",
+          "type": "domain_legit",
+          "value": "https://filen.com/",
+          "comment": "Covenant C2 infrastructure, legit service abused by the malware"
+        },
+        {
+          "id": "process-01",
+          "type": "process_legit",
+          "value": "taskhost.exe",
+          "comment": "BeardShell only executes in taskhost.exe or taskhostw.exe"
+        },
+        {
+          "id": "process-02",
+          "type": "process_legit",
+          "value": "explorer.exe",
+          "comment": "SlimAgent only executes in explorer.exe"
+        }
+      ],
+      "infection_chain": [
+        {
+          "id": "chain-01",
+          "description": "",
+          "iocs": [],
+          "queries": [],
+          "comment": ""
+        }
+      ],
+      "queries": [
+        {
+          "id": "query-01",
+          "type": "kql",
+          "value": "",
+          "iocs": [
+            "process-01",
+            "process-02"
+          ],
+          "comment": "SlimAgent and BeardShell execution, dll injection"
+        },
+        {
+          "id": "query-02",
+          "type": "yara",
+          "value": "",
+          "iocs": [
+            "file-01"
+          ],
+          "comment": "SlimAgent 2024 file detection by specific function names. content:\"FN_log_window_text\""
+        },
+        {
+          "id": "query-03",
+          "type": "yara",
+          "value": "",
+          "iocs": [
+            ""
+          ],
+          "comment": "Modified Covenant file detection by specific function names. content:\"GruntUUID\" and content:\"filenClient\""
+        }
+      ],
+      "ttps": [
+        {
+          "mitre_id": "T1583.006",
+          "comment": "Acquire Infrastructure: Web Services - BeardShell relies on Icedrive cloud storage. Covenant relies on Filen cloud storage."
+        },
+        {
+          "mitre_id": "T1587.001",
+          "comment": "Develop Capabilities: Malware - BeardShell and SlimAgent are custom malware."
+        },
+        {
+          "mitre_id": "T1059.001",
+          "comment": "Command and Scripting Interpreter: PowerShell - BeardShell executes PowerShell commands."
+        },
+        {
+          "mitre_id": "T1129",
+          "comment": "Shared Modules - BeardShell and SlimAgent are full-fledged DLL files."
+        },
+        {
+          "mitre_id": "T1546.015",
+          "comment": "Event Triggered Execution: Component Object Model Hijacking - BeardShell and SlimAgent are made persistent by hijacking COM objects."
+        },
+        {
+          "mitre_id": "T1027",
+          "comment": "Obfuscated Files or Information - BeardShell Icedrive token decryption is obfuscated."
+        },
+        {
+          "mitre_id": "T1140",
+          "comment": "Deobfuscate/Decode Files or Information - BeardShell decrypts its strings."
+        },
+        {
+          "mitre_id": "T1480",
+          "comment": "Execution Guardrails - BeardShell only executes in taskhost.exe or taskhostw.exe. SlimAgent only executes in explorer.exe."
+        },
+        {
+          "mitre_id": "T1564",
+          "comment": "Hide Artifacts - SlimAgent logs are written into a hidden file."
+        },
+        {
+          "mitre_id": "T1082",
+          "comment": "System Information Discovery - BeardShell sends a fingerprint of the compromised machine."
+        },
+        {
+          "mitre_id": "T1005",
+          "comment": "Data from Local System - BeardShell, Covenant, and SlimAgent collect data from a compromised machine."
+        },
+        {
+          "mitre_id": "T1056.001",
+          "comment": "Input Capture: Keylogging - SlimAgent performs keylogging."
+        },
+        {
+          "mitre_id": "T1113",
+          "comment": "Screen Capture - SlimAgent captures screenshots of the compromised machine."
+        },
+        {
+          "mitre_id": "T1115",
+          "comment": "Clipboard Data - SlimAgent collects clipboard data."
+        },
+        {
+          "mitre_id": "T1001",
+          "comment": "Data Obfuscation - BeardShell exfiltrates data in fake images."
+        },
+        {
+          "mitre_id": "T1071.001",
+          "comment": "Application Layer Protocol: Web Protocols - BeardShell and Covenant use HTTPS for C&C."
+        },
+        {
+          "mitre_id": "T1102",
+          "comment": "Web Service - BeardShell gets commands from Icedrive. Covenant gets commands from Filen."
+        },
+        {
+          "mitre_id": "T1573.002",
+          "comment": "Encrypted Channel: Asymmetric Cryptography - BeardShell communications with Icedrive are encrypted using HTTPS. Covenant communications with its controller uses RSA-encrypted session keys."
+        },
+        {
+          "mitre_id": "T1567",
+          "comment": "Exfiltration Over Web Service - BeardShell exfiltrates data to Icedrive. Covenant exfiltrates data to Filen."
+        }
+      ]
+    },
+    {
+      "url": "https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/",
+      "created": "12/03/2026",
+      "tags": [
+        "Handala",
+        "Void Manticore",
+        "Red Sandstorm",
+        "Banished Kitten",
+        "Iran",
+        "Israel",
+        "Albania"
+      ],
+      "iocs": [
+        {
+          "id": "infra-01",
+          "type": "ip",
+          "value": "107.189.19.52",
+          "comment": "C2 server for additional payload retrieval"
+        },
+        {
+          "id": "infra-02",
+          "type": "ip_legit",
+          "value": "169.150.227.0/24",
+          "comment": "Commercial VPN segment used for egress to Israel targets"
+        },
+        {
+          "id": "infra-03",
+          "type": "ip_legit",
+          "value": "146.185.219.235",
+          "comment": "Israeli VPN node used for egress"
+        },
+        {
+          "id": "tool-01",
+          "type": "software",
+          "value": "NetBird",
+          "comment": "Zero-trust mesh network deployed for internal lateral movement"
+        },
+        {
+          "id": "tool-02",
+          "type": "software",
+          "value": "VeraCrypt",
+          "comment": "Disk encryption utility downloaded for destructive encryption"
+        },
+        {
+          "id": "process-01",
+          "type": "process_legit",
+          "value": "rundll32.exe comsvcs.dll MiniDump",
+          "comment": "LSASS credential dumping pre-wiping"
+        },
+        {
+          "id": "process-02",
+          "type": "process_legit",
+          "value": "wmic.exe process call create",
+          "comment": "Copies registry hives from VSS (SYSTEM hive)"
+        }
+      ],
+      "infection_chain": [
+        {
+          "id": "chain-01",
+          "description": "Compromised VPN credentials -> RDP lateral -> NetBird deployment -> Recon (ADRecon, LSASS dump) -> Could wait for months -> Disable Defender -> GPO wiper deployment -> Multi-stage wiping",
+          "iocs": [
+            "infra-02",
+            "infra-01",
+            "infra-04",
+            "file-04",
+            "process-01",
+            "file-01",
+            "file-02"
+          ],
+          "queries": [
+            "query-01",
+            "query-02"
+          ],
+          "comment": "Supply chain VPN compromise, hands-on keyboard with parallel wiping via GPO"
+        }
+      ],
+      "queries": [
+        {
+          "id": "query-01",
+          "type": "kql",
+          "value": "Process | where ProcessImageName in~('rundll32.exe', 'wmic.exe', 'powershell.exe') | where ProcessCommandLine contains 'comsvcs.dll' or ProcessCommandLine contains 'MiniDump' or ProcessCommandLine contains 'ADRecon'",
+          "iocs": [
+            "process-01",
+            "process-02"
+          ],
+          "comment": "Pre-wiping recon: LSASS dump, registry copy, ADRecon execution"
+        },
+        {
+          "id": "query-02",
+          "type": "kql",
+          "value": "DeviceNetworkEvents | where RemoteIP in ('107.189.19.52', '169.150.227.0/24', '146.185.219.235') | where ActionType == 'ConnectionSuccess'",
+          "iocs": [
+            "infra-01",
+            "infra-02",
+            "infra-03"
+          ],
+          "comment": "Suspicious C2/VPN connections from Iranian actors"
+        }
+      ],
+      "ttps": [
+        {
+          "mitre_id": "T1190",
+          "comment": "Exploit Public-Facing Application - Compromised VPN accounts for initial access."
+        },
+        {
+          "mitre_id": "T1133",
+          "comment": "External Remote Services - RDP for hands-on lateral movement."
+        },
+        {
+          "mitre_id": "T1570",
+          "comment": "Lateral Tool Transfer - NetBird deployment via browser download."
+        },
+        {
+          "mitre_id": "T1003.001",
+          "comment": "OS Credential Dumping: LSASS Memory - comsvcs.dll MiniDump."
+        },
+        {
+          "mitre_id": "T1087.002",
+          "comment": "Account Discovery: Domain Accounts - ADRecon PowerShell."
+        },
+        {
+          "mitre_id": "T1485",
+          "comment": "Data Destruction - Handala Wiper (MBR/file overwrite)."
+        },
+        {
+          "mitre_id": "T1561.002",
+          "comment": "Disk Wipe: Disk Structure Wipe - Custom MBR wiping."
+        },
+        {
+          "mitre_id": "T1490",
+          "comment": "Inhibit System Recovery - Multiple parallel wiping methods."
+        },
+        {
+          "mitre_id": "T1486",
+          "comment": "Data Encrypted for Impact - VeraCrypt disk encryption."
+        },
+        {
+          "mitre_id": "T1059.001",
+          "comment": "Command and Scripting Interpreter: PowerShell - AI-assisted wiping script."
+        },
+        {
+          "mitre_id": "T1480",
+          "comment": "Execution Guardrails - Domain Admin creds validation pre-impact."
+        },
+        {
+          "mitre_id": "T1078",
+          "comment": "Valid Accounts - Compromised DA credentials for GPO deployment."
+        }
+      ]
+    }
+  ]
+}

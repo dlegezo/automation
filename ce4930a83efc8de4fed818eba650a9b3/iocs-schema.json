@@ -1,0 +1,95 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "iocs-schema.json",
+    "description": "Parsed CTI reports",
+    "reports": {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "required": [
+                "url",
+                "created",
+                "iocs",
+                "ttps"
+            ],
+            "properties": {
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URL of source CTI report, web or local file path"
+                },
+                "created": {
+                    "type": "string",
+                    "pattern": "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$",
+                    "description": "Date when the report was created, in format DD/MM/YYYY"
+                },
+                "tags": {
+                    "type": "array",
+                    "description": "List of tags associated with the report",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "iocs": {
+                    "type": "array",
+                    "description": "List of IOCs extracted from the report",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "id",
+                            "type",
+                            "value"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "format": "string",
+                                "description": "Unique identifier for the IOC"
+                            },
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "ip",
+                                    "domain",
+                                    "url",
+                                    "hash"
+                                ],
+                                "description": "Type of IOC"
+                            },
+                            "value": {
+                                "type": "string",
+                                "description": "Value of the IOC"
+                            },
+                            "comment": {
+                                "type": "string",
+                                "description": "Additional comments or context about the IOC"
+                            }
+                        }
+                    }
+                },
+                "ttps": {
+                    "type": "array",
+                    "description": "List of TTPs associated with the report",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "id",
+                            "comment"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "format": "string",
+                                "description": "Unique MITRE identifier for the TTP"
+                            },
+                            "comment": {
+                                "type": "string",
+                                "description": "Additional comments or context about the TTP"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
