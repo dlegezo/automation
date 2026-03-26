@@ -1,0 +1,55 @@
+flowchart TD
+    A[IOCs Schema] --> B[reports: array]
+    B --> C[report item: object]
+
+    C --> C1[url: string, uri]
+    C --> C2[created: string, DD/MM/YYYY]
+    C --> C3[tags: array optional]
+    C --> C4[iocs: array]
+    C --> C5[ttps: array]
+    C --> C6[queries: array optional]
+    C --> C7[infection_chain: array optional]
+
+    R0[Required report fields: url, created, iocs, ttps] --> C
+
+    C4 --> I1[ioc item: object]
+    I1 --> I2[id: string]
+    I1 --> I3[type: enum]
+    I1 --> I4[value: string]
+    I1 --> I5[comment: string optional]
+    R1[Required IOC fields: id, type, value] --> I1
+    I3 --> IT1[ip]
+    I3 --> IT2[domain]
+    I3 --> IT3[url]
+    I3 --> IT4[sha1]
+    I3 --> IT5[sha256]
+    I3 --> IT6[md5]
+    I3 --> IT7[process_legit]
+    I3 --> IT8[domain_legit]
+    I3 --> IT9[ip_legit]
+    I3 --> IT10[lolbin]
+
+    C5 --> T1[ttp item: object]
+    T1 --> T2[id: string]
+    T1 --> T3[comment: string]
+    R2[Required TTP fields: id, comment] --> T1
+
+    C6 --> Q1[query item: object]
+    Q1 --> Q2[id: string]
+    Q1 --> Q3[type: enum]
+    Q1 --> Q4[value: string]
+    Q1 --> Q5[iocs: array optional]
+    Q1 --> Q6[comment: string optional]
+    R3[Required query fields: id, type, value] --> Q1
+    Q3 --> QT1[kql]
+    Q3 --> QT2[yara]
+    Q3 --> QT3[spl]
+    Q3 --> QT4[sigma]
+
+    C7 --> S1[step item: object]
+    S1 --> S2[id: string]
+    S1 --> S3[iocs: array optional refs to IOC IDs]
+    S1 --> S4[ttps: array refs to TTP IDs]
+    S1 --> S5[queries: array optional refs to query IDs]
+    S1 --> S6[comment: string optional]
+    R4[Required infection step fields: id, ttps] --> S1

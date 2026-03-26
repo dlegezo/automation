@@ -1,0 +1,24 @@
+flowchart TD
+    A[Pipeline Schema] --> B[source: array]
+    A --> C[publishing: array]
+
+    B --> B1[source item: object]
+    B1 --> B2[url: string, format=uri]
+    B1 --> B3[created: string, pattern DD/MM/YYYY]
+    B1 --> B4[type: string enum]
+    B1 --> B5[comment: string optional]
+
+    B4 --> B41[http]
+    B4 --> B42[pdf]
+
+    C --> C1[publishing item: object]
+    C1 --> C2[url: string, format=uri]
+    C1 --> C3[type: string enum]
+
+    C3 --> C31[markdown]
+    C3 --> C32[json]
+    C3 --> C33[csv]
+    C3 --> C34[yaml]
+
+    R1[Required in source item: url, created, type] --> B1
+    R2[Required in publishing item: url, type] --> C1
