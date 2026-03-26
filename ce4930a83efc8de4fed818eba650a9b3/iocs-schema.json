@@ -43,6 +43,7 @@
                         "properties": {
                             "id": {
                                 "type": "string",
+                                "format": "^ioc-[0-9]+$",
                                 "description": "Unique identifier for the IOC"
                             },
                             "type": {
@@ -51,7 +52,11 @@
                                     "ip",
                                     "domain",
                                     "url",
-                                    "hash"
+                                    "sha1",
+                                    "sha256",
+                                    "md5",
+                                    "process_legit",
+                                    "domain_legit"
                                 ],
                                 "description": "Type of IOC"
                             },
@@ -78,6 +83,7 @@
                         "properties": {
                             "id": {
                                 "type": "string",
+                                "format": "^ttp-[0-9]+$",
                                 "description": "Unique MITRE identifier for the TTP"
                             },
                             "comment": {
@@ -100,6 +106,7 @@
                         "properties": {
                             "id": {
                                 "type": "string",
+                                "format": "^query-[0-9]+$",
                                 "description": "Unique identifier for the query"
                             },
                             "type": {
@@ -107,7 +114,8 @@
                                 "enum": [
                                     "kql",
                                     "yara",
-                                    "spl"
+                                    "spl",
+                                    "sigma"
                                 ],
                                 "description": "Type of query"
                             },

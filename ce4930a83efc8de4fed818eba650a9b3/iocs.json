@@ -15,7 +15,7 @@
       ],
       "iocs": [
         {
-          "id": "file-01",
+          "id": "ioc-1",
           "type": "sha1",
           "value": "5603E99151F8803C13D48D83B8A64D071542F01B",
           "file_name": "eapphost.dll",
@@ -26,7 +26,7 @@
           "comment": "SlimAgent keylogger"
         },
         {
-          "id": "file-02",
+          "id": "ioc-2",
           "type": "sha1",
           "value": "6D39F49AA11CE0574D581F10DB0F9BAE423CE3D5",
           "file_name": "tcpiphlpsvc.dll",
@@ -37,25 +37,25 @@
           "comment": "BeardShell trojan"
         },
         {
-          "id": "infra-01",
+          "id": "ioc-3",
           "type": "domain_legit",
           "value": "https://icedrive.net/",
           "comment": "BeardShell C2 infrastructure, legit service abused by the malware"
         },
         {
-          "id": "infra-02",
+          "id": "ioc-4",
           "type": "domain_legit",
           "value": "https://filen.com/",
           "comment": "Covenant C2 infrastructure, legit service abused by the malware"
         },
         {
-          "id": "process-01",
+          "id": "ioc-5",
           "type": "process_legit",
           "value": "taskhost.exe",
           "comment": "BeardShell only executes in taskhost.exe or taskhostw.exe"
         },
         {
-          "id": "process-02",
+          "id": "ioc-6",
           "type": "process_legit",
           "value": "explorer.exe",
           "comment": "SlimAgent only executes in explorer.exe"
@@ -76,8 +76,8 @@
           "type": "kql",
           "value": "",
           "iocs": [
-            "process-01",
-            "process-02"
+            "ioc-5",
+            "ioc-6"
           ],
           "comment": "SlimAgent and BeardShell execution, dll injection"
         },
@@ -86,7 +86,7 @@
           "type": "yara",
           "value": "",
           "iocs": [
-            "file-01"
+            "ioc-1"
           ],
           "comment": "SlimAgent 2024 file detection by specific function names. content:\"FN_log_window_text\""
         },
@@ -95,7 +95,7 @@
           "type": "yara",
           "value": "",
           "iocs": [
-            ""
+            "ioc-2"
           ],
           "comment": "Modified Covenant file detection by specific function names. content:\"GruntUUID\" and content:\"filenClient\""
         }
