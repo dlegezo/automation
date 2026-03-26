@@ -128,7 +128,52 @@
                             }
                         }
                     }
-                }
+                },
+                "infection_chain": {
+                    "type": "array",
+                    "description": "List of steps in the infection chain",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "id",
+                            "ttps"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "format": "^step-[0-9]+$",
+                                "description": "Unique identifier for the step in the infection chain"
+                            },
+                            "iocs": {
+                                "type": "array",
+                                "format": "^ioc-[0-9]+$",
+                                "description": "List of IOC IDs associated with this step",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "ttps": {
+                                "type": "array",
+                                "format": "^ttp-[0-9]+$",
+                                "description": "List of TTP IDs associated with this step",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "queries": {
+                                "type": "array",
+                                "format": "^query-[0-9]+$",
+                                "description": "List of query IDs associated with this step",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "comment": {
+                                "type": "string",
+                                "description": "Additional comments or context about this step in the infection chain"
+                            }
+                        }
+                    }
             }
         }
     }

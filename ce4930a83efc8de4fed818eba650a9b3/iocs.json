@@ -63,9 +63,9 @@
       ],
       "infection_chain": [
         {
-          "id": "chain-01",
-          "description": "",
+          "id": "step-01",
           "iocs": [],
+          "ttps": [],
           "queries": [],
           "comment": ""
         }
@@ -237,8 +237,7 @@
       ],
       "infection_chain": [
         {
-          "id": "chain-01",
-          "description": "Compromised VPN credentials -> RDP lateral -> NetBird deployment -> Recon (ADRecon, LSASS dump) -> Could wait for months -> Disable Defender -> GPO wiper deployment -> Multi-stage wiping",
+          "id": "step-01",
           "iocs": [
             "infra-02",
             "infra-01",
@@ -248,11 +247,12 @@
             "file-01",
             "file-02"
           ],
+          "ttps": [],
           "queries": [
             "query-01",
             "query-02"
           ],
-          "comment": "Supply chain VPN compromise, hands-on keyboard with parallel wiping via GPO"
+          "comment": "Compromised VPN credentials -> RDP lateral -> NetBird deployment -> Recon (ADRecon, LSASS dump) -> Could wait for months -> Disable Defender -> GPO wiper deployment -> Multi-stage wiping"
         }
       ],
       "queries": [
