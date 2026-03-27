@@ -324,6 +324,194 @@
           "comment": "Compromised VPN credentials -> RDP lateral -> NetBird deployment -> Recon (ADRecon, LSASS dump) -> Could wait for months -> Disable Defender -> GPO wiper deployment -> Multi-stage wiping"
         }
       ]
+    },
+    {
+      "url": "https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/",
+      "created": "02/02/2026",
+      "tags": [
+        "APT28",
+        "Operation Neusploit",
+        "CVE-2026-21509",
+        "MiniDoor",
+        "PixyNetLoader",
+        "Covenant",
+        "Russia",
+        "Ukraine",
+        "Slovakia",
+        "Romania"
+      ],
+      "iocs": [
+        {
+          "id": "ioc-1",
+          "type": "md5",
+          "value": "f3b869a8d5ad243e35963ba6d7f89855",
+          "comment": "Dropper DLL (Variant 1) filename: 2_2.d"
+        },
+        {
+          "id": "ioc-2",
+          "type": "sha1",
+          "value": "c1b272067491258ea4a2b1d2789d82d157aaf90a",
+          "comment": "Dropper DLL (Variant 1) filename: 2_2.d"
+        },
+        {
+          "id": "ioc-3",
+          "type": "sha256",
+          "value": "a944a09783023a2c6c62d3601cbd5392a03d808a6a51728e07a3270861c2a8ee",
+          "comment": "Dropper DLL (Variant 1) filename: 2_2.d"
+        },
+        {
+          "id": "ioc-4",
+          "type": "md5",
+          "value": "859c4b85ed85e6cc4eadb1a037a61e16",
+          "comment": "PixyNetLoader dropper DLL (Variant 2) filename: table.d"
+        },
+        {
+          "id": "ioc-5",
+          "type": "md5",
+          "value": "e4a5c4b205e1b80dc20d9a2fb4126d06",
+          "comment": "Shellcode loader filename: EhStoreShell.dll"
+        },
+        {
+          "id": "ioc-6",
+          "type": "md5",
+          "value": "154ff6774294e0e6a46581c8452a77de",
+          "comment": "PNG container with embedded shellcode filename: SplashScreen.png"
+        },
+        {
+          "id": "ioc-7",
+          "type": "domain",
+          "value": "freefoodaid.com",
+          "comment": "Malicious domain used to host payloads"
+        },
+        {
+          "id": "ioc-8",
+          "type": "domain",
+          "value": "wellnesscaremed.com",
+          "comment": "Malicious domain used in campaign infrastructure"
+        },
+        {
+          "id": "ioc-9",
+          "type": "url",
+          "value": "https://freefoodaid.com/documents/2_2.d",
+          "comment": "URL hosting MiniDoor dropper DLL"
+        },
+        {
+          "id": "ioc-10",
+          "type": "url",
+          "value": "https://freefoodaid.com/tables/tables.d",
+          "comment": "URL hosting PixyNetLoader"
+        },
+        {
+          "id": "ioc-11",
+          "type": "process_legit",
+          "value": "explorer.exe",
+          "comment": "EhStoreShell.dll executes malicious logic only when loaded by explorer.exe"
+        },
+        {
+          "id": "ioc-12",
+          "type": "cmdline",
+          "value": "schtasks.exe /Create /tn \"OneDriveHealth\" /XML \"%temp%\\Diagnostics\\office.xml\"",
+          "comment": "Scheduled task creation command used for staged execution"
+        }
+      ],
+      "ttps": [
+        {
+          "mitre_id": "T1566.001",
+          "comment": "Phishing: Spearphishing Attachment - weaponized RTFs delivered as attachments."
+        },
+        {
+          "mitre_id": "T1203",
+          "comment": "Exploitation for Client Execution - CVE-2026-21509 exploited by crafted RTF files."
+        },
+        {
+          "mitre_id": "T1053.005",
+          "comment": "Scheduled Task/Job: Scheduled Task - OneDriveHealth task created via schtasks.exe."
+        },
+        {
+          "mitre_id": "T1546.015",
+          "comment": "Event Triggered Execution: Component Object Model Hijacking - persistence via CLSID InProcServer32 hijack."
+        },
+        {
+          "mitre_id": "T1137.006",
+          "comment": "Office Application Startup: Add-ins - malicious Outlook VBA project loaded at startup."
+        },
+        {
+          "mitre_id": "T1027.003",
+          "comment": "Obfuscated Files or Information: Steganography - shellcode hidden in SplashScreen.png LSB data."
+        },
+        {
+          "mitre_id": "T1497.003",
+          "comment": "Virtualization/Sandbox Evasion: Time Based Checks - Sleep timing guardrail check in loader."
+        },
+        {
+          "mitre_id": "T1114",
+          "comment": "Email Collection - MiniDoor Outlook VBA forwards mailbox messages to attacker-controlled addresses."
+        },
+        {
+          "mitre_id": "T1071.001",
+          "comment": "Application Layer Protocol: Web Protocols - Covenant Grunt uses HTTPS for C2 traffic."
+        },
+        {
+          "mitre_id": "T1102.002",
+          "comment": "Web Service: Bidirectional Communication - Filen API abused as C2Bridge channel."
+        },
+        {
+          "mitre_id": "T1480.002",
+          "comment": "Execution Guardrails: Mutual Exclusion - campaign components create mutexes to avoid duplicate execution."
+        }
+      ],
+      "queries": [
+        {
+          "id": "query-1",
+          "type": "kql",
+          "value": "DeviceProcessEvents | where FileName =~ 'schtasks.exe' | where ProcessCommandLine has '/Create' and ProcessCommandLine has 'OneDriveHealth' and ProcessCommandLine has 'office.xml'",
+          "iocs": [
+            "ioc-12"
+          ],
+          "comment": "Detect scheduled task creation observed in PixyNetLoader chain"
+        },
+        {
+          "id": "query-2",
+          "type": "kql",
+          "value": "DeviceNetworkEvents | where RemoteUrl has_any ('freefoodaid.com', 'wellnesscaremed.com')",
+          "iocs": [
+            "ioc-7",
+            "ioc-8",
+            "ioc-9",
+            "ioc-10"
+          ],
+          "comment": "Detect network activity to campaign infrastructure"
+        },
+        {
+          "id": "query-3",
+          "type": "yara",
+          "value": "rule APT28_Operation_Neusploit_PixyNetLoader { strings: $m1 = \"asagdugughi41\" ascii $m2 = \"OneDriveHealth\" ascii $m3 = \"EhStoreShell.dll\" ascii condition: 2 of ($m*) }",
+          "iocs": [
+            "ioc-4",
+            "ioc-5",
+            "ioc-12"
+          ],
+          "comment": "Static detections based on strings explicitly documented in the report"
+        }
+      ],
+      "xrefs": [
+        {
+          "id": "xref-1",
+          "type": "created_by",
+          "iocs": [
+            "ioc-7",
+            "ioc-9",
+            "ioc-10"
+          ],
+          "ttps": [],
+          "queries": [
+            "query-1",
+            "query-2",
+            "query-3"
+          ],
+          "comment": "Operation Neusploit chain: exploit RTF -> dropper DLL -> persistence via COM hijack and scheduled task -> shellcode loader -> Covenant Grunt C2"
+        }
+      ]
     }
   ]
 }
