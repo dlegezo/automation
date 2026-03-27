@@ -51,14 +51,15 @@
                                 "enum": [
                                     "ip",
                                     "domain",
+                                    "process",
+                                    "cmdline",
                                     "url",
                                     "sha1",
                                     "sha256",
                                     "md5",
                                     "process_legit",
                                     "domain_legit",
-                                    "ip_legit",
-                                    "lolbin"
+                                    "ip_legit"
                                 ],
                                 "description": "Type of IOC"
                             },
@@ -117,7 +118,8 @@
                                     "kql",
                                     "yara",
                                     "spl",
-                                    "sigma"
+                                    "sigma",
+                                    "sql"
                                 ],
                                 "description": "Type of query"
                             },
@@ -139,25 +141,33 @@
                         }
                     }
                 },
-                "infection_chain": {
+                "xrefs": {
                     "type": "array",
-                    "description": "List of steps in the infection chain",
+                    "description": "List of cross-references associated with the report",
                     "items": {
                         "type": "object",
                         "required": [
                             "id",
-                            "ttps"
+                            "type"
                         ],
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "format": "^step-[0-9]+$",
-                                "description": "Unique identifier for the step in the infection chain"
+                                "format": "^xref-[0-9]+$",
+                                "description": "Unique identifier for the cross-reference"
+                            },
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "created_by",
+                                    "related_to"
+                                ],
+                                "description": "Type of this cross-reference"
                             },
                             "iocs": {
                                 "type": "array",
                                 "format": "^ioc-[0-9]+$",
-                                "description": "List of IOC IDs associated with this step",
+                                "description": "List of IOC IDs associated with this cross-reference",
                                 "items": {
                                     "type": "string"
                                 }
@@ -165,7 +175,7 @@
                             "ttps": {
                                 "type": "array",
                                 "format": "^ttp-[0-9]+$",
-                                "description": "List of TTP IDs associated with this step",
+                                "description": "List of TTP IDs associated with this cross-reference",
                                 "items": {
                                     "type": "string"
                                 }
@@ -173,14 +183,14 @@
                             "queries": {
                                 "type": "array",
                                 "format": "^query-[0-9]+$",
-                                "description": "List of query IDs associated with this step",
+                                "description": "List of query IDs associated with this cross-reference",
                                 "items": {
                                     "type": "string"
                                 }
                             },
                             "comment": {
                                 "type": "string",
-                                "description": "Additional comments or context about this step in the infection chain"
+                                "description": "Additional comments or context about this cross-reference"
                             }
                         }
                     }

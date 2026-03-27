@@ -61,45 +61,6 @@
           "comment": "SlimAgent only executes in explorer.exe"
         }
       ],
-      "infection_chain": [
-        {
-          "id": "step-01",
-          "iocs": [],
-          "ttps": [],
-          "queries": [],
-          "comment": ""
-        }
-      ],
-      "queries": [
-        {
-          "id": "query-01",
-          "type": "kql",
-          "value": "",
-          "iocs": [
-            "ioc-5",
-            "ioc-6"
-          ],
-          "comment": "SlimAgent and BeardShell execution, dll injection"
-        },
-        {
-          "id": "query-02",
-          "type": "yara",
-          "value": "",
-          "iocs": [
-            "ioc-1"
-          ],
-          "comment": "SlimAgent 2024 file detection by specific function names. content:\"FN_log_window_text\""
-        },
-        {
-          "id": "query-03",
-          "type": "yara",
-          "value": "",
-          "iocs": [
-            "ioc-2"
-          ],
-          "comment": "Modified Covenant file detection by specific function names. content:\"GruntUUID\" and content:\"filenClient\""
-        }
-      ],
       "ttps": [
         {
           "mitre_id": "T1583.006",
@@ -177,6 +138,46 @@
           "mitre_id": "T1567",
           "comment": "Exfiltration Over Web Service - BeardShell exfiltrates data to Icedrive. Covenant exfiltrates data to Filen."
         }
+      ],
+      "queries": [
+        {
+          "id": "query-01",
+          "type": "kql",
+          "value": "",
+          "iocs": [
+            "ioc-5",
+            "ioc-6"
+          ],
+          "comment": "SlimAgent and BeardShell execution, dll injection"
+        },
+        {
+          "id": "query-02",
+          "type": "yara",
+          "value": "",
+          "iocs": [
+            "ioc-1"
+          ],
+          "comment": "SlimAgent 2024 file detection by specific function names. content:\"FN_log_window_text\""
+        },
+        {
+          "id": "query-03",
+          "type": "yara",
+          "value": "",
+          "iocs": [
+            "ioc-2"
+          ],
+          "comment": "Modified Covenant file detection by specific function names. content:\"GruntUUID\" and content:\"filenClient\""
+        }
+      ],
+      "xrefs": [
+        {
+          "id": "xref-01",
+          "type": "created_by",
+          "iocs": [],
+          "ttps": [],
+          "queries": [],
+          "comment": ""
+        }
       ]
     },
     {
@@ -235,43 +236,6 @@
           "comment": "Copies registry hives from VSS (SYSTEM hive)"
         }
       ],
-      "infection_chain": [
-        {
-          "id": "step-1",
-          "iocs": [
-            "ioc-1"
-          ],
-          "ttps": [],
-          "queries": [
-            "query-1",
-            "query-2"
-          ],
-          "comment": "Compromised VPN credentials -> RDP lateral -> NetBird deployment -> Recon (ADRecon, LSASS dump) -> Could wait for months -> Disable Defender -> GPO wiper deployment -> Multi-stage wiping"
-        }
-      ],
-      "queries": [
-        {
-          "id": "query-1",
-          "type": "kql",
-          "value": "Process | where ProcessImageName in~('rundll32.exe', 'wmic.exe', 'powershell.exe') | where ProcessCommandLine contains 'comsvcs.dll' or ProcessCommandLine contains 'MiniDump' or ProcessCommandLine contains 'ADRecon'",
-          "iocs": [
-            "ioc-6",
-            "ioc-7"
-          ],
-          "comment": "Pre-wiping recon: LSASS dump, registry copy, ADRecon execution"
-        },
-        {
-          "id": "query-2",
-          "type": "kql",
-          "value": "DeviceNetworkEvents | where RemoteIP in ('107.189.19.52', '169.150.227.0/24', '146.185.219.235') | where ActionType == 'ConnectionSuccess'",
-          "iocs": [
-            "ioc-1",
-            "ioc-2",
-            "ioc-3"
-          ],
-          "comment": "Suspicious C2/VPN connections from Iranian actors"
-        }
-      ],
       "ttps": [
         {
           "mitre_id": "T1190",
@@ -320,6 +284,44 @@
         {
           "mitre_id": "T1078",
           "comment": "Valid Accounts - Compromised DA credentials for GPO deployment."
+        }
+      ],
+      "queries": [
+        {
+          "id": "query-1",
+          "type": "kql",
+          "value": "Process | where ProcessImageName in~('rundll32.exe', 'wmic.exe', 'powershell.exe') | where ProcessCommandLine contains 'comsvcs.dll' or ProcessCommandLine contains 'MiniDump' or ProcessCommandLine contains 'ADRecon'",
+          "iocs": [
+            "ioc-6",
+            "ioc-7"
+          ],
+          "comment": "Pre-wiping recon: LSASS dump, registry copy, ADRecon execution"
+        },
+        {
+          "id": "query-2",
+          "type": "kql",
+          "value": "DeviceNetworkEvents | where RemoteIP in ('107.189.19.52', '169.150.227.0/24', '146.185.219.235') | where ActionType == 'ConnectionSuccess'",
+          "iocs": [
+            "ioc-1",
+            "ioc-2",
+            "ioc-3"
+          ],
+          "comment": "Suspicious C2/VPN connections from Iranian actors"
+        }
+      ],
+      "xrefs": [
+        {
+          "id": "xref-1",
+          "type": "created_by",
+          "iocs": [
+            "ioc-1"
+          ],
+          "ttps": [],
+          "queries": [
+            "query-1",
+            "query-2"
+          ],
+          "comment": "Compromised VPN credentials -> RDP lateral -> NetBird deployment -> Recon (ADRecon, LSASS dump) -> Could wait for months -> Disable Defender -> GPO wiper deployment -> Multi-stage wiping"
         }
       ]
     }
