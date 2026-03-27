@@ -34,7 +34,15 @@ Status: `200 OK`
 - `404`: `inbound/inbound.json not found`
 - `500`: invalid JSON or unreadable file
 
-## Endpoint: `GET /api/v1/{property}`
+## Endpoint: `GET /api/v1/reports`
+
+Returns full unfiltered content of `outbound/outbound.json`.
+
+### Example Request
+
+- `GET /api/v1/reports`
+
+## Endpoint: `GET /api/v1/reports/{property}`
 
 Returns values of a top-level `reports` property from `outbound/outbound.json`.
 
@@ -42,10 +50,10 @@ Returns values of a top-level `reports` property from `outbound/outbound.json`.
 
 ### Example Requests
 
-- `GET /api/v1/url`
-- `GET /api/v1/queries`
-- `GET /api/v1/iocs`
-- `GET /api/v1/xrefs`
+- `GET /api/v1/reports/url`
+- `GET /api/v1/reports/queries`
+- `GET /api/v1/reports/iocs`
+- `GET /api/v1/reports/xrefs`
 
 ### Success Response (example)
 
@@ -60,7 +68,7 @@ Returns values of a top-level `reports` property from `outbound/outbound.json`.
 }
 ```
 
-## Endpoint: `GET /api/v1/{property}/{enum_value}`
+## Endpoint: `GET /api/v1/reports/{property}/{enum_value}`
 
 Filters enum-based properties using enum values from `iocs-schema.json`.
 
@@ -68,11 +76,11 @@ Supported for properties that are enum-based, including arrays of objects with a
 
 ### Example Requests
 
-- `GET /api/v1/queries/kql`
-- `GET /api/v1/queries/yara`
-- `GET /api/v1/iocs/ip`
-- `GET /api/v1/iocs/sha1`
-- `GET /api/v1/xrefs/created_by`
+- `GET /api/v1/reports/queries/kql`
+- `GET /api/v1/reports/queries/yara`
+- `GET /api/v1/reports/iocs/ip`
+- `GET /api/v1/reports/iocs/sha1`
+- `GET /api/v1/reports/xrefs/created_by`
 
 ### Success Response (example)
 
@@ -152,5 +160,6 @@ Then test, for example:
 
 ```bash
 curl http://127.0.0.1:8080/api/v1/list
-curl http://127.0.0.1:8080/api/v1/queries/kql
+curl http://127.0.0.1:8080/api/v1/reports
+curl http://127.0.0.1:8080/api/v1/reports/queries/kql
 ```

@@ -6,7 +6,9 @@ Usage:
 
 Endpoints:
     GET /api/v1/list   Returns only report names from inbound/inbound.json
-    GET /api/v1/{property}/{enum?}
+    GET /api/v1/reports
+                      Returns full outbound/outbound.json (unfiltered)
+    GET /api/v1/reports/{property}/{enum?}
                       Returns corresponding values from outbound/outbound.json
 """
 
@@ -106,17 +108,27 @@ class Handler(BaseHTTPRequestHandler):
             self._respond_json(200, {"names": names})
             return
 
-        if path.startswith("/api/v1/"):
+        if path.startswith("/api/v1/reports"):
             parts = [p for p in path.split("/") if p]
             # Expected forms:
-            # /api/v1/{property}
-            # /api/v1/{property}/{enum_value}
-            if len(parts) not in (3, 4):
+            # /api/v1/reports
+            # /api/v1/reports/{property}
+            # /api/v1/reports/{property}/{enum_value}
+            if len(parts) not in (3, 4, 5):
                 self._respond_json(404, {"error": "not found"})
                 return
 
-            prop_name = parts[2]
-            enum_value = parts[3] if len(parts) == 4 else None
+            prop_name = parts[3] if len(parts) >= 4 else None
+            enum_value = parts[4] if len(parts) == 5 else None
+
+            outbound, error = self._load_json(OUTBOUND_FILE, "outbound/outbound.json")
+            if error:
+                self._respond_json(error[0], error[1])
+                return
+
+            if prop_name is None:
+                self._respond_json(200, outbound)
+                return
 
             properties, error = self._schema_report_properties()
             if error:
@@ -132,11 +144,6 @@ class Handler(BaseHTTPRequestHandler):
                         "allowed": sorted(properties.keys()),
                     },
                 )
-                return
-
-            outbound, error = self._load_json(OUTBOUND_FILE, "outbound/outbound.json")
-            if error:
-                self._respond_json(error[0], error[1])
                 return
 
             reports = outbound.get("reports") if isinstance(outbound, dict) else None
@@ -211,7 +218,7 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8080
     server = HTTPServer(("127.0.0.1", port), Handler)
-    print(f"CTI API server -> http://127.0.0.1:{port}/api/v1/queries/kql")
+    print(f"CTI API server -> http://127.0.0.1:{port}/api/v1/reports")
     print("Ctrl+C to stop.\n")
 
     try:
