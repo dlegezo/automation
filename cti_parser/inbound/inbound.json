@@ -1,69 +1,80 @@
 {
-  "$schema": "./schemes/pipeline-schema.json",
+  "$schema": "../schemes/pipeline-schema.json",
   "$id": "pipeline.json",
   "source": [
     {
       "url": "https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/",
+      "name": "sednit-reloaded-back-trenches",
       "created": "10/03/2026",
       "type": "http",
       "comment": "RU attaking West, recent, data for detections, screenshots"
     },
     {
       "url": "https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/",
+      "name": "handala-hack-unveiling-groups-modus-operandi",
       "created": "12/03/2026",
       "type": "http",
       "comment": "IR attaking West, rich in IOCs, recent"
     },
     {
       "url": "https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/",
+      "name": "apt28-leverages-cve-2026-21509-operation-neusploit",
       "created": "02/02/2026",
       "type": "http",
       "comment": "RU attaking West, really rich in IOCs including registry, cmdlines, not so recent February 2026"
     },
     {
       "url": "https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/",
+      "name": "handala-hack-unveiling-groups-modus-operandi",
       "created": "12/03/2026",
       "type": "http",
       "comment": "IR attaking West, rich in IOCs, recent"
     },
     {
       "url": "https://blog.talosintelligence.com/knife-cutting-the-edge/",
+      "name": "knife-cutting-the-edge",
       "created": "05/02/2026",
       "type": "http",
       "comment": "Linux-based implant, non-Win one, really rich in IOCs/TTPs, not so recent February 2026"
     },
     {
       "url": "./talos_dknife.pdf",
+      "name": "talos_dknife",
       "created": "05/02/2026",
       "type": "pdf",
       "comment": "Same Linux-based implant in pdf to test this format"
     },
     {
       "url": "https://securelist.com/gopix-banking-trojan/119173/",
+      "name": "gopix-banking-trojan",
       "created": "16/03/2026",
       "type": "http",
       "comment": "Brazilian banking trojan, rich in IOCs, recent"
     },
     {
       "url": "https://unit42.paloaltonetworks.com/boggy-serpens-threat-assessment/",
+      "name": "boggy-serpens-threat-assessment",
       "created": "16/03/2026",
       "type": "http",
       "comment": "IR attaking West, rich in IOCs, recent"
     },
     {
       "url": "https://jp.security.ntt/insights_resources/tech_blog/stoatwaffle_malware/",
+      "name": "stoatwaffle_malware",
       "created": "17/03/2026",
       "type": "http",
       "comment": "Non-latin language check, image parsing for IoCs, recent"
     },
     {
       "url": "https://harfanglab.io/insidethelab/sadfuture-xdspy-latest-evolution/",
+      "name": "sadfuture-xdspy-latest-evolution",
       "created": "16/06/2025",
       "type": "http",
       "comment": "Local FR vendor, image parsing for IoCs, rich with it but not recent"
     },
     {
       "url": "https://www.abstract.security/blog/contagious-interview-evolution-of-vs-code-and-cursor-tasks-infection-chains-part-2",
+      "name": "contagious-interview-evolution-of-vs-code-and-cursor-tasks-infection-chains-part-2",
       "created": "09/03/2025",
       "type": "http",
       "comment": "Vuln related, not attack-related research, detection described as text, recent"
@@ -71,7 +82,7 @@
   ],
   "publishing": [
     {
-      "url": "/usr/pipeline/results/test_set.json",
+      "url": "./outbound/outbound_test.json",
       "type": "json"
     }
   ]
