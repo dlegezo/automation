@@ -51,17 +51,25 @@
                                 "enum": [
                                     "ip",
                                     "domain",
-                                    "process",
-                                    "cmdline",
                                     "url",
-                                    "sha1",
-                                    "sha256",
-                                    "md5",
-                                    "process_legit",
-                                    "domain_legit",
-                                    "ip_legit"
+                                    "file",
+                                    "process",
+                                    "cmdline"
                                 ],
                                 "description": "Type of IOC"
+                            },
+                            "malign": {
+                                    "type": "boolean",
+                                    "description": "Indicates whether the IOC is considered malicious (true) or benign (false)"
+                                },
+                            "hash": {
+                                "type": "string",
+                                "enum": [
+                                    "sha1",
+                                    "sha256",
+                                    "md5"
+                                ],
+                                "description": "Type of hash if the IOC type is 'file'"
                             },
                             "value": {
                                 "type": "string",

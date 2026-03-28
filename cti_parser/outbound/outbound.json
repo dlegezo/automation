@@ -16,7 +16,9 @@
       "iocs": [
         {
           "id": "ioc-1",
-          "type": "sha1",
+          "type": "file",
+          "malign": true,
+          "hash": "sha1",
           "value": "5603E99151F8803C13D48D83B8A64D071542F01B",
           "file_name": "eapphost.dll",
           "file_type": "dynamic library",
@@ -27,7 +29,9 @@
         },
         {
           "id": "ioc-2",
-          "type": "sha1",
+          "type": "file",
+          "malign": true,
+          "hash": "sha1",
           "value": "6D39F49AA11CE0574D581F10DB0F9BAE423CE3D5",
           "file_name": "tcpiphlpsvc.dll",
           "file_type": "dynamic library",
@@ -38,25 +42,29 @@
         },
         {
           "id": "ioc-3",
-          "type": "domain_legit",
+          "type": "url",
+          "malign": false,
           "value": "https://icedrive.net/",
           "comment": "BeardShell C2 infrastructure, legit service abused by the malware"
         },
         {
           "id": "ioc-4",
-          "type": "domain_legit",
+          "type": "url",
+          "malign": false,
           "value": "https://filen.com/",
           "comment": "Covenant C2 infrastructure, legit service abused by the malware"
         },
         {
           "id": "ioc-5",
-          "type": "process_legit",
+          "type": "process",
+          "malign": false,
           "value": "taskhost.exe",
           "comment": "BeardShell only executes in taskhost.exe or taskhostw.exe"
         },
         {
           "id": "ioc-6",
-          "type": "process_legit",
+          "type": "process",
+          "malign": false,
           "value": "explorer.exe",
           "comment": "SlimAgent only executes in explorer.exe"
         }
@@ -196,42 +204,49 @@
         {
           "id": "ioc-1",
           "type": "ip",
+          "malign": true,
           "value": "107.189.19.52",
           "comment": "C2 server for additional payload retrieval"
         },
         {
           "id": "ioc-2",
-          "type": "ip_legit",
+          "type": "ip",
+          "malign": false,
           "value": "169.150.227.0/24",
           "comment": "Commercial VPN segment used for egress to Israel targets"
         },
         {
           "id": "ioc-3",
-          "type": "ip_legit",
+          "type": "ip",
+          "malign": false,
           "value": "146.185.219.235",
           "comment": "Israeli VPN node used for egress"
         },
         {
           "id": "ioc-4",
-          "type": "lolbin",
+          "type": "process",
+          "malign": false,
           "value": "NetBird",
           "comment": "Zero-trust mesh network deployed for internal lateral movement"
         },
         {
           "id": "ioc-5",
-          "type": "lolbin",
+          "type": "process",
+          "malign": false,
           "value": "VeraCrypt",
           "comment": "Disk encryption utility downloaded for destructive encryption"
         },
         {
           "id": "ioc-6",
-          "type": "process_legit",
+          "type": "process",
+          "malign": true,
           "value": "rundll32.exe comsvcs.dll MiniDump",
           "comment": "LSASS credential dumping pre-wiping"
         },
         {
           "id": "ioc-7",
-          "type": "process_legit",
+          "type": "process",
+          "malign": true,
           "value": "wmic.exe process call create",
           "comment": "Copies registry hives from VSS (SYSTEM hive)"
         }
@@ -343,73 +358,91 @@
       "iocs": [
         {
           "id": "ioc-1",
-          "type": "md5",
+          "type": "file",
+          "malign": true,
+          "hash": "md5",
           "value": "f3b869a8d5ad243e35963ba6d7f89855",
           "comment": "Dropper DLL (Variant 1) filename: 2_2.d"
         },
         {
           "id": "ioc-2",
-          "type": "sha1",
+          "type": "file",
+          "malign": true,
+          "hash": "sha1",
           "value": "c1b272067491258ea4a2b1d2789d82d157aaf90a",
           "comment": "Dropper DLL (Variant 1) filename: 2_2.d"
         },
         {
           "id": "ioc-3",
-          "type": "sha256",
+          "type": "file",
+          "malign": true,
+          "hash": "sha256",
           "value": "a944a09783023a2c6c62d3601cbd5392a03d808a6a51728e07a3270861c2a8ee",
           "comment": "Dropper DLL (Variant 1) filename: 2_2.d"
         },
         {
           "id": "ioc-4",
-          "type": "md5",
+          "type": "file",
+          "malign": true,
+          "hash": "md5",
           "value": "859c4b85ed85e6cc4eadb1a037a61e16",
           "comment": "PixyNetLoader dropper DLL (Variant 2) filename: table.d"
         },
         {
           "id": "ioc-5",
-          "type": "md5",
+          "type": "file",
+          "malign": true,
+          "hash": "md5",
           "value": "e4a5c4b205e1b80dc20d9a2fb4126d06",
           "comment": "Shellcode loader filename: EhStoreShell.dll"
         },
         {
           "id": "ioc-6",
-          "type": "md5",
+          "type": "file",
+          "malign": true,
+          "hash": "md5",
           "value": "154ff6774294e0e6a46581c8452a77de",
           "comment": "PNG container with embedded shellcode filename: SplashScreen.png"
         },
         {
           "id": "ioc-7",
           "type": "domain",
+          "malign": true,
           "value": "freefoodaid.com",
           "comment": "Malicious domain used to host payloads"
         },
         {
           "id": "ioc-8",
           "type": "domain",
+          "malign": true,
           "value": "wellnesscaremed.com",
           "comment": "Malicious domain used in campaign infrastructure"
         },
         {
           "id": "ioc-9",
           "type": "url",
+          "malign": true,
           "value": "https://freefoodaid.com/documents/2_2.d",
           "comment": "URL hosting MiniDoor dropper DLL"
         },
         {
           "id": "ioc-10",
           "type": "url",
+          "malign": true,
           "value": "https://freefoodaid.com/tables/tables.d",
           "comment": "URL hosting PixyNetLoader"
         },
         {
           "id": "ioc-11",
-          "type": "process_legit",
+          "type": "process",
+          "malign": false,
           "value": "explorer.exe",
           "comment": "EhStoreShell.dll executes malicious logic only when loaded by explorer.exe"
         },
         {
           "id": "ioc-12",
           "type": "cmdline",
+          "malign": true,
           "value": "schtasks.exe /Create /tn \"OneDriveHealth\" /XML \"%temp%\\Diagnostics\\office.xml\"",
           "comment": "Scheduled task creation command used for staged execution"
         }
