@@ -2,203 +2,223 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "iocs-schema.json",
     "description": "Parsed CTI reports",
-    "reports": {
-        "type": "array",
-        "items": {
-            "type": "object",
-            "required": [
-                "url",
-                "created",
-                "iocs",
-                "ttps"
-            ],
-            "properties": {
-                "url": {
-                    "type": "string",
-                    "format": "uri",
-                    "description": "URL of source CTI report, web or local file path"
-                },
-                "created": {
-                    "type": "string",
-                    "pattern": "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$",
-                    "description": "Date when the report was created, in format DD/MM/YYYY"
-                },
-                "tags": {
-                    "type": "array",
-                    "description": "List of tags associated with the report",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "iocs": {
-                    "type": "array",
-                    "description": "List of IOCs extracted from the report",
-                    "items": {
-                        "type": "object",
-                        "required": [
-                            "id",
-                            "type",
-                            "value"
-                        ],
-                        "properties": {
-                            "id": {
-                                "type": "string",
-                                "format": "^ioc-[0-9]+$",
-                                "description": "Unique identifier for the IOC"
-                            },
-                            "type": {
-                                "type": "string",
-                                "enum": [
-                                    "ip",
-                                    "domain",
-                                    "url",
-                                    "file",
-                                    "process",
-                                    "cmdline"
-                                ],
-                                "description": "Type of IOC"
-                            },
-                            "malign": {
+    "type": "object",
+    "required": [
+        "reports"
+    ],
+    "properties": {
+        "reports": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "url",
+                    "created",
+                    "iocs",
+                    "ttps"
+                ],
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "URL of source CTI report, web or local file path"
+                    },
+                    "created": {
+                        "type": "string",
+                        "pattern": "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$",
+                        "description": "Date when the report was created, in format DD/MM/YYYY"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "description": "List of tags associated with the report",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "iocs": {
+                        "type": "array",
+                        "description": "List of IOCs extracted from the report",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "id",
+                                "type",
+                                "malign",
+                                "value"
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "pattern": "^ioc-[0-9]+$",
+                                    "description": "Unique identifier for the IOC"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "enum": [
+                                        "ip",
+                                        "domain",
+                                        "url",
+                                        "file",
+                                        "process",
+                                        "cmdline"
+                                    ],
+                                    "description": "Type of IOC"
+                                },
+                                "malign": {
                                     "type": "boolean",
                                     "description": "Indicates whether the IOC is considered malicious (true) or benign (false)"
                                 },
-                            "hash": {
-                                "type": "string",
-                                "enum": [
-                                    "sha1",
-                                    "sha256",
-                                    "md5"
-                                ],
-                                "description": "Type of hash if the IOC type is 'file'"
+                                "hash": {
+                                    "type": "string",
+                                    "enum": [
+                                        "sha1",
+                                        "sha256",
+                                        "md5"
+                                    ],
+                                    "description": "Type of hash if the IOC type is 'file'"
+                                },
+                                "value": {
+                                    "type": "string",
+                                    "description": "Value of the IOC"
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "description": "Additional comments or context about the IOC"
+                                }
                             },
-                            "value": {
-                                "type": "string",
-                                "description": "Value of the IOC"
-                            },
-                            "comment": {
-                                "type": "string",
-                                "description": "Additional comments or context about the IOC"
+                            "allOf": [
+                                {
+                                    "if": {
+                                        "properties": {
+                                            "type": {
+                                                "const": "file"
+                                            }
+                                        }
+                                    },
+                                    "then": {
+                                        "required": [
+                                            "hash"
+                                        ]
+                                    },
+                                    "else": {
+                                        "not": {
+                                            "required": [
+                                                "hash"
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "ttps": {
+                        "type": "array",
+                        "description": "List of TTPs associated with the report",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "id",
+                                "comment"
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "pattern": "^T[0-9]{4}(\\.[0-9]{3})?$",
+                                    "description": "MITRE ATT&CK technique ID"
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "description": "Additional comments or context about the TTP"
+                                }
                             }
                         }
-                    }
-                },
-                "ttps": {
-                    "type": "array",
-                    "description": "List of TTPs associated with the report",
-                    "items": {
-                        "type": "object",
-                        "required": [
-                            "id",
-                            "comment"
-                        ],
-                        "properties": {
-                            "id": {
-                                "type": "string",
-                                "format": "^ttp-[0-9]+$",
-                                "description": "Unique MITRE identifier for the TTP"
-                            },
-                            "comment": {
-                                "type": "string",
-                                "description": "Additional comments or context about the TTP"
+                    },
+                    "queries": {
+                        "type": "array",
+                        "description": "List of queries associated with the report",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "id",
+                                "type",
+                                "value"
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "pattern": "^query-[0-9]+$",
+                                    "description": "Unique identifier for the query"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "enum": [
+                                        "kql",
+                                        "yara",
+                                        "spl",
+                                        "sigma",
+                                        "sql"
+                                    ],
+                                    "description": "Type of query"
+                                },
+                                "value": {
+                                    "type": "string",
+                                    "description": "The query string used to search for the IOCs in security tools"
+                                },
+                                "iocs": {
+                                    "type": "array",
+                                    "description": "List of IOC IDs that this query is associated with",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "description": "Additional comments or context about the query"
+                                }
                             }
                         }
-                    }
-                },
-                "queries": {
-                    "type": "array",
-                    "description": "List of queries associated with the report",
-                    "items": {
-                        "type": "object",
-                        "required": [
-                            "id",
-                            "type",
-                            "value"
-                        ],
-                        "properties": {
-                            "id": {
-                                "type": "string",
-                                "format": "^query-[0-9]+$",
-                                "description": "Unique identifier for the query"
-                            },
-                            "type": {
-                                "type": "string",
-                                "enum": [
-                                    "kql",
-                                    "yara",
-                                    "spl",
-                                    "sigma",
-                                    "sql"
-                                ],
-                                "description": "Type of query"
-                            },
-                            "value": {
-                                "type": "string",
-                                "description": "The query string used to search for the IOCs in security tools"
-                            },
-                            "iocs": {
-                                "type": "array",
-                                "description": "List of IOC IDs that this query is associated with",
-                                "items": {
-                                    "type": "string"
+                    },
+                    "xrefs": {
+                        "type": "array",
+                        "description": "List of cross-references associated with the report",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "id",
+                                "type"
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "pattern": "^xref-[0-9]+$",
+                                    "description": "Unique identifier for the cross-reference"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "enum": [
+                                        "creates",
+                                        "detects"
+                                    ],
+                                    "description": "Type of this cross-reference"
+                                },
+                                "parents": {
+                                    "type": "array",
+                                    "description": "List of xref parent entities",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "children": {
+                                    "type": "array",
+                                    "description": "List of xref child entities",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "description": "Additional comments or context about this cross-reference"
                                 }
-                            },
-                            "comment": {
-                                "type": "string",
-                                "description": "Additional comments or context about the query"
-                            }
-                        }
-                    }
-                },
-                "xrefs": {
-                    "type": "array",
-                    "description": "List of cross-references associated with the report",
-                    "items": {
-                        "type": "object",
-                        "required": [
-                            "id",
-                            "type"
-                        ],
-                        "properties": {
-                            "id": {
-                                "type": "string",
-                                "format": "^xref-[0-9]+$",
-                                "description": "Unique identifier for the cross-reference"
-                            },
-                            "type": {
-                                "type": "string",
-                                "enum": [
-                                    "created_by",
-                                    "related_to"
-                                ],
-                                "description": "Type of this cross-reference"
-                            },
-                            "iocs": {
-                                "type": "array",
-                                "format": "^ioc-[0-9]+$",
-                                "description": "List of IOC IDs associated with this cross-reference",
-                                "items": {
-                                    "type": "string"
-                                }
-                            },
-                            "ttps": {
-                                "type": "array",
-                                "format": "^ttp-[0-9]+$",
-                                "description": "List of TTP IDs associated with this cross-reference",
-                                "items": {
-                                    "type": "string"
-                                }
-                            },
-                            "queries": {
-                                "type": "array",
-                                "format": "^query-[0-9]+$",
-                                "description": "List of query IDs associated with this cross-reference",
-                                "items": {
-                                    "type": "string"
-                                }
-                            },
-                            "comment": {
-                                "type": "string",
-                                "description": "Additional comments or context about this cross-reference"
                             }
                         }
                     }

@@ -71,79 +71,79 @@
       ],
       "ttps": [
         {
-          "mitre_id": "T1583.006",
+          "id": "T1583.006",
           "comment": "Acquire Infrastructure: Web Services - BeardShell relies on Icedrive cloud storage. Covenant relies on Filen cloud storage."
         },
         {
-          "mitre_id": "T1587.001",
+          "id": "T1587.001",
           "comment": "Develop Capabilities: Malware - BeardShell and SlimAgent are custom malware."
         },
         {
-          "mitre_id": "T1059.001",
+          "id": "T1059.001",
           "comment": "Command and Scripting Interpreter: PowerShell - BeardShell executes PowerShell commands."
         },
         {
-          "mitre_id": "T1129",
+          "id": "T1129",
           "comment": "Shared Modules - BeardShell and SlimAgent are full-fledged DLL files."
         },
         {
-          "mitre_id": "T1546.015",
+          "id": "T1546.015",
           "comment": "Event Triggered Execution: Component Object Model Hijacking - BeardShell and SlimAgent are made persistent by hijacking COM objects."
         },
         {
-          "mitre_id": "T1027",
+          "id": "T1027",
           "comment": "Obfuscated Files or Information - BeardShell Icedrive token decryption is obfuscated."
         },
         {
-          "mitre_id": "T1140",
+          "id": "T1140",
           "comment": "Deobfuscate/Decode Files or Information - BeardShell decrypts its strings."
         },
         {
-          "mitre_id": "T1480",
+          "id": "T1480",
           "comment": "Execution Guardrails - BeardShell only executes in taskhost.exe or taskhostw.exe. SlimAgent only executes in explorer.exe."
         },
         {
-          "mitre_id": "T1564",
+          "id": "T1564",
           "comment": "Hide Artifacts - SlimAgent logs are written into a hidden file."
         },
         {
-          "mitre_id": "T1082",
+          "id": "T1082",
           "comment": "System Information Discovery - BeardShell sends a fingerprint of the compromised machine."
         },
         {
-          "mitre_id": "T1005",
+          "id": "T1005",
           "comment": "Data from Local System - BeardShell, Covenant, and SlimAgent collect data from a compromised machine."
         },
         {
-          "mitre_id": "T1056.001",
+          "id": "T1056.001",
           "comment": "Input Capture: Keylogging - SlimAgent performs keylogging."
         },
         {
-          "mitre_id": "T1113",
+          "id": "T1113",
           "comment": "Screen Capture - SlimAgent captures screenshots of the compromised machine."
         },
         {
-          "mitre_id": "T1115",
+          "id": "T1115",
           "comment": "Clipboard Data - SlimAgent collects clipboard data."
         },
         {
-          "mitre_id": "T1001",
+          "id": "T1001",
           "comment": "Data Obfuscation - BeardShell exfiltrates data in fake images."
         },
         {
-          "mitre_id": "T1071.001",
+          "id": "T1071.001",
           "comment": "Application Layer Protocol: Web Protocols - BeardShell and Covenant use HTTPS for C&C."
         },
         {
-          "mitre_id": "T1102",
+          "id": "T1102",
           "comment": "Web Service - BeardShell gets commands from Icedrive. Covenant gets commands from Filen."
         },
         {
-          "mitre_id": "T1573.002",
+          "id": "T1573.002",
           "comment": "Encrypted Channel: Asymmetric Cryptography - BeardShell communications with Icedrive are encrypted using HTTPS. Covenant communications with its controller uses RSA-encrypted session keys."
         },
         {
-          "mitre_id": "T1567",
+          "id": "T1567",
           "comment": "Exfiltration Over Web Service - BeardShell exfiltrates data to Icedrive. Covenant exfiltrates data to Filen."
         }
       ],
@@ -180,10 +180,9 @@
       "xrefs": [
         {
           "id": "xref-01",
-          "type": "created_by",
-          "iocs": [],
-          "ttps": [],
-          "queries": [],
+          "type": "creates",
+          "parents": [],
+          "children": [],
           "comment": ""
         }
       ]
@@ -253,51 +252,51 @@
       ],
       "ttps": [
         {
-          "mitre_id": "T1190",
+          "id": "T1190",
           "comment": "Exploit Public-Facing Application - Compromised VPN accounts for initial access."
         },
         {
-          "mitre_id": "T1133",
+          "id": "T1133",
           "comment": "External Remote Services - RDP for hands-on lateral movement."
         },
         {
-          "mitre_id": "T1570",
+          "id": "T1570",
           "comment": "Lateral Tool Transfer - NetBird deployment via browser download."
         },
         {
-          "mitre_id": "T1003.001",
+          "id": "T1003.001",
           "comment": "OS Credential Dumping: LSASS Memory - comsvcs.dll MiniDump."
         },
         {
-          "mitre_id": "T1087.002",
+          "id": "T1087.002",
           "comment": "Account Discovery: Domain Accounts - ADRecon PowerShell."
         },
         {
-          "mitre_id": "T1485",
+          "id": "T1485",
           "comment": "Data Destruction - Handala Wiper (MBR/file overwrite)."
         },
         {
-          "mitre_id": "T1561.002",
+          "id": "T1561.002",
           "comment": "Disk Wipe: Disk Structure Wipe - Custom MBR wiping."
         },
         {
-          "mitre_id": "T1490",
+          "id": "T1490",
           "comment": "Inhibit System Recovery - Multiple parallel wiping methods."
         },
         {
-          "mitre_id": "T1486",
+          "id": "T1486",
           "comment": "Data Encrypted for Impact - VeraCrypt disk encryption."
         },
         {
-          "mitre_id": "T1059.001",
+          "id": "T1059.001",
           "comment": "Command and Scripting Interpreter: PowerShell - AI-assisted wiping script."
         },
         {
-          "mitre_id": "T1480",
+          "id": "T1480",
           "comment": "Execution Guardrails - Domain Admin creds validation pre-impact."
         },
         {
-          "mitre_id": "T1078",
+          "id": "T1078",
           "comment": "Valid Accounts - Compromised DA credentials for GPO deployment."
         }
       ],
@@ -327,14 +326,13 @@
       "xrefs": [
         {
           "id": "xref-1",
-          "type": "created_by",
-          "iocs": [
-            "ioc-1"
-          ],
-          "ttps": [],
-          "queries": [
+          "type": "detects",
+          "parents": [
             "query-1",
             "query-2"
+          ],
+          "children": [
+            "ioc-1"
           ],
           "comment": "Compromised VPN credentials -> RDP lateral -> NetBird deployment -> Recon (ADRecon, LSASS dump) -> Could wait for months -> Disable Defender -> GPO wiper deployment -> Multi-stage wiping"
         }
@@ -449,47 +447,47 @@
       ],
       "ttps": [
         {
-          "mitre_id": "T1566.001",
+          "id": "T1566.001",
           "comment": "Phishing: Spearphishing Attachment - weaponized RTFs delivered as attachments."
         },
         {
-          "mitre_id": "T1203",
+          "id": "T1203",
           "comment": "Exploitation for Client Execution - CVE-2026-21509 exploited by crafted RTF files."
         },
         {
-          "mitre_id": "T1053.005",
+          "id": "T1053.005",
           "comment": "Scheduled Task/Job: Scheduled Task - OneDriveHealth task created via schtasks.exe."
         },
         {
-          "mitre_id": "T1546.015",
+          "id": "T1546.015",
           "comment": "Event Triggered Execution: Component Object Model Hijacking - persistence via CLSID InProcServer32 hijack."
         },
         {
-          "mitre_id": "T1137.006",
+          "id": "T1137.006",
           "comment": "Office Application Startup: Add-ins - malicious Outlook VBA project loaded at startup."
         },
         {
-          "mitre_id": "T1027.003",
+          "id": "T1027.003",
           "comment": "Obfuscated Files or Information: Steganography - shellcode hidden in SplashScreen.png LSB data."
         },
         {
-          "mitre_id": "T1497.003",
+          "id": "T1497.003",
           "comment": "Virtualization/Sandbox Evasion: Time Based Checks - Sleep timing guardrail check in loader."
         },
         {
-          "mitre_id": "T1114",
+          "id": "T1114",
           "comment": "Email Collection - MiniDoor Outlook VBA forwards mailbox messages to attacker-controlled addresses."
         },
         {
-          "mitre_id": "T1071.001",
+          "id": "T1071.001",
           "comment": "Application Layer Protocol: Web Protocols - Covenant Grunt uses HTTPS for C2 traffic."
         },
         {
-          "mitre_id": "T1102.002",
+          "id": "T1102.002",
           "comment": "Web Service: Bidirectional Communication - Filen API abused as C2Bridge channel."
         },
         {
-          "mitre_id": "T1480.002",
+          "id": "T1480.002",
           "comment": "Execution Guardrails: Mutual Exclusion - campaign components create mutexes to avoid duplicate execution."
         }
       ],
@@ -530,17 +528,16 @@
       "xrefs": [
         {
           "id": "xref-1",
-          "type": "created_by",
-          "iocs": [
-            "ioc-7",
-            "ioc-9",
-            "ioc-10"
-          ],
-          "ttps": [],
-          "queries": [
+          "type": "detects",
+          "parents": [
             "query-1",
             "query-2",
             "query-3"
+          ],
+          "children": [
+            "ioc-7",
+            "ioc-9",
+            "ioc-10"
           ],
           "comment": "Operation Neusploit chain: exploit RTF -> dropper DLL -> persistence via COM hijack and scheduled task -> shellcode loader -> Covenant Grunt C2"
         }
