@@ -10,7 +10,7 @@ The schema defines parsed CTI reports with:
 - indicators (`iocs`)
 - techniques (`ttps`)
 - detection logic (`queries`)
-- graph-style relationships (`xrefs` with `parents` and `children`)
+- graph-style relationships (`xrefs` with directional `from` and `to` edges)
 
 Schema metadata:
 
@@ -75,6 +75,7 @@ Required fields: `id`, `type`, `value`
 | `type` | string | Yes | enum: `kql`, `yara`, `spl`, `sigma`, `sql` | Query language/type. |
 | `value` | string | Yes | none | Query content. |
 | `iocs` | string[] | No | none | Associated IOC IDs. |
+| `ttps` | string[] | No | none | Associated TTP IDs. |
 | `comment` | string | No | none | Analyst context. |
 
 ## `xrefs` Items
@@ -85,9 +86,14 @@ Required fields: `id`, `type`
 |---|---|---|---|---|
 | `id` | string | Yes | format: `^xref-[0-9]+$` | Cross-reference identifier. |
 | `type` | string | Yes | enum: `creates`, `detects` | Relationship type. |
-| `parents` | string[] | No | none | Parent entities in the relationship. |
-| `children` | string[] | No | none | Child entities in the relationship. |
+| `from` | string[] | No | none | Source entities in the relationship. |
+| `to` | string[] | No | none | Target entities in the relationship. |
 | `comment` | string | No | none | Extra relationship context. |
+
+Notes:
+
+- Keep direct query-to-IOC coverage in `queries[].iocs`.
+- Use `xrefs` for directional graph edges that need explicit relationship semantics.
 
 ## Mermaid Diagram
 
@@ -121,13 +127,14 @@ flowchart TD
     Q --> Q2[type: kql/yara/spl/sigma/sql]
     Q --> Q3[value]
     Q --> Q4[iocs optional]
-    Q --> Q5[comment optional]
+    Q --> Q5[ttps optional]
+    Q --> Q6[comment optional]
 
     C7 --> X[xref item]
     X --> X1[id]
     X --> X2[type: creates/detects]
-    X --> X3[parents optional]
-    X --> X4[children optional]
+    X --> X3[from optional]
+    X --> X4[to optional]
     X --> X5[comment optional]
 ```
 
@@ -168,6 +175,7 @@ flowchart TD
           "type": "kql",
           "value": "DeviceFileEvents | where SHA256 == 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'",
           "iocs": ["ioc-1"],
+          "ttps": ["T1203"],
           "comment": "Hunt for known sample"
         }
       ],
@@ -175,8 +183,8 @@ flowchart TD
         {
           "id": "xref-1",
           "type": "detects",
-          "parents": ["query-1"],
-          "children": ["ioc-1"],
+          "from": ["query-1"],
+          "to": ["ioc-1"],
           "comment": "Query detects this IOC"
         }
       ]
@@ -190,5 +198,7 @@ flowchart TD
 - `created` must strictly match `DD/MM/YYYY`.
 - `iocs[].type` accepts only: `ip`, `domain`, `url`, `file`, `process`, `cmdline`.
 - `iocs[].hash` accepts only: `sha1`, `sha256`, `md5`.
+- `queries[].ttps` may list related TTP IDs such as `T1203` or `T1053.005`.
 - `xrefs[].type` accepts only: `creates`, `detects`.
+- `xrefs[].from` and `xrefs[].to` define directional edges between entities.
 - `queries[].type` accepts only: `kql`, `yara`, `spl`, `sigma`, `sql`.

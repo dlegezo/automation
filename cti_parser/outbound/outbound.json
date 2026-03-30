@@ -181,8 +181,8 @@
         {
           "id": "xref-01",
           "type": "creates",
-          "parents": [],
-          "children": [],
+          "from": [],
+          "to": [],
           "comment": ""
         }
       ]
@@ -335,11 +335,11 @@
         {
           "id": "xref-1",
           "type": "detects",
-          "parents": [
+          "from": [
             "query-1",
             "query-2"
           ],
-          "children": [
+          "to": [
             "ioc-1"
           ],
           "comment": "Compromised VPN credentials -> RDP lateral -> NetBird deployment -> Recon (ADRecon, LSASS dump) -> Could wait for months -> Disable Defender -> GPO wiper deployment -> Multi-stage wiping"
@@ -537,12 +537,12 @@
         {
           "id": "xref-1",
           "type": "detects",
-          "parents": [
+          "from": [
             "query-1",
             "query-2",
             "query-3"
           ],
-          "children": [
+          "to": [
             "ioc-7",
             "ioc-9",
             "ioc-10"

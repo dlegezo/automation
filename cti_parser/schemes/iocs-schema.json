@@ -171,6 +171,13 @@
                                         "type": "string"
                                     }
                                 },
+                                "ttps": {
+                                    "type": "array",
+                                    "description": "List of TTP IDs that this query is associated with",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
                                 "comment": {
                                     "type": "string",
                                     "description": "Additional comments or context about the query"
@@ -197,20 +204,21 @@
                                     "type": "string",
                                     "enum": [
                                         "creates",
-                                        "detects"
+                                        "uses",
+                                        "contacts"
                                     ],
                                     "description": "Type of this cross-reference"
                                 },
-                                "parents": {
+                                "from": {
                                     "type": "array",
-                                    "description": "List of xref parent entities",
+                                    "description": "List of source entity IDs for this relationship",
                                     "items": {
                                         "type": "string"
                                     }
                                 },
-                                "children": {
+                                "to": {
                                     "type": "array",
-                                    "description": "List of xref child entities",
+                                    "description": "List of target entity IDs for this relationship",
                                     "items": {
                                         "type": "string"
                                     }
