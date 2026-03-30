@@ -225,29 +225,29 @@
           "id": "ioc-4",
           "type": "process",
           "malign": false,
-          "value": "NetBird",
-          "comment": "Zero-trust mesh network deployed for internal lateral movement"
+          "value": "netbird.exe",
+          "comment": "Zero-trust Wireguard-based mesh network deployed for internal lateral movement"
         },
         {
           "id": "ioc-5",
           "type": "process",
           "malign": false,
-          "value": "VeraCrypt",
+          "value": "VeraCrypt.exe",
           "comment": "Disk encryption utility downloaded for destructive encryption"
         },
         {
           "id": "ioc-6",
-          "type": "process",
+          "type": "cmdline",
           "malign": true,
           "value": "rundll32.exe comsvcs.dll MiniDump",
-          "comment": "LSASS credential dumping pre-wiping"
+          "comment": "LSASS credential dumping pre-wiping. Value is keywords enumeration, cmdline is <path>rundll32.exe <paht>comsvcs.dll, MiniDump <PID> <path_filename>.dmp full"
         },
         {
           "id": "ioc-7",
-          "type": "process",
+          "type": "cmdline",
           "malign": true,
           "value": "wmic.exe process call create",
-          "comment": "Copies registry hives from VSS (SYSTEM hive)"
+          "comment": "Copies registry hives from VSS (SYSTEM hive). Value is cmdline start, cmdline is wmic[.exe] process call create \"reg.exe save HKLM\\SYSTEM <path_filename>\""
         }
       ],
       "ttps": [
@@ -304,15 +304,23 @@
         {
           "id": "query-1",
           "type": "kql",
-          "value": "Process | where ProcessImageName in~('rundll32.exe', 'wmic.exe', 'powershell.exe') | where ProcessCommandLine contains 'comsvcs.dll' or ProcessCommandLine contains 'MiniDump' or ProcessCommandLine contains 'ADRecon'",
+          "value": "Process | where ProcessImageName in~('rundll32.exe', 'powershell.exe') | where ProcessCommandLine contains 'comsvcs.dll' and ProcessCommandLine contains 'MiniDump'",
           "iocs": [
-            "ioc-6",
+            "ioc-6"
+          ],
+          "comment": "Pre-wiping recon: LSASS dump"
+        },
+         {
+          "id": "query-2",
+          "type": "kql",
+          "value": "Process | where ProcessImageName in~('wmic.exe', 'powershell.exe') | where ProcessCommandLine contains 'process call create' and ProcessCommandLine contains 'reg.exe save'",
+          "iocs": [
             "ioc-7"
           ],
-          "comment": "Pre-wiping recon: LSASS dump, registry copy, ADRecon execution"
+          "comment": "Pre-wiping recon: registry copy"
         },
         {
-          "id": "query-2",
+          "id": "query-3",
           "type": "kql",
           "value": "DeviceNetworkEvents | where RemoteIP in ('107.189.19.52', '169.150.227.0/24', '146.185.219.235') | where ActionType == 'ConnectionSuccess'",
           "iocs": [
@@ -320,7 +328,7 @@
             "ioc-2",
             "ioc-3"
           ],
-          "comment": "Suspicious C2/VPN connections from Iranian actors"
+          "comment": "Suspicious C2/VPN connections from Iranian actors. Here could also detect IR IPs"
         }
       ],
       "xrefs": [

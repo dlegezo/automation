@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IOCs Schema Documentation</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; margin: 32px; color: #172b4d; }
+        h1 { font-size: 1.7em; border-bottom: 2px solid #dfe1e6; padding-bottom: 8px; }
+        h2 { font-size: 1.2em; margin-top: 32px; color: #0052cc; border-bottom: 1px solid #dfe1e6; padding-bottom: 4px; }
+        h3 { font-size: 1em; margin-top: 20px; color: #344563; }
+        p  { margin: 8px 0; }
+        ul { margin: 6px 0; padding-left: 22px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 8px; font-size: 0.92em; }
+        th { background: #f4f5f7; text-align: left; padding: 7px 12px; border: 1px solid #dfe1e6; }
+        td { padding: 6px 12px; border: 1px solid #dfe1e6; vertical-align: top; }
+        code { background: #f4f5f7; padding: 1px 5px; border-radius: 3px; font-size: 0.88em; font-family: "SFMono-Regular", Consolas, monospace; }
+        pre  { background: #f4f5f7; padding: 14px; border-radius: 4px; font-size: 0.85em; overflow-x: auto; font-family: "SFMono-Regular", Consolas, monospace; line-height: 1.5; }
+        .note { background: #fffae6; border-left: 4px solid #ff991f; padding: 10px 14px; margin: 12px 0; font-size: 0.9em; }
+        .badge { display: inline-block; padding: 1px 7px; border-radius: 10px; font-size: 0.8em; font-weight: 600; }
+        .yes { background: #ffebe6; color: #bf2600; }
+        .no  { background: #e3fcef; color: #006644; }
+    </style>
+</head>
+<body>
+
+<h1>IOCs Schema Documentation</h1>
+<p>This document describes the JSON schema defined in <code>cti_parser/schemes/iocs-schema.json</code>.</p>
+
+<h2>Overview</h2>
+<p>The schema defines parsed CTI reports with:</p>
+<ul>
+    <li>report metadata (<code>url</code>, <code>created</code>, optional <code>tags</code>)</li>
+    <li>indicators (<code>iocs</code>)</li>
+    <li>techniques (<code>ttps</code>)</li>
+    <li>detection logic (<code>queries</code>)</li>
+    <li>graph-style relationships (<code>xrefs</code> with <code>parents</code> and <code>children</code>)</li>
+</ul>
+<p>Schema metadata:</p>
+<ul>
+    <li><code>$schema</code>: <code>https://json-schema.org/draft/2020-12/schema</code></li>
+    <li><code>$id</code>: <code>iocs-schema.json</code></li>
+    <li><code>description</code>: <code>Parsed CTI reports</code></li>
+</ul>
+
+<h2>Top-Level Structure</h2>
+<table>
+    <tr><th>Property</th><th>Type</th><th>Required</th><th>Description</th></tr>
+    <tr><td><code>reports</code></td><td>array</td><td><span class="badge yes">Yes</span></td><td>List of parsed CTI report objects.</td></tr>
+</table>
+
+<h2>reports Items</h2>
+<p>Required fields: <code>url</code>, <code>created</code>, <code>iocs</code>, <code>ttps</code></p>
+<table>
+    <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+    <tr><td><code>url</code></td>    <td>string</td>   <td><span class="badge yes">Yes</span></td><td>URL of source CTI report, web or local file path.</td></tr>
+    <tr><td><code>created</code></td><td>string</td>   <td><span class="badge yes">Yes</span></td><td>Date in <code>DD/MM/YYYY</code> format.</td></tr>
+    <tr><td><code>tags</code></td>   <td>string[]</td> <td><span class="badge no">No</span></td> <td>Labels associated with the report.</td></tr>
+    <tr><td><code>iocs</code></td>   <td>array</td>    <td><span class="badge yes">Yes</span></td><td>IOC objects.</td></tr>
+    <tr><td><code>ttps</code></td>   <td>array</td>    <td><span class="badge yes">Yes</span></td><td>TTP objects.</td></tr>
+    <tr><td><code>queries</code></td><td>array</td>    <td><span class="badge no">No</span></td> <td>Query objects.</td></tr>
+    <tr><td><code>xrefs</code></td>  <td>array</td>    <td><span class="badge no">No</span></td> <td>Cross-reference objects.</td></tr>
+</table>
+
+<h2>iocs Items</h2>
+<p>Required fields: <code>id</code>, <code>type</code>, <code>malign</code>, <code>value</code></p>
+<table>
+    <tr><th>Field</th><th>Type</th><th>Required</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td><code>id</code></td>     <td>string</td>  <td><span class="badge yes">Yes</span></td><td>pattern: <code>^ioc-[0-9]+$</code></td><td>IOC identifier.</td></tr>
+    <tr><td><code>type</code></td>   <td>string</td>  <td><span class="badge yes">Yes</span></td><td>enum: <code>ip</code>, <code>domain</code>, <code>url</code>, <code>file</code>, <code>process</code>, <code>cmdline</code></td><td>IOC kind.</td></tr>
+    <tr><td><code>malign</code></td> <td>boolean</td> <td><span class="badge yes">Yes</span></td><td>none</td><td><code>true</code> for malicious, <code>false</code> for benign/contextual.</td></tr>
+    <tr><td><code>hash</code></td>   <td>string</td>  <td>conditional</td><td>enum: <code>sha1</code>, <code>sha256</code>, <code>md5</code></td><td>Hash type for <code>type = file</code>.</td></tr>
+    <tr><td><code>value</code></td>  <td>string</td>  <td><span class="badge yes">Yes</span></td><td>none</td><td>IOC value.</td></tr>
+    <tr><td><code>comment</code></td><td>string</td>  <td><span class="badge no">No</span></td> <td>none</td><td>Analyst context.</td></tr>
+</table>
+<div class="note">
+    <strong>Conditional rule:</strong> <code>hash</code> is <strong>required</strong> when <code>type = "file"</code> and <strong>must not be present</strong> for any other type (enforced via <code>if/then/else</code> in the schema).
+</div>
+
+<h2>ttps Items</h2>
+<p>Required fields: <code>id</code>, <code>comment</code></p>
+<table>
+    <tr><th>Field</th><th>Type</th><th>Required</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td><code>id</code></td>     <td>string</td><td><span class="badge yes">Yes</span></td><td>pattern: <code>^T[0-9]{4}(\.[0-9]{3})?$</code></td><td>MITRE ATT&amp;CK technique ID.</td></tr>
+    <tr><td><code>comment</code></td><td>string</td><td><span class="badge yes">Yes</span></td><td>none</td><td>Context for the technique usage.</td></tr>
+</table>
+
+<h2>queries Items</h2>
+<p>Required fields: <code>id</code>, <code>type</code>, <code>value</code></p>
+<table>
+    <tr><th>Field</th><th>Type</th><th>Required</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td><code>id</code></td>     <td>string</td>  <td><span class="badge yes">Yes</span></td><td>pattern: <code>^query-[0-9]+$</code></td><td>Query identifier.</td></tr>
+    <tr><td><code>type</code></td>   <td>string</td>  <td><span class="badge yes">Yes</span></td><td>enum: <code>kql</code>, <code>yara</code>, <code>spl</code>, <code>sigma</code>, <code>sql</code></td><td>Query language/type.</td></tr>
+    <tr><td><code>value</code></td>  <td>string</td>  <td><span class="badge yes">Yes</span></td><td>none</td><td>Query content.</td></tr>
+    <tr><td><code>iocs</code></td>   <td>string[]</td><td><span class="badge no">No</span></td> <td>none</td><td>Associated IOC IDs.</td></tr>
+    <tr><td><code>comment</code></td><td>string</td>  <td><span class="badge no">No</span></td> <td>none</td><td>Analyst context.</td></tr>
+</table>
+
+<h2>xrefs Items</h2>
+<p>Required fields: <code>id</code>, <code>type</code></p>
+<table>
+    <tr><th>Field</th><th>Type</th><th>Required</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td><code>id</code></td>      <td>string</td>  <td><span class="badge yes">Yes</span></td><td>pattern: <code>^xref-[0-9]+$</code></td><td>Cross-reference identifier.</td></tr>
+    <tr><td><code>type</code></td>    <td>string</td>  <td><span class="badge yes">Yes</span></td><td>enum: <code>creates</code>, <code>detects</code></td><td>Relationship type.</td></tr>
+    <tr><td><code>parents</code></td> <td>string[]</td><td><span class="badge no">No</span></td> <td>none</td><td>Parent entities in the relationship.</td></tr>
+    <tr><td><code>children</code></td><td>string[]</td><td><span class="badge no">No</span></td> <td>none</td><td>Child entities in the relationship.</td></tr>
+    <tr><td><code>comment</code></td> <td>string</td>  <td><span class="badge no">No</span></td> <td>none</td><td>Extra relationship context.</td></tr>
+</table>
+
+<h2>Mermaid Diagram</h2>
+<pre>flowchart TD
+    A[IOCs Schema] --&gt; B[reports: array]
+    B --&gt; C[report item]
+
+    C --&gt; C1[url]
+    C --&gt; C2[created]
+    C --&gt; C3[tags optional]
+    C --&gt; C4[iocs]
+    C --&gt; C5[ttps]
+    C --&gt; C6[queries optional]
+    C --&gt; C7[xrefs optional]
+
+    C4 --&gt; I[ioc item]
+    I --&gt; I1[id]
+    I --&gt; I2[type: ip/domain/url/file/process/cmdline]
+    I --&gt; I3[malign: boolean]
+    I --&gt; I4[hash: sha1/sha256/md5 — required if type=file]
+    I --&gt; I5[value]
+    I --&gt; I6[comment optional]
+
+    C5 --&gt; T[ttp item]
+    T --&gt; T1[id: T####(.###)]
+    T --&gt; T2[comment]
+
+    C6 --&gt; Q[query item]
+    Q --&gt; Q1[id]
+    Q --&gt; Q2[type: kql/yara/spl/sigma/sql]
+    Q --&gt; Q3[value]
+    Q --&gt; Q4[iocs optional]
+    Q --&gt; Q5[comment optional]
+
+    C7 --&gt; X[xref item]
+    X --&gt; X1[id]
+    X --&gt; X2[type: creates/detects]
+    X --&gt; X3[parents optional]
+    X --&gt; X4[children optional]
+    X --&gt; X5[comment optional]</pre>
+
+<h2>Example Valid Document</h2>
+<pre>{
+  "reports": [
+    {
+      "url": "https://example.org/reports/cti-001",
+      "created": "27/03/2026",
+      "tags": ["apt", "phishing"],
+      "iocs": [
+        {
+          "id": "ioc-1",
+          "type": "file",
+          "malign": true,
+          "hash": "sha256",
+          "value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "comment": "Malware dropper"
+        },
+        {
+          "id": "ioc-2",
+          "type": "domain",
+          "malign": true,
+          "value": "malicious.example.com"
+        }
+      ],
+      "ttps": [
+        {
+          "id": "T1203",
+          "comment": "Exploitation for client execution observed"
+        }
+      ],
+      "queries": [
+        {
+          "id": "query-1",
+          "type": "kql",
+          "value": "DeviceFileEvents | where SHA256 == 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'",
+          "iocs": ["ioc-1"],
+          "comment": "Hunt for known sample"
+        }
+      ],
+      "xrefs": [
+        {
+          "id": "xref-1",
+          "type": "detects",
+          "parents": ["query-1"],
+          "children": ["ioc-1"],
+          "comment": "Query detects this IOC"
+        }
+      ]
+    }
+  ]
+}</pre>
+
+<h2>Validation Notes</h2>
+<ul>
+    <li><code>created</code> must strictly match <code>DD/MM/YYYY</code>.</li>
+    <li><code>iocs[].type</code> accepts only: <code>ip</code>, <code>domain</code>, <code>url</code>, <code>file</code>, <code>process</code>, <code>cmdline</code>.</li>
+    <li><code>iocs[].malign</code> is required on every IOC entry.</li>
+    <li><code>iocs[].hash</code> is required when <code>type = "file"</code> and must be absent otherwise.</li>
+    <li><code>iocs[].hash</code> accepts only: <code>sha1</code>, <code>sha256</code>, <code>md5</code>.</li>
+    <li><code>ttps[].id</code> must match MITRE format: <code>T####</code> or <code>T####.###</code>.</li>
+    <li><code>xrefs[].type</code> accepts only: <code>creates</code>, <code>detects</code>.</li>
+    <li><code>queries[].type</code> accepts only: <code>kql</code>, <code>yara</code>, <code>spl</code>, <code>sigma</code>, <code>sql</code>.</li>
+</ul>
+
+</body>
+</html>

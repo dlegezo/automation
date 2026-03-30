@@ -66,7 +66,7 @@
                                 },
                                 "malign": {
                                     "type": "boolean",
-                                    "description": "Indicates whether the IOC is considered malicious (true) or benign (false)"
+                                    "description": "Indicates whether the IOC is considered malicious/detectable (true) or benign/just for information (false)"
                                 },
                                 "hash": {
                                     "type": "string",
