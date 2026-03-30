@@ -204,8 +204,7 @@
                                     "type": "string",
                                     "enum": [
                                         "creates",
-                                        "uses",
-                                        "contacts"
+                                        "uses"
                                     ],
                                     "description": "Type of this cross-reference"
                                 },

@@ -181,9 +181,35 @@
         {
           "id": "xref-01",
           "type": "creates",
-          "from": [],
-          "to": [],
-          "comment": ""
+          "from": [
+            "ioc-5"
+          ],
+          "to": [
+            "ioc-2"
+          ],
+          "comment": "BeardShell only executes in taskhost.exe or taskhostw.exe"
+        },
+        {
+          "id": "xref-02",
+          "type": "creates",
+          "from": [
+            "ioc-6"
+          ],
+          "to": [
+            "ioc-1"
+          ],
+          "comment": "SlimAgent only executes in explorer.exe"
+        },
+        {
+          "id": "xref-03",
+          "type": "uses",
+          "from": [
+            "ioc-2"
+          ],
+          "to": [
+            "ioc-3"
+          ],
+          "comment": "BeardShell relies on Icedrive cloud storage"
         }
       ]
     },
@@ -248,6 +274,15 @@
           "malign": true,
           "value": "wmic.exe process call create",
           "comment": "Copies registry hives from VSS (SYSTEM hive). Value is cmdline start, cmdline is wmic[.exe] process call create \"reg.exe save HKLM\\SYSTEM <path_filename>\""
+        },
+        {
+          "id": "ioc-8",
+          "type": "file",
+          "malign": true,
+          "hash": "md5",
+          "name": "handala.exe",
+          "value": "5986ab04dd6b3d259935249741d3eff2",
+          "comment": "Handala Wiper, dropped by initial access vector and used for destructive payload execution"
         }
       ],
       "ttps": [
@@ -310,7 +345,7 @@
           ],
           "comment": "Pre-wiping recon: LSASS dump"
         },
-         {
+        {
           "id": "query-2",
           "type": "kql",
           "value": "Process | where ProcessImageName in~('wmic.exe', 'powershell.exe') | where ProcessCommandLine contains 'process call create' and ProcessCommandLine contains 'reg.exe save'",
@@ -334,15 +369,14 @@
       "xrefs": [
         {
           "id": "xref-1",
-          "type": "detects",
+          "type": "",
           "from": [
-            "query-1",
-            "query-2"
+            "query-1"
           ],
           "to": [
             "ioc-1"
           ],
-          "comment": "Compromised VPN credentials -> RDP lateral -> NetBird deployment -> Recon (ADRecon, LSASS dump) -> Could wait for months -> Disable Defender -> GPO wiper deployment -> Multi-stage wiping"
+          "comment": ""
         }
       ]
     },
