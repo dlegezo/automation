@@ -40,13 +40,13 @@ Required fields: `url`, `created`, `iocs`, `ttps`
 
 ## `iocs` Items
 
-Required fields: `id`, `type`, `value`
+Required fields: `id`, `type`, `malign`, `value`
 
 | Field | Type | Required | Constraints | Description |
 |---|---|---|---|---|
-| `id` | string | Yes | format: `^ioc-[0-9]+$` | IOC identifier. |
+| `id` | string | Yes | pattern: `^ioc-[0-9]+$` | IOC identifier. |
 | `type` | string | Yes | enum: `ip`, `domain`, `url`, `file`, `process`, `cmdline` | IOC kind. |
-| `malign` | boolean | No | none | `true` for malicious, `false` for benign/contextual. |
+| `malign` | boolean | Yes | none | `true` for malicious/detectable, `false` for benign/informational. |
 | `hash` | string | No | enum: `sha1`, `sha256`, `md5` | Hash type for `type = file`. |
 | `value` | string | Yes | none | IOC value. |
 | `comment` | string | No | none | Analyst context. |
@@ -54,7 +54,7 @@ Required fields: `id`, `type`, `value`
 Notes:
 
 - For file indicators, use `type: file` and set `hash`.
-- `malign` is optional in schema but recommended for all IOC entries.
+- `malign` is required in schema for every IOC entry.
 
 ## `ttps` Items
 
@@ -62,7 +62,7 @@ Required fields: `id`, `comment`
 
 | Field | Type | Required | Constraints | Description |
 |---|---|---|---|---|
-| `id` | string | Yes | format: `^ttp-[0-9]+$` | MITRE technique identifier label used by the dataset. |
+| `id` | string | Yes | pattern: `^T[0-9]{4}(\.[0-9]{3})?$` | MITRE ATT&CK technique ID. |
 | `comment` | string | Yes | none | Context for the technique usage. |
 
 ## `queries` Items
@@ -71,7 +71,7 @@ Required fields: `id`, `type`, `value`
 
 | Field | Type | Required | Constraints | Description |
 |---|---|---|---|---|
-| `id` | string | Yes | format: `^query-[0-9]+$` | Query identifier. |
+| `id` | string | Yes | pattern: `^query-[0-9]+$` | Query identifier. |
 | `type` | string | Yes | enum: `kql`, `yara`, `spl`, `sigma`, `sql` | Query language/type. |
 | `value` | string | Yes | none | Query content. |
 | `iocs` | string[] | No | none | Associated IOC IDs. |
@@ -84,8 +84,8 @@ Required fields: `id`, `type`
 
 | Field | Type | Required | Constraints | Description |
 |---|---|---|---|---|
-| `id` | string | Yes | format: `^xref-[0-9]+$` | Cross-reference identifier. |
-| `type` | string | Yes | enum: `creates`, `detects` | Relationship type. |
+| `id` | string | Yes | pattern: `^xref-[0-9]+$` | Cross-reference identifier. |
+| `type` | string | Yes | enum: `creates`, `uses` | Relationship type. |
 | `from` | string[] | No | none | Source entities in the relationship. |
 | `to` | string[] | No | none | Target entities in the relationship. |
 | `comment` | string | No | none | Extra relationship context. |
@@ -113,7 +113,7 @@ flowchart TD
     C4 --> I[ioc item]
     I --> I1[id]
     I --> I2[type: ip/domain/url/file/process/cmdline]
-    I --> I3[malign: boolean optional]
+    I --> I3[malign: boolean required]
     I --> I4[hash: sha1/sha256/md5 optional]
     I --> I5[value]
     I --> I6[comment optional]
@@ -132,7 +132,7 @@ flowchart TD
 
     C7 --> X[xref item]
     X --> X1[id]
-    X --> X2[type: creates/detects]
+    X --> X2[type: creates/uses]
     X --> X3[from optional]
     X --> X4[to optional]
     X --> X5[comment optional]
@@ -165,7 +165,7 @@ flowchart TD
       ],
       "ttps": [
         {
-          "id": "ttp-1",
+          "id": "T1203",
           "comment": "T1203 exploitation observed"
         }
       ],
@@ -182,10 +182,10 @@ flowchart TD
       "xrefs": [
         {
           "id": "xref-1",
-          "type": "detects",
-          "from": ["query-1"],
-          "to": ["ioc-1"],
-          "comment": "Query detects this IOC"
+          "type": "uses",
+          "from": ["ioc-1"],
+          "to": ["T1203"],
+          "comment": "This malware sample is linked to exploitation technique T1203"
         }
       ]
     }
@@ -197,8 +197,10 @@ flowchart TD
 
 - `created` must strictly match `DD/MM/YYYY`.
 - `iocs[].type` accepts only: `ip`, `domain`, `url`, `file`, `process`, `cmdline`.
+- `iocs[].malign` is required on every IOC entry.
+- `iocs[].hash` is required when `iocs[].type = file` and must be absent otherwise.
 - `iocs[].hash` accepts only: `sha1`, `sha256`, `md5`.
 - `queries[].ttps` may list related TTP IDs such as `T1203` or `T1053.005`.
-- `xrefs[].type` accepts only: `creates`, `detects`.
+- `xrefs[].type` accepts only: `creates`, `uses`.
 - `xrefs[].from` and `xrefs[].to` define directional edges between entities.
 - `queries[].type` accepts only: `kql`, `yara`, `spl`, `sigma`, `sql`.
