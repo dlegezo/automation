@@ -1,0 +1,113 @@
+flowchart LR
+    %% Auto-generated from outbound/outbound.json
+    %% TTP chains only (derived from xrefs)
+
+    subgraph report_1["Report 1: https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/"]
+    r1_T1001["T1001"]
+    r1_T1005["T1005"]
+    r1_T1059_001["T1059.001"]
+    r1_T1071_001["T1071.001"]
+    r1_T1082["T1082"]
+    r1_T1102["T1102"]
+    r1_T1129["T1129"]
+    r1_T1480["T1480"]
+    r1_T1546_015["T1546.015"]
+    r1_T1567["T1567"]
+    r1_T1573_002["T1573.002"]
+    r1_T1587_001["T1587.001"]
+    r1_T1587_001 -->|uses| r1_T1129
+    r1_T1129 -->|uses| r1_T1546_015
+    r1_T1546_015 -->|uses| r1_T1059_001
+    r1_T1059_001 -->|uses| r1_T1480
+    r1_T1480 -->|uses| r1_T1082
+    r1_T1082 -->|uses| r1_T1005
+    r1_T1005 -->|uses| r1_T1001
+    r1_T1001 -->|uses| r1_T1573_002
+    r1_T1573_002 -->|uses| r1_T1071_001
+    r1_T1071_001 -->|uses| r1_T1102
+    r1_T1102 -->|uses| r1_T1567
+    end
+
+    subgraph report_2["Report 2: https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/"]
+    r2_T1003_001["T1003.001"]
+    r2_T1059_001["T1059.001"]
+    r2_T1078["T1078"]
+    r2_T1087_002["T1087.002"]
+    r2_T1133["T1133"]
+    r2_T1480["T1480"]
+    r2_T1485["T1485"]
+    r2_T1486["T1486"]
+    r2_T1490["T1490"]
+    r2_T1561_002["T1561.002"]
+    r2_T1570["T1570"]
+    r2_T1133 -->|uses| r2_T1570
+    r2_T1570 -->|uses| r2_T1003_001
+    r2_T1003_001 -->|uses| r2_T1087_002
+    r2_T1087_002 -->|uses| r2_T1078
+    r2_T1078 -->|uses| r2_T1480
+    r2_T1480 -->|uses| r2_T1059_001
+    r2_T1059_001 -->|uses| r2_T1485
+    r2_T1485 -->|uses| r2_T1561_002
+    r2_T1485 -->|uses| r2_T1490
+    r2_T1485 -->|uses| r2_T1486
+    end
+
+    subgraph report_3["Report 3: https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/"]
+    r3_T1027_003["T1027.003"]
+    r3_T1053_005["T1053.005"]
+    r3_T1071_001["T1071.001"]
+    r3_T1102_002["T1102.002"]
+    r3_T1114["T1114"]
+    r3_T1137_006["T1137.006"]
+    r3_T1203["T1203"]
+    r3_T1480_002["T1480.002"]
+    r3_T1497_003["T1497.003"]
+    r3_T1546_015["T1546.015"]
+    r3_T1566_001["T1566.001"]
+    r3_T1566_001 -->|uses| r3_T1203
+    r3_T1203 -->|uses| r3_T1137_006
+    r3_T1137_006 -->|uses| r3_T1114
+    r3_T1203 -->|uses| r3_T1053_005
+    r3_T1053_005 -->|uses| r3_T1546_015
+    r3_T1546_015 -->|uses| r3_T1027_003
+    r3_T1027_003 -->|uses| r3_T1497_003
+    r3_T1497_003 -->|uses| r3_T1480_002
+    r3_T1480_002 -->|uses| r3_T1071_001
+    r3_T1071_001 -->|uses| r3_T1102_002
+    end
+
+    classDef ttp fill:#e6f2ff,stroke:#0066cc,stroke-width:1px
+    class r1_T1001 ttp
+    class r1_T1005 ttp
+    class r1_T1059_001 ttp
+    class r1_T1071_001 ttp
+    class r1_T1082 ttp
+    class r1_T1102 ttp
+    class r1_T1129 ttp
+    class r1_T1480 ttp
+    class r1_T1546_015 ttp
+    class r1_T1567 ttp
+    class r1_T1573_002 ttp
+    class r1_T1587_001 ttp
+    class r2_T1003_001 ttp
+    class r2_T1059_001 ttp
+    class r2_T1078 ttp
+    class r2_T1087_002 ttp
+    class r2_T1133 ttp
+    class r2_T1480 ttp
+    class r2_T1485 ttp
+    class r2_T1486 ttp
+    class r2_T1490 ttp
+    class r2_T1561_002 ttp
+    class r2_T1570 ttp
+    class r3_T1027_003 ttp
+    class r3_T1053_005 ttp
+    class r3_T1071_001 ttp
+    class r3_T1102_002 ttp
+    class r3_T1114 ttp
+    class r3_T1137_006 ttp
+    class r3_T1203 ttp
+    class r3_T1480_002 ttp
+    class r3_T1497_003 ttp
+    class r3_T1546_015 ttp
+    class r3_T1566_001 ttp

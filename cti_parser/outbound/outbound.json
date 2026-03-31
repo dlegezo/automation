@@ -3,6 +3,20 @@
     "$id":  "iocs.json",
     "reports":  [
                     {
+                        "metadata":  {
+                                         "url":  "https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/",
+                                         "created":  "10/03/2026",
+                                         "severity":  "high",
+                                         "confidence":  "high",
+                                         "tags":  [
+                                                      "Sednit",
+                                                      "APT28",
+                                                      "SlimAgent",
+                                                      "BeardShell",
+                                                      "Russia",
+                                                      "Ukraine"
+                                                  ]
+                                     },
                         "iocs":  [
                                      {
                                          "id":  "ioc-1",
@@ -200,24 +214,147 @@
                                                      "ioc-3"
                                                  ],
                                           "comment":  "BeardShell relies on Icedrive cloud storage"
+                                      },
+                                      {
+                                          "id":  "xref-04",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1587.001"
+                                                   ],
+                                          "to":  [
+                                                     "T1129"
+                                                 ],
+                                          "comment":  "Custom malware capability is delivered through DLL modules."
+                                      },
+                                      {
+                                          "id":  "xref-05",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1129"
+                                                   ],
+                                          "to":  [
+                                                     "T1546.015"
+                                                 ],
+                                          "comment":  "Module execution is followed by COM hijacking persistence."
+                                      },
+                                      {
+                                          "id":  "xref-06",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1546.015"
+                                                   ],
+                                          "to":  [
+                                                     "T1059.001"
+                                                 ],
+                                          "comment":  "Persistent components execute scripted commands."
+                                      },
+                                      {
+                                          "id":  "xref-07",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1059.001"
+                                                   ],
+                                          "to":  [
+                                                     "T1480"
+                                                 ],
+                                          "comment":  "Execution path enforces host guardrails before activity."
+                                      },
+                                      {
+                                          "id":  "xref-08",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1480"
+                                                   ],
+                                          "to":  [
+                                                     "T1082"
+                                                 ],
+                                          "comment":  "Guardrail checks are followed by host fingerprinting."
+                                      },
+                                      {
+                                          "id":  "xref-09",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1082"
+                                                   ],
+                                          "to":  [
+                                                     "T1005"
+                                                 ],
+                                          "comment":  "System discovery guides local data collection."
+                                      },
+                                      {
+                                          "id":  "xref-10",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1005"
+                                                   ],
+                                          "to":  [
+                                                     "T1001"
+                                                 ],
+                                          "comment":  "Collected data is packaged with obfuscation."
+                                      },
+                                      {
+                                          "id":  "xref-11",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1001"
+                                                   ],
+                                          "to":  [
+                                                     "T1573.002"
+                                                 ],
+                                          "comment":  "Obfuscated data is sent over encrypted channels."
+                                      },
+                                      {
+                                          "id":  "xref-12",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1573.002"
+                                                   ],
+                                          "to":  [
+                                                     "T1071.001"
+                                                 ],
+                                          "comment":  "Encrypted communication is carried over HTTPS."
+                                      },
+                                      {
+                                          "id":  "xref-13",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1071.001"
+                                                   ],
+                                          "to":  [
+                                                     "T1102"
+                                                 ],
+                                          "comment":  "C2 traffic uses cloud web services."
+                                      },
+                                      {
+                                          "id":  "xref-14",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1102"
+                                                   ],
+                                          "to":  [
+                                                     "T1567"
+                                                 ],
+                                          "comment":  "Web service channel is used for exfiltration."
                                       }
-                                  ],
-                        "metadata":  {
-                                         "url":  "https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/",
-                                         "created":  "10/03/2026",
-                                         "severity":  "high",
-                                         "confidence":  "high",
-                                         "tags":  [
-                                                      "Sednit",
-                                                      "APT28",
-                                                      "SlimAgent",
-                                                      "BeardShell",
-                                                      "Russia",
-                                                      "Ukraine"
-                                                  ]
-                                     }
+                                  ]
+                        
                     },
                     {
+                        "metadata":  {
+                                         "url":  "https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/",
+                                         "created":  "12/03/2026",
+                                         "severity":  "critical",
+                                         "confidence":  "high",
+                                         "tags":  [
+                                                      "Handala",
+                                                      "Void Manticore",
+                                                      "Red Sandstorm",
+                                                      "Banished Kitten",
+                                                      "Iran",
+                                                      "Israel",
+                                                      "Albania"
+                                                  ]
+                                     },
                         "iocs":  [
                                      {
                                          "id":  "ioc-1",
@@ -370,25 +507,139 @@
                                                      "ioc-1"
                                                  ],
                                           "comment":  ""
+                                      },
+                                      {
+                                          "id":  "xref-2",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1133"
+                                                   ],
+                                          "to":  [
+                                                     "T1570"
+                                                 ],
+                                          "comment":  "Initial remote access is followed by tooling transfer."
+                                      },
+                                      {
+                                          "id":  "xref-3",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1570"
+                                                   ],
+                                          "to":  [
+                                                     "T1003.001"
+                                                 ],
+                                          "comment":  "Transferred tooling supports credential dumping."
+                                      },
+                                      {
+                                          "id":  "xref-4",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1003.001"
+                                                   ],
+                                          "to":  [
+                                                     "T1087.002"
+                                                 ],
+                                          "comment":  "Credential access enables AD account discovery."
+                                      },
+                                      {
+                                          "id":  "xref-5",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1087.002"
+                                                   ],
+                                          "to":  [
+                                                     "T1078"
+                                                 ],
+                                          "comment":  "Discovery helps operationalize valid domain accounts."
+                                      },
+                                      {
+                                          "id":  "xref-6",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1078"
+                                                   ],
+                                          "to":  [
+                                                     "T1480"
+                                                 ],
+                                          "comment":  "Validated privileged access is checked before impact."
+                                      },
+                                      {
+                                          "id":  "xref-7",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1480"
+                                                   ],
+                                          "to":  [
+                                                     "T1059.001"
+                                                 ],
+                                          "comment":  "Guardrails precede scripted destructive orchestration."
+                                      },
+                                      {
+                                          "id":  "xref-8",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1059.001"
+                                                   ],
+                                          "to":  [
+                                                     "T1485"
+                                                 ],
+                                          "comment":  "PowerShell execution drives destructive actions."
+                                      },
+                                      {
+                                          "id":  "xref-9",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1485"
+                                                   ],
+                                          "to":  [
+                                                     "T1561.002"
+                                                 ],
+                                          "comment":  "General destruction escalates to disk structure wipe."
+                                      },
+                                      {
+                                          "id":  "xref-10",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1485"
+                                                   ],
+                                          "to":  [
+                                                     "T1490"
+                                                 ],
+                                          "comment":  "Destructive phase includes inhibiting recovery."
+                                      },
+                                      {
+                                          "id":  "xref-11",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1485"
+                                                   ],
+                                          "to":  [
+                                                     "T1486"
+                                                 ],
+                                          "comment":  "Destruction is combined with encryption for impact."
                                       }
-                                  ],
+                                  ]
+                        
+                    },
+                    {
                         "metadata":  {
-                                         "url":  "https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/",
-                                         "created":  "12/03/2026",
+                                         "url":  "https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/",
+                                         "created":  "02/02/2026",
                                          "severity":  "critical",
                                          "confidence":  "high",
                                          "tags":  [
-                                                      "Handala",
-                                                      "Void Manticore",
-                                                      "Red Sandstorm",
-                                                      "Banished Kitten",
-                                                      "Iran",
-                                                      "Israel",
-                                                      "Albania"
+                                                      "APT28",
+                                                      "Operation Neusploit",
+                                                      "CVE-2026-21509",
+                                                      "MiniDoor",
+                                                      "PixyNetLoader",
+                                                      "Covenant",
+                                                      "Russia",
+                                                      "Ukraine",
+                                                      "Slovakia",
+                                                      "Romania"
                                                   ]
-                                     }
-                    },
-                    {
+                                     },
                         "iocs":  [
                                      {
                                          "id":  "ioc-1",
@@ -589,26 +840,119 @@
                                                      "ioc-10"
                                                  ],
                                           "comment":  "Operation Neusploit chain: exploit RTF -\u003e dropper DLL -\u003e persistence via COM hijack and scheduled task -\u003e shellcode loader -\u003e Covenant Grunt C2"
+                                      },
+                                      {
+                                          "id":  "xref-2",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1566.001"
+                                                   ],
+                                          "to":  [
+                                                     "T1203"
+                                                 ],
+                                          "comment":  "Spearphishing attachment triggers exploit execution."
+                                      },
+                                      {
+                                          "id":  "xref-3",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1203"
+                                                   ],
+                                          "to":  [
+                                                     "T1137.006"
+                                                 ],
+                                          "comment":  "Variant 1 establishes Outlook add-in startup behavior."
+                                      },
+                                      {
+                                          "id":  "xref-4",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1137.006"
+                                                   ],
+                                          "to":  [
+                                                     "T1114"
+                                                 ],
+                                          "comment":  "Outlook add-in persistence enables mailbox collection."
+                                      },
+                                      {
+                                          "id":  "xref-5",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1203"
+                                                   ],
+                                          "to":  [
+                                                     "T1053.005"
+                                                 ],
+                                          "comment":  "Variant 2 sets scheduled task based staged execution."
+                                      },
+                                      {
+                                          "id":  "xref-6",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1053.005"
+                                                   ],
+                                          "to":  [
+                                                     "T1546.015"
+                                                 ],
+                                          "comment":  "Scheduled execution supports COM hijacking persistence."
+                                      },
+                                      {
+                                          "id":  "xref-7",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1546.015"
+                                                   ],
+                                          "to":  [
+                                                     "T1027.003"
+                                                 ],
+                                          "comment":  "Persistent loader retrieves steganographic payload content."
+                                      },
+                                      {
+                                          "id":  "xref-8",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1027.003"
+                                                   ],
+                                          "to":  [
+                                                     "T1497.003"
+                                                 ],
+                                          "comment":  "Stego payload execution includes sandbox timing checks."
+                                      },
+                                      {
+                                          "id":  "xref-9",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1497.003"
+                                                   ],
+                                          "to":  [
+                                                     "T1480.002"
+                                                 ],
+                                          "comment":  "Evasion path chains into mutual exclusion guardrails."
+                                      },
+                                      {
+                                          "id":  "xref-10",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1480.002"
+                                                   ],
+                                          "to":  [
+                                                     "T1071.001"
+                                                 ],
+                                          "comment":  "Guardrail-validated implant proceeds to HTTPS C2."
+                                      },
+                                      {
+                                          "id":  "xref-11",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "T1071.001"
+                                                   ],
+                                          "to":  [
+                                                     "T1102.002"
+                                                 ],
+                                          "comment":  "HTTPS C2 is implemented over bidirectional web service."
                                       }
-                                  ],
-                        "metadata":  {
-                                         "url":  "https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/",
-                                         "created":  "02/02/2026",
-                                         "severity":  "critical",
-                                         "confidence":  "high",
-                                         "tags":  [
-                                                      "APT28",
-                                                      "Operation Neusploit",
-                                                      "CVE-2026-21509",
-                                                      "MiniDoor",
-                                                      "PixyNetLoader",
-                                                      "Covenant",
-                                                      "Russia",
-                                                      "Ukraine",
-                                                      "Slovakia",
-                                                      "Romania"
-                                                  ]
-                                     }
+                                  ]
+                        
                     }
                 ]
 }
