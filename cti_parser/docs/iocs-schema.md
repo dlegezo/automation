@@ -6,8 +6,9 @@ This document describes the JSON schema defined in `cti_parser/schemes/iocs-sche
 
 The schema defines parsed CTI reports with:
 
-- report metadata (`url`, `created`, optional `severity`, optional `tags`)
+- report metadata envelope (`metadata`)
 - indicators (`iocs`)
+- vulnerabilities (`vulns`)
 - techniques (`ttps`)
 - detection logic (`queries`)
 - graph-style relationships (`xrefs` with directional `from` and `to` edges)
@@ -26,18 +27,28 @@ Schema metadata:
 
 ## `reports` Items
 
-Required fields: `url`, `created`, `iocs`, `ttps`
+Required fields: `metadata`, `iocs`, `ttps`
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `url` | string | Yes | URL of source CTI report, web or local file path. |
-| `created` | string | Yes | Date in `DD/MM/YYYY` format. |
-| `severity` | string | No | Report severity: `low`, `medium`, `high`, `critical`. |
-| `tags` | string[] | No | Labels associated with the report. |
+| `metadata` | object | Yes | Report metadata object with source and triage context. |
 | `iocs` | array | Yes | IOC objects. |
+| `vulns` | array | No | Vulnerability objects. |
 | `ttps` | array | Yes | TTP objects. |
 | `queries` | array | No | Query objects. |
 | `xrefs` | array | No | Cross-reference objects. |
+
+## `metadata` Object
+
+Required fields: `url`, `created`, `severity`, `confidence`
+
+| Field | Type | Required | Constraints | Description |
+|---|---|---|---|---|
+| `url` | string | Yes | format: `uri` | URL of source CTI report, web or local file path. |
+| `created` | string | Yes | pattern: `^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$` | Date in `DD/MM/YYYY` format. |
+| `severity` | string | Yes | enum: `low`, `medium`, `high`, `critical` | Report severity based on victims geolocation and industry. |
+| `confidence` | string | Yes | enum: `low`, `medium`, `high` | Analyst confidence in extracted report intelligence. |
+| `tags` | string[] | No | none | Labels associated with the report. |
 
 ## `iocs` Items
 
@@ -46,16 +57,27 @@ Required fields: `id`, `type`, `malign`, `value`
 | Field | Type | Required | Constraints | Description |
 |---|---|---|---|---|
 | `id` | string | Yes | pattern: `^ioc-[0-9]+$` | IOC identifier. |
-| `type` | string | Yes | enum: `ip`, `domain`, `url`, `file`, `process`, `cmdline` | IOC kind. |
+| `type` | string | Yes | enum: `email`, `ip`, `domain`, `url`, `file`, `process`, `cmdline` | IOC kind. |
 | `malign` | boolean | Yes | none | `true` for malicious/detectable, `false` for benign/informational. |
 | `hash` | string | No | enum: `sha1`, `sha256`, `md5` | Hash type for `type = file`. |
+| `cert_serial` | string | No | allowed only for `file`, `domain`, `ip` | Certificate serial number for code-signing or TLS/SSL context. |
 | `value` | string | Yes | none | IOC value. |
 | `comment` | string | No | none | Analyst context. |
 
 Notes:
 
 - For file indicators, use `type: file` and set `hash`.
+- `cert_serial` is allowed only for `file`, `domain`, or `ip` IOC types.
 - `malign` is required in schema for every IOC entry.
+
+## `vulns` Items
+
+Required fields: `id`, `comment`
+
+| Field | Type | Required | Constraints | Description |
+|---|---|---|---|---|
+| `id` | string | Yes | pattern: `^CVE-[0-9]{4}-[0-9]{4,}$` | Vulnerability CVE identifier. |
+| `comment` | string | Yes | none | Context for how the vulnerability is used or referenced. |
 
 ## `ttps` Items
 
@@ -98,47 +120,7 @@ Notes:
 
 ## Mermaid Diagram
 
-```mermaid
-flowchart TD
-    A[IOCs Schema] --> B[reports: array]
-    B --> C[report item]
-
-    C --> C1[url]
-    C --> C2[created]
-    C --> C3[severity optional]
-    C --> C4[tags optional]
-    C --> C5[iocs]
-    C --> C6[ttps]
-    C --> C7[queries optional]
-    C --> C8[xrefs optional]
-
-    C5 --> I[ioc item]
-    I --> I1[id]
-    I --> I2[type: ip/domain/url/file/process/cmdline]
-    I --> I3[malign: boolean required]
-    I --> I4[hash: sha1/sha256/md5 optional]
-    I --> I5[value]
-    I --> I6[comment optional]
-
-    C6 --> T[ttp item]
-    T --> T1[id]
-    T --> T2[comment]
-
-    C7 --> Q[query item]
-    Q --> Q1[id]
-    Q --> Q2[type: kql/yara/spl/sigma/sql]
-    Q --> Q3[value]
-    Q --> Q4[iocs optional]
-    Q --> Q5[ttps optional]
-    Q --> Q6[comment optional]
-
-    C8 --> X[xref item]
-    X --> X1[id]
-    X --> X2[type: creates/uses]
-    X --> X3[from optional]
-    X --> X4[to optional]
-    X --> X5[comment optional]
-```
+Source diagram: [../diagrams/iocs-schema.mmd](../diagrams/iocs-schema.mmd)
 
 ## Example Valid Document
 
@@ -146,24 +128,34 @@ flowchart TD
 {
   "reports": [
     {
-      "url": "https://example.org/reports/cti-001",
-      "created": "27/03/2026",
-      "severity": "high",
-      "tags": ["apt", "phishing"],
+      "metadata": {
+        "url": "https://example.org/reports/cti-001",
+        "created": "27/03/2026",
+        "severity": "high",
+        "confidence": "medium",
+        "tags": ["apt", "phishing"]
+      },
       "iocs": [
         {
           "id": "ioc-1",
           "type": "file",
           "malign": true,
           "hash": "sha256",
+          "cert_serial": "12A34BCD56",
           "value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "comment": "Malware dropper"
         },
         {
           "id": "ioc-2",
-          "type": "domain",
+          "type": "email",
           "malign": true,
-          "value": "malicious.example.com"
+          "value": "operator@malicious.example.com"
+        }
+      ],
+      "vulns": [
+        {
+          "id": "CVE-2026-21509",
+          "comment": "Client-side exploit used in this campaign"
         }
       ],
       "ttps": [
@@ -198,12 +190,15 @@ flowchart TD
 
 ## Validation Notes
 
-- `created` must strictly match `DD/MM/YYYY`.
-- `severity` accepts only: `low`, `medium`, `high`, `critical`.
-- `iocs[].type` accepts only: `ip`, `domain`, `url`, `file`, `process`, `cmdline`.
+- `metadata.created` must strictly match `DD/MM/YYYY`.
+- `metadata.severity` accepts only: `low`, `medium`, `high`, `critical`.
+- `metadata.confidence` accepts only: `low`, `medium`, `high`.
+- `iocs[].type` accepts only: `email`, `ip`, `domain`, `url`, `file`, `process`, `cmdline`.
 - `iocs[].malign` is required on every IOC entry.
 - `iocs[].hash` is required when `iocs[].type = file` and must be absent otherwise.
 - `iocs[].hash` accepts only: `sha1`, `sha256`, `md5`.
+- `iocs[].cert_serial` is allowed only for `file`, `domain`, or `ip`.
+- `vulns[].id` must match `CVE-YYYY-NNNN` style format.
 - `queries[].ttps` may list related TTP IDs such as `T1203` or `T1053.005`.
 - `xrefs[].type` accepts only: `creates`, `uses`.
 - `xrefs[].from` and `xrefs[].to` define directional edges between entities.

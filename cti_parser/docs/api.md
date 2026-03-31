@@ -19,27 +19,9 @@ Returns full unfiltered content of `inbound/inbound.json`.
 
 Status: `200 OK`
 
-```json
-{
-  "$schema": "../schemes/pipeline-schema.json",
-  "$id": "pipeline.json",
-  "source": [
-    {
-      "url": "https://example.org/report",
-      "name": "example-report",
-      "created": "01/01/2026",
-      "type": "html",
-      "comment": "..."
-    }
-  ],
-  "publishing": [
-    {
-      "url": "./outbound/outbound_test.json",
-      "type": "json"
-    }
-  ]
-}
-```
+Response body: exact contents of `inbound/inbound.json`.
+
+Schema reference: `cti_parser/schemes/pipeline-schema.json`
 
 ## Endpoint: `GET /api/v1/reports`
 
@@ -49,22 +31,9 @@ Returns full unfiltered content of `outbound/outbound.json`.
 
 Status: `200 OK`
 
-```json
-{
-  "$schema": "../schemes/iocs-schema.json",
-  "$id": "iocs.json",
-  "reports": [
-    {
-      "url": "https://example.org/report",
-      "created": "01/01/2026",
-      "severity": "high",
-      "tags": ["tag1"],
-      "iocs": [],
-      "ttps": []
-    }
-  ]
-}
-```
+Response body: exact contents of `outbound/outbound.json`.
+
+Schema reference: `cti_parser/schemes/iocs-schema.json`
 
 ## Error Responses
 

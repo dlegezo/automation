@@ -48,21 +48,7 @@ Required fields: `url`, `type`
 
 ## Mermaid Diagram
 
-```mermaid
-flowchart TD
-    A[Pipeline Schema] --> B[source: array]
-    A --> C[publishing: array]
-
-    B --> B1[source item: object]
-    B1 --> B2[url: string, format uri]
-    B1 --> B3[created: string, DD/MM/YYYY pattern]
-    B1 --> B4[type: enum html, pdf]
-    B1 --> B5[comment: string optional]
-
-    C --> C1[publishing item: object]
-    C1 --> C2[url: string, format uri]
-    C1 --> C3[type: enum markdown, json, csv, yaml]
-```
+Source diagram: [../diagrams/pipeline-schema.mmd](../diagrams/pipeline-schema.mmd)
 
 ## Example Valid Document
 

@@ -1,592 +1,614 @@
-{
-  "$schema": "../schemes/iocs-schema.json",
-  "$id": "iocs.json",
-  "reports": [
-    {
-      "url": "https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/",
-      "created": "10/03/2026",
-      "severity": "high",
-      "tags": [
-        "Sednit",
-        "APT28",
-        "SlimAgent",
-        "BeardShell",
-        "Russia",
-        "Ukraine"
-      ],
-      "iocs": [
-        {
-          "id": "ioc-1",
-          "type": "file",
-          "malign": true,
-          "hash": "sha1",
-          "value": "5603E99151F8803C13D48D83B8A64D071542F01B",
-          "file_name": "eapphost.dll",
-          "file_type": "dynamic library",
-          "platform": "Windows",
-          "capabilities": "Keylogging, screen capture, clipboard data collection",
-          "detection": "Win64/Spy.KeyLogger.LS",
-          "comment": "SlimAgent keylogger"
-        },
-        {
-          "id": "ioc-2",
-          "type": "file",
-          "malign": true,
-          "hash": "sha1",
-          "value": "6D39F49AA11CE0574D581F10DB0F9BAE423CE3D5",
-          "file_name": "tcpiphlpsvc.dll",
-          "file_type": "dynamic library",
-          "platform": "Windows",
-          "capabilities": "Remote access, data collection",
-          "detection": "Win64/BeardShell.A",
-          "comment": "BeardShell trojan"
-        },
-        {
-          "id": "ioc-3",
-          "type": "url",
-          "malign": false,
-          "value": "https://icedrive.net/",
-          "comment": "BeardShell C2 infrastructure, legit service abused by the malware"
-        },
-        {
-          "id": "ioc-4",
-          "type": "url",
-          "malign": false,
-          "value": "https://filen.com/",
-          "comment": "Covenant C2 infrastructure, legit service abused by the malware"
-        },
-        {
-          "id": "ioc-5",
-          "type": "process",
-          "malign": false,
-          "value": "taskhost.exe",
-          "comment": "BeardShell only executes in taskhost.exe or taskhostw.exe"
-        },
-        {
-          "id": "ioc-6",
-          "type": "process",
-          "malign": false,
-          "value": "explorer.exe",
-          "comment": "SlimAgent only executes in explorer.exe"
-        }
-      ],
-      "ttps": [
-        {
-          "id": "T1583.006",
-          "comment": "Acquire Infrastructure: Web Services - BeardShell relies on Icedrive cloud storage. Covenant relies on Filen cloud storage."
-        },
-        {
-          "id": "T1587.001",
-          "comment": "Develop Capabilities: Malware - BeardShell and SlimAgent are custom malware."
-        },
-        {
-          "id": "T1059.001",
-          "comment": "Command and Scripting Interpreter: PowerShell - BeardShell executes PowerShell commands."
-        },
-        {
-          "id": "T1129",
-          "comment": "Shared Modules - BeardShell and SlimAgent are full-fledged DLL files."
-        },
-        {
-          "id": "T1546.015",
-          "comment": "Event Triggered Execution: Component Object Model Hijacking - BeardShell and SlimAgent are made persistent by hijacking COM objects."
-        },
-        {
-          "id": "T1027",
-          "comment": "Obfuscated Files or Information - BeardShell Icedrive token decryption is obfuscated."
-        },
-        {
-          "id": "T1140",
-          "comment": "Deobfuscate/Decode Files or Information - BeardShell decrypts its strings."
-        },
-        {
-          "id": "T1480",
-          "comment": "Execution Guardrails - BeardShell only executes in taskhost.exe or taskhostw.exe. SlimAgent only executes in explorer.exe."
-        },
-        {
-          "id": "T1564",
-          "comment": "Hide Artifacts - SlimAgent logs are written into a hidden file."
-        },
-        {
-          "id": "T1082",
-          "comment": "System Information Discovery - BeardShell sends a fingerprint of the compromised machine."
-        },
-        {
-          "id": "T1005",
-          "comment": "Data from Local System - BeardShell, Covenant, and SlimAgent collect data from a compromised machine."
-        },
-        {
-          "id": "T1056.001",
-          "comment": "Input Capture: Keylogging - SlimAgent performs keylogging."
-        },
-        {
-          "id": "T1113",
-          "comment": "Screen Capture - SlimAgent captures screenshots of the compromised machine."
-        },
-        {
-          "id": "T1115",
-          "comment": "Clipboard Data - SlimAgent collects clipboard data."
-        },
-        {
-          "id": "T1001",
-          "comment": "Data Obfuscation - BeardShell exfiltrates data in fake images."
-        },
-        {
-          "id": "T1071.001",
-          "comment": "Application Layer Protocol: Web Protocols - BeardShell and Covenant use HTTPS for C&C."
-        },
-        {
-          "id": "T1102",
-          "comment": "Web Service - BeardShell gets commands from Icedrive. Covenant gets commands from Filen."
-        },
-        {
-          "id": "T1573.002",
-          "comment": "Encrypted Channel: Asymmetric Cryptography - BeardShell communications with Icedrive are encrypted using HTTPS. Covenant communications with its controller uses RSA-encrypted session keys."
-        },
-        {
-          "id": "T1567",
-          "comment": "Exfiltration Over Web Service - BeardShell exfiltrates data to Icedrive. Covenant exfiltrates data to Filen."
-        }
-      ],
-      "queries": [
-        {
-          "id": "query-01",
-          "type": "kql",
-          "value": "",
-          "iocs": [
-            "ioc-5",
-            "ioc-6"
-          ],
-          "comment": "SlimAgent and BeardShell execution, dll injection"
-        },
-        {
-          "id": "query-02",
-          "type": "yara",
-          "value": "",
-          "iocs": [
-            "ioc-1"
-          ],
-          "comment": "SlimAgent 2024 file detection by specific function names. content:\"FN_log_window_text\""
-        },
-        {
-          "id": "query-03",
-          "type": "yara",
-          "value": "",
-          "iocs": [
-            "ioc-2"
-          ],
-          "comment": "Modified Covenant file detection by specific function names. content:\"GruntUUID\" and content:\"filenClient\""
-        }
-      ],
-      "xrefs": [
-        {
-          "id": "xref-01",
-          "type": "creates",
-          "from": [
-            "ioc-5"
-          ],
-          "to": [
-            "ioc-2"
-          ],
-          "comment": "BeardShell only executes in taskhost.exe or taskhostw.exe"
-        },
-        {
-          "id": "xref-02",
-          "type": "creates",
-          "from": [
-            "ioc-6"
-          ],
-          "to": [
-            "ioc-1"
-          ],
-          "comment": "SlimAgent only executes in explorer.exe"
-        },
-        {
-          "id": "xref-03",
-          "type": "uses",
-          "from": [
-            "ioc-2"
-          ],
-          "to": [
-            "ioc-3"
-          ],
-          "comment": "BeardShell relies on Icedrive cloud storage"
-        }
-      ]
-    },
-    {
-      "url": "https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/",
-      "created": "12/03/2026",
-      "severity": "critical",
-      "tags": [
-        "Handala",
-        "Void Manticore",
-        "Red Sandstorm",
-        "Banished Kitten",
-        "Iran",
-        "Israel",
-        "Albania"
-      ],
-      "iocs": [
-        {
-          "id": "ioc-1",
-          "type": "ip",
-          "malign": true,
-          "value": "107.189.19.52",
-          "comment": "C2 server for additional payload retrieval"
-        },
-        {
-          "id": "ioc-2",
-          "type": "ip",
-          "malign": false,
-          "value": "169.150.227.0/24",
-          "comment": "Commercial VPN segment used for egress to Israel targets"
-        },
-        {
-          "id": "ioc-3",
-          "type": "ip",
-          "malign": false,
-          "value": "146.185.219.235",
-          "comment": "Israeli VPN node used for egress"
-        },
-        {
-          "id": "ioc-4",
-          "type": "process",
-          "malign": false,
-          "value": "netbird.exe",
-          "comment": "Zero-trust Wireguard-based mesh network deployed for internal lateral movement"
-        },
-        {
-          "id": "ioc-5",
-          "type": "process",
-          "malign": false,
-          "value": "VeraCrypt.exe",
-          "comment": "Disk encryption utility downloaded for destructive encryption"
-        },
-        {
-          "id": "ioc-6",
-          "type": "cmdline",
-          "malign": true,
-          "value": "rundll32.exe comsvcs.dll MiniDump",
-          "comment": "LSASS credential dumping pre-wiping. Value is keywords enumeration, cmdline is <path>rundll32.exe <paht>comsvcs.dll, MiniDump <PID> <path_filename>.dmp full"
-        },
-        {
-          "id": "ioc-7",
-          "type": "cmdline",
-          "malign": true,
-          "value": "wmic.exe process call create",
-          "comment": "Copies registry hives from VSS (SYSTEM hive). Value is cmdline start, cmdline is wmic[.exe] process call create \"reg.exe save HKLM\\SYSTEM <path_filename>\""
-        },
-        {
-          "id": "ioc-8",
-          "type": "file",
-          "malign": true,
-          "hash": "md5",
-          "name": "handala.exe",
-          "value": "5986ab04dd6b3d259935249741d3eff2",
-          "comment": "Handala Wiper, dropped by initial access vector and used for destructive payload execution"
-        }
-      ],
-      "ttps": [
-        {
-          "id": "T1190",
-          "comment": "Exploit Public-Facing Application - Compromised VPN accounts for initial access."
-        },
-        {
-          "id": "T1133",
-          "comment": "External Remote Services - RDP for hands-on lateral movement."
-        },
-        {
-          "id": "T1570",
-          "comment": "Lateral Tool Transfer - NetBird deployment via browser download."
-        },
-        {
-          "id": "T1003.001",
-          "comment": "OS Credential Dumping: LSASS Memory - comsvcs.dll MiniDump."
-        },
-        {
-          "id": "T1087.002",
-          "comment": "Account Discovery: Domain Accounts - ADRecon PowerShell."
-        },
-        {
-          "id": "T1485",
-          "comment": "Data Destruction - Handala Wiper (MBR/file overwrite)."
-        },
-        {
-          "id": "T1561.002",
-          "comment": "Disk Wipe: Disk Structure Wipe - Custom MBR wiping."
-        },
-        {
-          "id": "T1490",
-          "comment": "Inhibit System Recovery - Multiple parallel wiping methods."
-        },
-        {
-          "id": "T1486",
-          "comment": "Data Encrypted for Impact - VeraCrypt disk encryption."
-        },
-        {
-          "id": "T1059.001",
-          "comment": "Command and Scripting Interpreter: PowerShell - AI-assisted wiping script."
-        },
-        {
-          "id": "T1480",
-          "comment": "Execution Guardrails - Domain Admin creds validation pre-impact."
-        },
-        {
-          "id": "T1078",
-          "comment": "Valid Accounts - Compromised DA credentials for GPO deployment."
-        }
-      ],
-      "queries": [
-        {
-          "id": "query-1",
-          "type": "kql",
-          "value": "Process | where ProcessImageName in~('rundll32.exe', 'powershell.exe') | where ProcessCommandLine contains 'comsvcs.dll' and ProcessCommandLine contains 'MiniDump'",
-          "iocs": [
-            "ioc-6"
-          ],
-          "comment": "Pre-wiping recon: LSASS dump"
-        },
-        {
-          "id": "query-2",
-          "type": "kql",
-          "value": "Process | where ProcessImageName in~('wmic.exe', 'powershell.exe') | where ProcessCommandLine contains 'process call create' and ProcessCommandLine contains 'reg.exe save'",
-          "iocs": [
-            "ioc-7"
-          ],
-          "comment": "Pre-wiping recon: registry copy"
-        },
-        {
-          "id": "query-3",
-          "type": "kql",
-          "value": "DeviceNetworkEvents | where RemoteIP in ('107.189.19.52', '169.150.227.0/24', '146.185.219.235') | where ActionType == 'ConnectionSuccess'",
-          "iocs": [
-            "ioc-1",
-            "ioc-2",
-            "ioc-3"
-          ],
-          "comment": "Suspicious C2/VPN connections from Iranian actors. Here could also detect IR IPs"
-        }
-      ],
-      "xrefs": [
-        {
-          "id": "xref-1",
-          "type": "uses",
-          "from": [
-            "query-1"
-          ],
-          "to": [
-            "ioc-1"
-          ],
-          "comment": ""
-        }
-      ]
-    },
-    {
-      "url": "https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/",
-      "created": "02/02/2026",
-      "severity": "critical",
-      "tags": [
-        "APT28",
-        "Operation Neusploit",
-        "CVE-2026-21509",
-        "MiniDoor",
-        "PixyNetLoader",
-        "Covenant",
-        "Russia",
-        "Ukraine",
-        "Slovakia",
-        "Romania"
-      ],
-      "iocs": [
-        {
-          "id": "ioc-1",
-          "type": "file",
-          "malign": true,
-          "hash": "md5",
-          "value": "f3b869a8d5ad243e35963ba6d7f89855",
-          "comment": "Dropper DLL (Variant 1) filename: 2_2.d"
-        },
-        {
-          "id": "ioc-2",
-          "type": "file",
-          "malign": true,
-          "hash": "sha1",
-          "value": "c1b272067491258ea4a2b1d2789d82d157aaf90a",
-          "comment": "Dropper DLL (Variant 1) filename: 2_2.d"
-        },
-        {
-          "id": "ioc-3",
-          "type": "file",
-          "malign": true,
-          "hash": "sha256",
-          "value": "a944a09783023a2c6c62d3601cbd5392a03d808a6a51728e07a3270861c2a8ee",
-          "comment": "Dropper DLL (Variant 1) filename: 2_2.d"
-        },
-        {
-          "id": "ioc-4",
-          "type": "file",
-          "malign": true,
-          "hash": "md5",
-          "value": "859c4b85ed85e6cc4eadb1a037a61e16",
-          "comment": "PixyNetLoader dropper DLL (Variant 2) filename: table.d"
-        },
-        {
-          "id": "ioc-5",
-          "type": "file",
-          "malign": true,
-          "hash": "md5",
-          "value": "e4a5c4b205e1b80dc20d9a2fb4126d06",
-          "comment": "Shellcode loader filename: EhStoreShell.dll"
-        },
-        {
-          "id": "ioc-6",
-          "type": "file",
-          "malign": true,
-          "hash": "md5",
-          "value": "154ff6774294e0e6a46581c8452a77de",
-          "comment": "PNG container with embedded shellcode filename: SplashScreen.png"
-        },
-        {
-          "id": "ioc-7",
-          "type": "domain",
-          "malign": true,
-          "value": "freefoodaid.com",
-          "comment": "Malicious domain used to host payloads"
-        },
-        {
-          "id": "ioc-8",
-          "type": "domain",
-          "malign": true,
-          "value": "wellnesscaremed.com",
-          "comment": "Malicious domain used in campaign infrastructure"
-        },
-        {
-          "id": "ioc-9",
-          "type": "url",
-          "malign": true,
-          "value": "https://freefoodaid.com/documents/2_2.d",
-          "comment": "URL hosting MiniDoor dropper DLL"
-        },
-        {
-          "id": "ioc-10",
-          "type": "url",
-          "malign": true,
-          "value": "https://freefoodaid.com/tables/tables.d",
-          "comment": "URL hosting PixyNetLoader"
-        },
-        {
-          "id": "ioc-11",
-          "type": "process",
-          "malign": false,
-          "value": "explorer.exe",
-          "comment": "EhStoreShell.dll executes malicious logic only when loaded by explorer.exe"
-        },
-        {
-          "id": "ioc-12",
-          "type": "cmdline",
-          "malign": true,
-          "value": "schtasks.exe /Create /tn \"OneDriveHealth\" /XML \"%temp%\\Diagnostics\\office.xml\"",
-          "comment": "Scheduled task creation command used for staged execution"
-        }
-      ],
-      "ttps": [
-        {
-          "id": "T1566.001",
-          "comment": "Phishing: Spearphishing Attachment - weaponized RTFs delivered as attachments."
-        },
-        {
-          "id": "T1203",
-          "comment": "Exploitation for Client Execution - CVE-2026-21509 exploited by crafted RTF files."
-        },
-        {
-          "id": "T1053.005",
-          "comment": "Scheduled Task/Job: Scheduled Task - OneDriveHealth task created via schtasks.exe."
-        },
-        {
-          "id": "T1546.015",
-          "comment": "Event Triggered Execution: Component Object Model Hijacking - persistence via CLSID InProcServer32 hijack."
-        },
-        {
-          "id": "T1137.006",
-          "comment": "Office Application Startup: Add-ins - malicious Outlook VBA project loaded at startup."
-        },
-        {
-          "id": "T1027.003",
-          "comment": "Obfuscated Files or Information: Steganography - shellcode hidden in SplashScreen.png LSB data."
-        },
-        {
-          "id": "T1497.003",
-          "comment": "Virtualization/Sandbox Evasion: Time Based Checks - Sleep timing guardrail check in loader."
-        },
-        {
-          "id": "T1114",
-          "comment": "Email Collection - MiniDoor Outlook VBA forwards mailbox messages to attacker-controlled addresses."
-        },
-        {
-          "id": "T1071.001",
-          "comment": "Application Layer Protocol: Web Protocols - Covenant Grunt uses HTTPS for C2 traffic."
-        },
-        {
-          "id": "T1102.002",
-          "comment": "Web Service: Bidirectional Communication - Filen API abused as C2Bridge channel."
-        },
-        {
-          "id": "T1480.002",
-          "comment": "Execution Guardrails: Mutual Exclusion - campaign components create mutexes to avoid duplicate execution."
-        }
-      ],
-      "queries": [
-        {
-          "id": "query-1",
-          "type": "kql",
-          "value": "DeviceProcessEvents | where FileName =~ 'schtasks.exe' | where ProcessCommandLine has '/Create' and ProcessCommandLine has 'OneDriveHealth' and ProcessCommandLine has 'office.xml'",
-          "iocs": [
-            "ioc-12"
-          ],
-          "comment": "Detect scheduled task creation observed in PixyNetLoader chain"
-        },
-        {
-          "id": "query-2",
-          "type": "kql",
-          "value": "DeviceNetworkEvents | where RemoteUrl has_any ('freefoodaid.com', 'wellnesscaremed.com')",
-          "iocs": [
-            "ioc-7",
-            "ioc-8",
-            "ioc-9",
-            "ioc-10"
-          ],
-          "comment": "Detect network activity to campaign infrastructure"
-        },
-        {
-          "id": "query-3",
-          "type": "yara",
-          "value": "rule APT28_Operation_Neusploit_PixyNetLoader { strings: $m1 = \"asagdugughi41\" ascii $m2 = \"OneDriveHealth\" ascii $m3 = \"EhStoreShell.dll\" ascii condition: 2 of ($m*) }",
-          "iocs": [
-            "ioc-4",
-            "ioc-5",
-            "ioc-12"
-          ],
-          "comment": "Static detections based on strings explicitly documented in the report"
-        }
-      ],
-      "xrefs": [
-        {
-          "id": "xref-1",
-          "type": "uses",
-          "from": [
-            "query-1",
-            "query-2",
-            "query-3"
-          ],
-          "to": [
-            "ioc-7",
-            "ioc-9",
-            "ioc-10"
-          ],
-          "comment": "Operation Neusploit chain: exploit RTF -> dropper DLL -> persistence via COM hijack and scheduled task -> shellcode loader -> Covenant Grunt C2"
-        }
-      ]
-    }
-  ]
+﻿{
+    "$schema":  "../schemes/iocs-schema.json",
+    "$id":  "iocs.json",
+    "reports":  [
+                    {
+                        "iocs":  [
+                                     {
+                                         "id":  "ioc-1",
+                                         "type":  "file",
+                                         "malign":  true,
+                                         "hash":  "sha1",
+                                         "value":  "5603E99151F8803C13D48D83B8A64D071542F01B",
+                                         "file_name":  "eapphost.dll",
+                                         "file_type":  "dynamic library",
+                                         "platform":  "Windows",
+                                         "capabilities":  "Keylogging, screen capture, clipboard data collection",
+                                         "detection":  "Win64/Spy.KeyLogger.LS",
+                                         "comment":  "SlimAgent keylogger"
+                                     },
+                                     {
+                                         "id":  "ioc-2",
+                                         "type":  "file",
+                                         "malign":  true,
+                                         "hash":  "sha1",
+                                         "value":  "6D39F49AA11CE0574D581F10DB0F9BAE423CE3D5",
+                                         "file_name":  "tcpiphlpsvc.dll",
+                                         "file_type":  "dynamic library",
+                                         "platform":  "Windows",
+                                         "capabilities":  "Remote access, data collection",
+                                         "detection":  "Win64/BeardShell.A",
+                                         "comment":  "BeardShell trojan"
+                                     },
+                                     {
+                                         "id":  "ioc-3",
+                                         "type":  "url",
+                                         "malign":  false,
+                                         "value":  "https://icedrive.net/",
+                                         "comment":  "BeardShell C2 infrastructure, legit service abused by the malware"
+                                     },
+                                     {
+                                         "id":  "ioc-4",
+                                         "type":  "url",
+                                         "malign":  false,
+                                         "value":  "https://filen.com/",
+                                         "comment":  "Covenant C2 infrastructure, legit service abused by the malware"
+                                     },
+                                     {
+                                         "id":  "ioc-5",
+                                         "type":  "process",
+                                         "malign":  false,
+                                         "value":  "taskhost.exe",
+                                         "comment":  "BeardShell only executes in taskhost.exe or taskhostw.exe"
+                                     },
+                                     {
+                                         "id":  "ioc-6",
+                                         "type":  "process",
+                                         "malign":  false,
+                                         "value":  "explorer.exe",
+                                         "comment":  "SlimAgent only executes in explorer.exe"
+                                     }
+                                 ],
+                        "ttps":  [
+                                     {
+                                         "id":  "T1583.006",
+                                         "comment":  "Acquire Infrastructure: Web Services - BeardShell relies on Icedrive cloud storage. Covenant relies on Filen cloud storage."
+                                     },
+                                     {
+                                         "id":  "T1587.001",
+                                         "comment":  "Develop Capabilities: Malware - BeardShell and SlimAgent are custom malware."
+                                     },
+                                     {
+                                         "id":  "T1059.001",
+                                         "comment":  "Command and Scripting Interpreter: PowerShell - BeardShell executes PowerShell commands."
+                                     },
+                                     {
+                                         "id":  "T1129",
+                                         "comment":  "Shared Modules - BeardShell and SlimAgent are full-fledged DLL files."
+                                     },
+                                     {
+                                         "id":  "T1546.015",
+                                         "comment":  "Event Triggered Execution: Component Object Model Hijacking - BeardShell and SlimAgent are made persistent by hijacking COM objects."
+                                     },
+                                     {
+                                         "id":  "T1027",
+                                         "comment":  "Obfuscated Files or Information - BeardShell Icedrive token decryption is obfuscated."
+                                     },
+                                     {
+                                         "id":  "T1140",
+                                         "comment":  "Deobfuscate/Decode Files or Information - BeardShell decrypts its strings."
+                                     },
+                                     {
+                                         "id":  "T1480",
+                                         "comment":  "Execution Guardrails - BeardShell only executes in taskhost.exe or taskhostw.exe. SlimAgent only executes in explorer.exe."
+                                     },
+                                     {
+                                         "id":  "T1564",
+                                         "comment":  "Hide Artifacts - SlimAgent logs are written into a hidden file."
+                                     },
+                                     {
+                                         "id":  "T1082",
+                                         "comment":  "System Information Discovery - BeardShell sends a fingerprint of the compromised machine."
+                                     },
+                                     {
+                                         "id":  "T1005",
+                                         "comment":  "Data from Local System - BeardShell, Covenant, and SlimAgent collect data from a compromised machine."
+                                     },
+                                     {
+                                         "id":  "T1056.001",
+                                         "comment":  "Input Capture: Keylogging - SlimAgent performs keylogging."
+                                     },
+                                     {
+                                         "id":  "T1113",
+                                         "comment":  "Screen Capture - SlimAgent captures screenshots of the compromised machine."
+                                     },
+                                     {
+                                         "id":  "T1115",
+                                         "comment":  "Clipboard Data - SlimAgent collects clipboard data."
+                                     },
+                                     {
+                                         "id":  "T1001",
+                                         "comment":  "Data Obfuscation - BeardShell exfiltrates data in fake images."
+                                     },
+                                     {
+                                         "id":  "T1071.001",
+                                         "comment":  "Application Layer Protocol: Web Protocols - BeardShell and Covenant use HTTPS for C\u0026C."
+                                     },
+                                     {
+                                         "id":  "T1102",
+                                         "comment":  "Web Service - BeardShell gets commands from Icedrive. Covenant gets commands from Filen."
+                                     },
+                                     {
+                                         "id":  "T1573.002",
+                                         "comment":  "Encrypted Channel: Asymmetric Cryptography - BeardShell communications with Icedrive are encrypted using HTTPS. Covenant communications with its controller uses RSA-encrypted session keys."
+                                     },
+                                     {
+                                         "id":  "T1567",
+                                         "comment":  "Exfiltration Over Web Service - BeardShell exfiltrates data to Icedrive. Covenant exfiltrates data to Filen."
+                                     }
+                                 ],
+                        "queries":  [
+                                        {
+                                            "id":  "query-01",
+                                            "type":  "kql",
+                                            "value":  "",
+                                            "iocs":  [
+                                                         "ioc-5",
+                                                         "ioc-6"
+                                                     ],
+                                            "comment":  "SlimAgent and BeardShell execution, dll injection"
+                                        },
+                                        {
+                                            "id":  "query-02",
+                                            "type":  "yara",
+                                            "value":  "",
+                                            "iocs":  [
+                                                         "ioc-1"
+                                                     ],
+                                            "comment":  "SlimAgent 2024 file detection by specific function names. content:\"FN_log_window_text\""
+                                        },
+                                        {
+                                            "id":  "query-03",
+                                            "type":  "yara",
+                                            "value":  "",
+                                            "iocs":  [
+                                                         "ioc-2"
+                                                     ],
+                                            "comment":  "Modified Covenant file detection by specific function names. content:\"GruntUUID\" and content:\"filenClient\""
+                                        }
+                                    ],
+                        "xrefs":  [
+                                      {
+                                          "id":  "xref-01",
+                                          "type":  "creates",
+                                          "from":  [
+                                                       "ioc-5"
+                                                   ],
+                                          "to":  [
+                                                     "ioc-2"
+                                                 ],
+                                          "comment":  "BeardShell only executes in taskhost.exe or taskhostw.exe"
+                                      },
+                                      {
+                                          "id":  "xref-02",
+                                          "type":  "creates",
+                                          "from":  [
+                                                       "ioc-6"
+                                                   ],
+                                          "to":  [
+                                                     "ioc-1"
+                                                 ],
+                                          "comment":  "SlimAgent only executes in explorer.exe"
+                                      },
+                                      {
+                                          "id":  "xref-03",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "ioc-2"
+                                                   ],
+                                          "to":  [
+                                                     "ioc-3"
+                                                 ],
+                                          "comment":  "BeardShell relies on Icedrive cloud storage"
+                                      }
+                                  ],
+                        "metadata":  {
+                                         "url":  "https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/",
+                                         "created":  "10/03/2026",
+                                         "severity":  "high",
+                                         "confidence":  "high",
+                                         "tags":  [
+                                                      "Sednit",
+                                                      "APT28",
+                                                      "SlimAgent",
+                                                      "BeardShell",
+                                                      "Russia",
+                                                      "Ukraine"
+                                                  ]
+                                     }
+                    },
+                    {
+                        "iocs":  [
+                                     {
+                                         "id":  "ioc-1",
+                                         "type":  "ip",
+                                         "malign":  true,
+                                         "value":  "107.189.19.52",
+                                         "comment":  "C2 server for additional payload retrieval"
+                                     },
+                                     {
+                                         "id":  "ioc-2",
+                                         "type":  "ip",
+                                         "malign":  false,
+                                         "value":  "169.150.227.0/24",
+                                         "comment":  "Commercial VPN segment used for egress to Israel targets"
+                                     },
+                                     {
+                                         "id":  "ioc-3",
+                                         "type":  "ip",
+                                         "malign":  false,
+                                         "value":  "146.185.219.235",
+                                         "comment":  "Israeli VPN node used for egress"
+                                     },
+                                     {
+                                         "id":  "ioc-4",
+                                         "type":  "process",
+                                         "malign":  false,
+                                         "value":  "netbird.exe",
+                                         "comment":  "Zero-trust Wireguard-based mesh network deployed for internal lateral movement"
+                                     },
+                                     {
+                                         "id":  "ioc-5",
+                                         "type":  "process",
+                                         "malign":  false,
+                                         "value":  "VeraCrypt.exe",
+                                         "comment":  "Disk encryption utility downloaded for destructive encryption"
+                                     },
+                                     {
+                                         "id":  "ioc-6",
+                                         "type":  "cmdline",
+                                         "malign":  true,
+                                         "value":  "rundll32.exe comsvcs.dll MiniDump",
+                                         "comment":  "LSASS credential dumping pre-wiping. Value is keywords enumeration, cmdline is \u003cpath\u003erundll32.exe \u003cpaht\u003ecomsvcs.dll, MiniDump \u003cPID\u003e \u003cpath_filename\u003e.dmp full"
+                                     },
+                                     {
+                                         "id":  "ioc-7",
+                                         "type":  "cmdline",
+                                         "malign":  true,
+                                         "value":  "wmic.exe process call create",
+                                         "comment":  "Copies registry hives from VSS (SYSTEM hive). Value is cmdline start, cmdline is wmic[.exe] process call create \"reg.exe save HKLM\\SYSTEM \u003cpath_filename\u003e\""
+                                     },
+                                     {
+                                         "id":  "ioc-8",
+                                         "type":  "file",
+                                         "malign":  true,
+                                         "hash":  "md5",
+                                         "name":  "handala.exe",
+                                         "value":  "5986ab04dd6b3d259935249741d3eff2",
+                                         "comment":  "Handala Wiper, dropped by initial access vector and used for destructive payload execution"
+                                     }
+                                 ],
+                        "ttps":  [
+                                     {
+                                         "id":  "T1190",
+                                         "comment":  "Exploit Public-Facing Application - Compromised VPN accounts for initial access."
+                                     },
+                                     {
+                                         "id":  "T1133",
+                                         "comment":  "External Remote Services - RDP for hands-on lateral movement."
+                                     },
+                                     {
+                                         "id":  "T1570",
+                                         "comment":  "Lateral Tool Transfer - NetBird deployment via browser download."
+                                     },
+                                     {
+                                         "id":  "T1003.001",
+                                         "comment":  "OS Credential Dumping: LSASS Memory - comsvcs.dll MiniDump."
+                                     },
+                                     {
+                                         "id":  "T1087.002",
+                                         "comment":  "Account Discovery: Domain Accounts - ADRecon PowerShell."
+                                     },
+                                     {
+                                         "id":  "T1485",
+                                         "comment":  "Data Destruction - Handala Wiper (MBR/file overwrite)."
+                                     },
+                                     {
+                                         "id":  "T1561.002",
+                                         "comment":  "Disk Wipe: Disk Structure Wipe - Custom MBR wiping."
+                                     },
+                                     {
+                                         "id":  "T1490",
+                                         "comment":  "Inhibit System Recovery - Multiple parallel wiping methods."
+                                     },
+                                     {
+                                         "id":  "T1486",
+                                         "comment":  "Data Encrypted for Impact - VeraCrypt disk encryption."
+                                     },
+                                     {
+                                         "id":  "T1059.001",
+                                         "comment":  "Command and Scripting Interpreter: PowerShell - AI-assisted wiping script."
+                                     },
+                                     {
+                                         "id":  "T1480",
+                                         "comment":  "Execution Guardrails - Domain Admin creds validation pre-impact."
+                                     },
+                                     {
+                                         "id":  "T1078",
+                                         "comment":  "Valid Accounts - Compromised DA credentials for GPO deployment."
+                                     }
+                                 ],
+                        "queries":  [
+                                        {
+                                            "id":  "query-1",
+                                            "type":  "kql",
+                                            "value":  "Process | where ProcessImageName in~(\u0027rundll32.exe\u0027, \u0027powershell.exe\u0027) | where ProcessCommandLine contains \u0027comsvcs.dll\u0027 and ProcessCommandLine contains \u0027MiniDump\u0027",
+                                            "iocs":  [
+                                                         "ioc-6"
+                                                     ],
+                                            "comment":  "Pre-wiping recon: LSASS dump"
+                                        },
+                                        {
+                                            "id":  "query-2",
+                                            "type":  "kql",
+                                            "value":  "Process | where ProcessImageName in~(\u0027wmic.exe\u0027, \u0027powershell.exe\u0027) | where ProcessCommandLine contains \u0027process call create\u0027 and ProcessCommandLine contains \u0027reg.exe save\u0027",
+                                            "iocs":  [
+                                                         "ioc-7"
+                                                     ],
+                                            "comment":  "Pre-wiping recon: registry copy"
+                                        },
+                                        {
+                                            "id":  "query-3",
+                                            "type":  "kql",
+                                            "value":  "DeviceNetworkEvents | where RemoteIP in (\u0027107.189.19.52\u0027, \u0027169.150.227.0/24\u0027, \u0027146.185.219.235\u0027) | where ActionType == \u0027ConnectionSuccess\u0027",
+                                            "iocs":  [
+                                                         "ioc-1",
+                                                         "ioc-2",
+                                                         "ioc-3"
+                                                     ],
+                                            "comment":  "Suspicious C2/VPN connections from Iranian actors. Here could also detect IR IPs"
+                                        }
+                                    ],
+                        "xrefs":  [
+                                      {
+                                          "id":  "xref-1",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "query-1"
+                                                   ],
+                                          "to":  [
+                                                     "ioc-1"
+                                                 ],
+                                          "comment":  ""
+                                      }
+                                  ],
+                        "metadata":  {
+                                         "url":  "https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/",
+                                         "created":  "12/03/2026",
+                                         "severity":  "critical",
+                                         "confidence":  "high",
+                                         "tags":  [
+                                                      "Handala",
+                                                      "Void Manticore",
+                                                      "Red Sandstorm",
+                                                      "Banished Kitten",
+                                                      "Iran",
+                                                      "Israel",
+                                                      "Albania"
+                                                  ]
+                                     }
+                    },
+                    {
+                        "iocs":  [
+                                     {
+                                         "id":  "ioc-1",
+                                         "type":  "file",
+                                         "malign":  true,
+                                         "hash":  "md5",
+                                         "value":  "f3b869a8d5ad243e35963ba6d7f89855",
+                                         "comment":  "Dropper DLL (Variant 1) filename: 2_2.d"
+                                     },
+                                     {
+                                         "id":  "ioc-2",
+                                         "type":  "file",
+                                         "malign":  true,
+                                         "hash":  "sha1",
+                                         "value":  "c1b272067491258ea4a2b1d2789d82d157aaf90a",
+                                         "comment":  "Dropper DLL (Variant 1) filename: 2_2.d"
+                                     },
+                                     {
+                                         "id":  "ioc-3",
+                                         "type":  "file",
+                                         "malign":  true,
+                                         "hash":  "sha256",
+                                         "value":  "a944a09783023a2c6c62d3601cbd5392a03d808a6a51728e07a3270861c2a8ee",
+                                         "comment":  "Dropper DLL (Variant 1) filename: 2_2.d"
+                                     },
+                                     {
+                                         "id":  "ioc-4",
+                                         "type":  "file",
+                                         "malign":  true,
+                                         "hash":  "md5",
+                                         "value":  "859c4b85ed85e6cc4eadb1a037a61e16",
+                                         "comment":  "PixyNetLoader dropper DLL (Variant 2) filename: table.d"
+                                     },
+                                     {
+                                         "id":  "ioc-5",
+                                         "type":  "file",
+                                         "malign":  true,
+                                         "hash":  "md5",
+                                         "value":  "e4a5c4b205e1b80dc20d9a2fb4126d06",
+                                         "comment":  "Shellcode loader filename: EhStoreShell.dll"
+                                     },
+                                     {
+                                         "id":  "ioc-6",
+                                         "type":  "file",
+                                         "malign":  true,
+                                         "hash":  "md5",
+                                         "value":  "154ff6774294e0e6a46581c8452a77de",
+                                         "comment":  "PNG container with embedded shellcode filename: SplashScreen.png"
+                                     },
+                                     {
+                                         "id":  "ioc-7",
+                                         "type":  "domain",
+                                         "malign":  true,
+                                         "value":  "freefoodaid.com",
+                                         "comment":  "Malicious domain used to host payloads"
+                                     },
+                                     {
+                                         "id":  "ioc-8",
+                                         "type":  "domain",
+                                         "malign":  true,
+                                         "value":  "wellnesscaremed.com",
+                                         "comment":  "Malicious domain used in campaign infrastructure"
+                                     },
+                                     {
+                                         "id":  "ioc-9",
+                                         "type":  "url",
+                                         "malign":  true,
+                                         "value":  "https://freefoodaid.com/documents/2_2.d",
+                                         "comment":  "URL hosting MiniDoor dropper DLL"
+                                     },
+                                     {
+                                         "id":  "ioc-10",
+                                         "type":  "url",
+                                         "malign":  true,
+                                         "value":  "https://freefoodaid.com/tables/tables.d",
+                                         "comment":  "URL hosting PixyNetLoader"
+                                     },
+                                     {
+                                         "id":  "ioc-11",
+                                         "type":  "process",
+                                         "malign":  false,
+                                         "value":  "explorer.exe",
+                                         "comment":  "EhStoreShell.dll executes malicious logic only when loaded by explorer.exe"
+                                     },
+                                     {
+                                         "id":  "ioc-12",
+                                         "type":  "cmdline",
+                                         "malign":  true,
+                                         "value":  "schtasks.exe /Create /tn \"OneDriveHealth\" /XML \"%temp%\\Diagnostics\\office.xml\"",
+                                         "comment":  "Scheduled task creation command used for staged execution"
+                                     },
+                                     {
+                                         "id":  "ioc-13",
+                                         "type":  "email",
+                                         "malign":  true,
+                                         "value":  "briefings@wellnesscaremed.com",
+                                         "comment":  "Attacker-controlled mailbox used by the Outlook VBA forwarding workflow"
+                                     }
+                                 ],
+                        "ttps":  [
+                                     {
+                                         "id":  "T1566.001",
+                                         "comment":  "Phishing: Spearphishing Attachment - weaponized RTFs delivered as attachments."
+                                     },
+                                     {
+                                         "id":  "T1203",
+                                         "comment":  "Exploitation for Client Execution - CVE-2026-21509 exploited by crafted RTF files."
+                                     },
+                                     {
+                                         "id":  "T1053.005",
+                                         "comment":  "Scheduled Task/Job: Scheduled Task - OneDriveHealth task created via schtasks.exe."
+                                     },
+                                     {
+                                         "id":  "T1546.015",
+                                         "comment":  "Event Triggered Execution: Component Object Model Hijacking - persistence via CLSID InProcServer32 hijack."
+                                     },
+                                     {
+                                         "id":  "T1137.006",
+                                         "comment":  "Office Application Startup: Add-ins - malicious Outlook VBA project loaded at startup."
+                                     },
+                                     {
+                                         "id":  "T1027.003",
+                                         "comment":  "Obfuscated Files or Information: Steganography - shellcode hidden in SplashScreen.png LSB data."
+                                     },
+                                     {
+                                         "id":  "T1497.003",
+                                         "comment":  "Virtualization/Sandbox Evasion: Time Based Checks - Sleep timing guardrail check in loader."
+                                     },
+                                     {
+                                         "id":  "T1114",
+                                         "comment":  "Email Collection - MiniDoor Outlook VBA forwards mailbox messages to attacker-controlled addresses."
+                                     },
+                                     {
+                                         "id":  "T1071.001",
+                                         "comment":  "Application Layer Protocol: Web Protocols - Covenant Grunt uses HTTPS for C2 traffic."
+                                     },
+                                     {
+                                         "id":  "T1102.002",
+                                         "comment":  "Web Service: Bidirectional Communication - Filen API abused as C2Bridge channel."
+                                     },
+                                     {
+                                         "id":  "T1480.002",
+                                         "comment":  "Execution Guardrails: Mutual Exclusion - campaign components create mutexes to avoid duplicate execution."
+                                     }
+                                 ],
+                        "vulns":  [
+                                       {
+                                           "id":  "CVE-2026-21509",
+                                           "comment":  "Crafted RTF exploit used in Operation Neusploit delivery chain."
+                                       }
+                                   ],
+                        "queries":  [
+                                        {
+                                            "id":  "query-1",
+                                            "type":  "kql",
+                                            "value":  "DeviceProcessEvents | where FileName =~ \u0027schtasks.exe\u0027 | where ProcessCommandLine has \u0027/Create\u0027 and ProcessCommandLine has \u0027OneDriveHealth\u0027 and ProcessCommandLine has \u0027office.xml\u0027",
+                                            "iocs":  [
+                                                         "ioc-12"
+                                                     ],
+                                            "comment":  "Detect scheduled task creation observed in PixyNetLoader chain"
+                                        },
+                                        {
+                                            "id":  "query-2",
+                                            "type":  "kql",
+                                            "value":  "DeviceNetworkEvents | where RemoteUrl has_any (\u0027freefoodaid.com\u0027, \u0027wellnesscaremed.com\u0027)",
+                                            "iocs":  [
+                                                         "ioc-7",
+                                                         "ioc-8",
+                                                         "ioc-9",
+                                                         "ioc-10"
+                                                     ],
+                                            "comment":  "Detect network activity to campaign infrastructure"
+                                        },
+                                        {
+                                            "id":  "query-3",
+                                            "type":  "yara",
+                                            "value":  "rule APT28_Operation_Neusploit_PixyNetLoader { strings: $m1 = \"asagdugughi41\" ascii $m2 = \"OneDriveHealth\" ascii $m3 = \"EhStoreShell.dll\" ascii condition: 2 of ($m*) }",
+                                            "iocs":  [
+                                                         "ioc-4",
+                                                         "ioc-5",
+                                                         "ioc-12"
+                                                     ],
+                                            "comment":  "Static detections based on strings explicitly documented in the report"
+                                        }
+                                    ],
+                        "xrefs":  [
+                                      {
+                                          "id":  "xref-1",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "query-1",
+                                                       "query-2",
+                                                       "query-3"
+                                                   ],
+                                          "to":  [
+                                                     "ioc-7",
+                                                     "ioc-9",
+                                                     "ioc-10"
+                                                 ],
+                                          "comment":  "Operation Neusploit chain: exploit RTF -\u003e dropper DLL -\u003e persistence via COM hijack and scheduled task -\u003e shellcode loader -\u003e Covenant Grunt C2"
+                                      }
+                                  ],
+                        "metadata":  {
+                                         "url":  "https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/",
+                                         "created":  "02/02/2026",
+                                         "severity":  "critical",
+                                         "confidence":  "high",
+                                         "tags":  [
+                                                      "APT28",
+                                                      "Operation Neusploit",
+                                                      "CVE-2026-21509",
+                                                      "MiniDoor",
+                                                      "PixyNetLoader",
+                                                      "Covenant",
+                                                      "Russia",
+                                                      "Ukraine",
+                                                      "Slovakia",
+                                                      "Romania"
+                                                  ]
+                                     }
+                    }
+                ]
 }

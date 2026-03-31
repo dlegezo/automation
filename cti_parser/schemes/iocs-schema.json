@@ -12,38 +12,57 @@
             "items": {
                 "type": "object",
                 "required": [
-                    "url",
-                    "created",
+                    "metadata",
                     "iocs",
                     "ttps"
                 ],
                 "properties": {
-                    "url": {
-                        "type": "string",
-                        "format": "uri",
-                        "description": "URL of source CTI report, web or local file path"
-                    },
-                    "created": {
-                        "type": "string",
-                        "pattern": "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$",
-                        "description": "Date when the report was created, in format DD/MM/YYYY"
-                    },
-                    "tags": {
-                        "type": "array",
-                        "description": "List of tags associated with the report",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "severity": {
-                        "type": "string",
-                        "enum": [
-                            "low",
-                            "medium",
-                            "high",
-                            "critical"
+                    "metadata": {
+                        "type": "object",
+                        "required": [
+                            "url",
+                            "created",
+                            "severity",
+                            "confidence"
                         ],
-                        "description": "Severity level of the report based on victims geolocation and industry"
+                        "properties": {
+                            "url": {
+                                "type": "string",
+                                "format": "uri",
+                                "description": "URL of source CTI report, web or local file path"
+                            },
+                            "created": {
+                                "type": "string",
+                                "pattern": "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$",
+                                "description": "Date when the report was created, in format DD/MM/YYYY"
+                            },
+                            "severity": {
+                                "type": "string",
+                                "enum": [
+                                    "low",
+                                    "medium",
+                                    "high",
+                                    "critical"
+                                ],
+                                "description": "Severity level of the report based on victims geolocation and industry"
+                            },
+                            "confidence": {
+                                "type": "string",
+                                "enum": [
+                                    "low",
+                                    "medium",
+                                    "high"
+                                ],
+                                "description": "Analyst confidence level for extracted report intelligence"
+                            },
+                            "tags": {
+                                "type": "array",
+                                "description": "List of tags associated with the report",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
                     },
                     "iocs": {
                         "type": "array",
@@ -65,6 +84,7 @@
                                 "type": {
                                     "type": "string",
                                     "enum": [
+                                        "email",
                                         "ip",
                                         "domain",
                                         "url",
@@ -86,6 +106,10 @@
                                         "md5"
                                     ],
                                     "description": "Type of hash if the IOC type is 'file'"
+                                },
+                                "cert_serial": {
+                                    "type": "string",
+                                    "description": "Certificate serial number associated with file signing or TLS/SSL certificates for file, domain, or ip IOCs"
                                 },
                                 "value": {
                                     "type": "string",
@@ -117,8 +141,50 @@
                                             ]
                                         }
                                     }
+                                },
+                                {
+                                    "if": {
+                                        "properties": {
+                                            "type": {
+                                                "enum": [
+                                                    "file",
+                                                    "domain",
+                                                    "ip"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "else": {
+                                        "not": {
+                                            "required": [
+                                                "cert_serial"
+                                            ]
+                                        }
+                                    }
                                 }
                             ]
+                        }
+                    },
+                    "vulns": {
+                        "type": "array",
+                        "description": "List of vulnerabilities associated with the report",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "id",
+                                "comment"
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "pattern": "^CVE-[0-9]{4}-[0-9]{4,}$",
+                                    "description": "CVE identifier for the vulnerability"
+                                },
+                                "comment": {
+                                    "type": "string",
+                                    "description": "Additional comments or context about the vulnerability"
+                                }
+                            }
                         }
                     },
                     "ttps": {
