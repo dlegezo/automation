@@ -35,6 +35,16 @@
                             "type": "string"
                         }
                     },
+                    "severity": {
+                        "type": "string",
+                        "enum": [
+                            "low",
+                            "medium",
+                            "high",
+                            "critical"
+                        ],
+                        "description": "Severity level of the report based on victims geolocation and industry"
+                    },
                     "iocs": {
                         "type": "array",
                         "description": "List of IOCs extracted from the report",

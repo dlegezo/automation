@@ -1,4 +1,4 @@
-# Pipeline Schema Documentation
+﻿# Pipeline Schema Documentation
 
 This document describes the JSON schema defined in `cti_parser/schemes/pipeline-schema.json`.
 
@@ -32,7 +32,7 @@ Required fields: `url`, `created`, `type`
 |---|---|---|---|---|
 | `url` | string | Yes | `format: uri` | URL of the CTI report, web or local file path. |
 | `created` | string | Yes | `pattern: ^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$` | Date when the report was created, in format `DD/MM/YYYY`. |
-| `type` | string | Yes | enum: `http`, `pdf` | Type of report file. |
+| `type` | string | Yes | enum: `html`, `pdf` | Type of report file. |
 | `comment` | string | No | None | Additional comments about the report. |
 
 ## `publishing` Items
@@ -56,7 +56,7 @@ flowchart TD
     B --> B1[source item: object]
     B1 --> B2[url: string, format uri]
     B1 --> B3[created: string, DD/MM/YYYY pattern]
-    B1 --> B4[type: enum http, pdf]
+    B1 --> B4[type: enum html, pdf]
     B1 --> B5[comment: string optional]
 
     C --> C1[publishing item: object]
@@ -78,7 +78,7 @@ flowchart TD
     {
       "url": "file:///C:/cti/local-report.html",
       "created": "27/03/2026",
-      "type": "http"
+      "type": "html"
     }
   ],
   "publishing": [
@@ -97,6 +97,7 @@ flowchart TD
 ## Validation Notes
 
 - `created` must strictly match `DD/MM/YYYY`.
-- `source[].type` only accepts `http` or `pdf`.
+- `source[].type` only accepts `html` or `pdf`.
 - `publishing[].type` only accepts `markdown`, `json`, `csv`, or `yaml`.
 - URI validation follows JSON Schema `format: uri` behavior used by your validator.
+

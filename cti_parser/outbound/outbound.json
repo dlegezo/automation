@@ -5,6 +5,7 @@
     {
       "url": "https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/",
       "created": "10/03/2026",
+      "severity": "high",
       "tags": [
         "Sednit",
         "APT28",
@@ -216,6 +217,7 @@
     {
       "url": "https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/",
       "created": "12/03/2026",
+      "severity": "critical",
       "tags": [
         "Handala",
         "Void Manticore",
@@ -369,7 +371,7 @@
       "xrefs": [
         {
           "id": "xref-1",
-          "type": "",
+          "type": "uses",
           "from": [
             "query-1"
           ],
@@ -383,6 +385,7 @@
     {
       "url": "https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/",
       "created": "02/02/2026",
+      "severity": "critical",
       "tags": [
         "APT28",
         "Operation Neusploit",
@@ -570,7 +573,7 @@
       "xrefs": [
         {
           "id": "xref-1",
-          "type": "detects",
+          "type": "uses",
           "from": [
             "query-1",
             "query-2",

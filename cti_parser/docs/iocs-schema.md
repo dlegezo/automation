@@ -6,7 +6,7 @@ This document describes the JSON schema defined in `cti_parser/schemes/iocs-sche
 
 The schema defines parsed CTI reports with:
 
-- report metadata (`url`, `created`, optional `tags`)
+- report metadata (`url`, `created`, optional `severity`, optional `tags`)
 - indicators (`iocs`)
 - techniques (`ttps`)
 - detection logic (`queries`)
@@ -32,6 +32,7 @@ Required fields: `url`, `created`, `iocs`, `ttps`
 |---|---|---|---|
 | `url` | string | Yes | URL of source CTI report, web or local file path. |
 | `created` | string | Yes | Date in `DD/MM/YYYY` format. |
+| `severity` | string | No | Report severity: `low`, `medium`, `high`, `critical`. |
 | `tags` | string[] | No | Labels associated with the report. |
 | `iocs` | array | Yes | IOC objects. |
 | `ttps` | array | Yes | TTP objects. |
@@ -104,13 +105,14 @@ flowchart TD
 
     C --> C1[url]
     C --> C2[created]
-    C --> C3[tags optional]
-    C --> C4[iocs]
-    C --> C5[ttps]
-    C --> C6[queries optional]
-    C --> C7[xrefs optional]
+    C --> C3[severity optional]
+    C --> C4[tags optional]
+    C --> C5[iocs]
+    C --> C6[ttps]
+    C --> C7[queries optional]
+    C --> C8[xrefs optional]
 
-    C4 --> I[ioc item]
+    C5 --> I[ioc item]
     I --> I1[id]
     I --> I2[type: ip/domain/url/file/process/cmdline]
     I --> I3[malign: boolean required]
@@ -118,11 +120,11 @@ flowchart TD
     I --> I5[value]
     I --> I6[comment optional]
 
-    C5 --> T[ttp item]
+    C6 --> T[ttp item]
     T --> T1[id]
     T --> T2[comment]
 
-    C6 --> Q[query item]
+    C7 --> Q[query item]
     Q --> Q1[id]
     Q --> Q2[type: kql/yara/spl/sigma/sql]
     Q --> Q3[value]
@@ -130,7 +132,7 @@ flowchart TD
     Q --> Q5[ttps optional]
     Q --> Q6[comment optional]
 
-    C7 --> X[xref item]
+    C8 --> X[xref item]
     X --> X1[id]
     X --> X2[type: creates/uses]
     X --> X3[from optional]
@@ -146,6 +148,7 @@ flowchart TD
     {
       "url": "https://example.org/reports/cti-001",
       "created": "27/03/2026",
+      "severity": "high",
       "tags": ["apt", "phishing"],
       "iocs": [
         {
@@ -196,6 +199,7 @@ flowchart TD
 ## Validation Notes
 
 - `created` must strictly match `DD/MM/YYYY`.
+- `severity` accepts only: `low`, `medium`, `high`, `critical`.
 - `iocs[].type` accepts only: `ip`, `domain`, `url`, `file`, `process`, `cmdline`.
 - `iocs[].malign` is required on every IOC entry.
 - `iocs[].hash` is required when `iocs[].type = file` and must be absent otherwise.

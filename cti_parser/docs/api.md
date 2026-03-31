@@ -1,4 +1,4 @@
-# CTI Parser API Documentation
+﻿# CTI Parser API Documentation
 
 This document describes the HTTP endpoints implemented in `cti_parser/api/server.py`.
 
@@ -28,7 +28,7 @@ Status: `200 OK`
       "url": "https://example.org/report",
       "name": "example-report",
       "created": "01/01/2026",
-      "type": "http",
+      "type": "html",
       "comment": "..."
     }
   ],
@@ -57,6 +57,7 @@ Status: `200 OK`
     {
       "url": "https://example.org/report",
       "created": "01/01/2026",
+      "severity": "high",
       "tags": ["tag1"],
       "iocs": [],
       "ttps": []
@@ -127,3 +128,4 @@ Test endpoints:
 curl http://127.0.0.1:8080/api/v1/list
 curl http://127.0.0.1:8080/api/v1/reports
 ```
+
