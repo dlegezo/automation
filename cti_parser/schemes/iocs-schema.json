@@ -61,7 +61,10 @@
                                 "items": {
                                     "type": "string"
                                 }
-                            }
+                            },
+                            "actor": {
+                                "type": "string",
+                                "description": "Threat actor in MITRE G... format associated with the report, if identified"
                         }
                     },
                     "iocs": {
@@ -240,20 +243,6 @@
                                     "type": "string",
                                     "description": "The query string used to search for the IOCs in security tools"
                                 },
-                                "iocs": {
-                                    "type": "array",
-                                    "description": "List of IOC IDs that this query is associated with",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "ttps": {
-                                    "type": "array",
-                                    "description": "List of TTP IDs that this query is associated with",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
                                 "comment": {
                                     "type": "string",
                                     "description": "Additional comments or context about the query"
@@ -280,7 +269,8 @@
                                     "type": "string",
                                     "enum": [
                                         "creates",
-                                        "uses"
+                                        "uses",
+                                        "follows"
                                     ],
                                     "description": "Type of this cross-reference"
                                 },

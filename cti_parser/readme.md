@@ -19,4 +19,20 @@
 - Actors relations on pics - skipped as unreliable and not a priority
 - CIDR IOCs for IP indicators. Hunting by CIDR?
 - Infection chain is expressed as a plain text timeline.
-- 
+
+
++ metadata
+    + severity (how interesting is it)
+    + confidence
+    + actor in mitre classification
++ vulns
+- queries[].iocs/ttps
++ xrefs[].type == follows for ttps, creates for files, uses for domains
+
+Process tree for detection - different type of links for mitre -> mitre and file -> domain
+TTL for specific IOC and TTP - report date
+Xrefs Relationship type should not be creates or uses but rather parent / child
+Sequence of TTP is important (using xrefs relationship)
+Check how to enrich detection queries from other reports (cross references)
+Enrich report output with MITRE name for group => Add tags to Json
+Show if report is relevant scope (geo, industry)
