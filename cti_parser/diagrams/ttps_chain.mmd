@@ -76,6 +76,14 @@ flowchart LR
     r3_T1071_001 -->|uses| r3_T1102_002
     end
 
+    subgraph report_4["Report 4: https://blog.talosintelligence.com/knife-cutting-the-edge/"]
+    r4_T1041["T1041"]
+    r4_T1071_001["T1071.001"]
+    r4_T1557["T1557"]
+    r4_T1557 -->|follows| r4_T1071_001
+    r4_T1071_001 -->|follows| r4_T1041
+    end
+
     classDef ttp fill:#e6f2ff,stroke:#0066cc,stroke-width:1px
     class r1_T1001 ttp
     class r1_T1005 ttp
@@ -111,3 +119,6 @@ flowchart LR
     class r3_T1497_003 ttp
     class r3_T1546_015 ttp
     class r3_T1566_001 ttp
+    class r4_T1041 ttp
+    class r4_T1071_001 ttp
+    class r4_T1557 ttp
