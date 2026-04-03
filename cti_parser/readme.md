@@ -21,11 +21,13 @@
 - Infection chain is expressed as a plain text timeline.
 
 
-+ metadata
++ metadata[]
     + severity (how interesting is it)
     + confidence
     + actor in mitre classification
 + vulns
++ iocs[]
+    + .regkey .email .filepath .mutex .cert
 - queries[].iocs/ttps
 + xrefs[].type == follows for ttps, creates for files, uses for domains
 

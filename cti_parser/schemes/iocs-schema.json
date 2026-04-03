@@ -65,6 +65,7 @@
                             "actor": {
                                 "type": "string",
                                 "description": "Threat actor in MITRE G... format associated with the report, if identified"
+                            }
                         }
                     },
                     "iocs": {
@@ -87,13 +88,17 @@
                                 "type": {
                                     "type": "string",
                                     "enum": [
-                                        "email",
                                         "ip",
                                         "domain",
                                         "url",
+                                        "email",
                                         "file",
+                                        "filepath",
                                         "process",
-                                        "cmdline"
+                                        "cmdline",
+                                        "regkey",
+                                        "mutex",
+                                        "cert"
                                     ],
                                     "description": "Type of IOC"
                                 },
