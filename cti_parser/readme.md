@@ -27,14 +27,14 @@
     + actor in mitre classification
 + vulns
 + iocs[]
-    + .regkey .email .filepath .mutex .cert
+    + .regkey .email .filepath .mutex .cert .pipe .service
 - queries[].iocs/ttps
 + xrefs[].type == follows for ttps, creates for files, uses for domains
 
-Process tree for detection - different type of links for mitre -> mitre and file -> domain
-TTL for specific IOC and TTP - report date
-Xrefs Relationship type should not be creates or uses but rather parent / child
-Sequence of TTP is important (using xrefs relationship)
-Check how to enrich detection queries from other reports (cross references)
-Enrich report output with MITRE name for group => Add tags to Json
-Show if report is relevant scope (geo, industry)
+Process tree for detection: different type of links for mitre --follows-> mitre and file --uses/creates-> regkey
+TTL for specific IOC and TTP - report date, let's keep in metadata
+Xrefs Relationship type should not be creates or uses but rather parent / child - from/to are properties, and follows/uses/creates is another property. from/to is a real alternative for parents/children[] and it's broader
+Sequence of TTP is important (using xrefs relationship) - connect through xref with follows type
+Check how to enrich detection queries from other reports (cross references) - looks like very far shot, not the first epics
+Enrich report output with MITRE name for group => Add tags to Json - metadata.actor is the place, check if all the actors have mitre names (Handala)
+Show if report is relevant scope (geo, industry) - metadata.severity is the place (naming and discrete values)

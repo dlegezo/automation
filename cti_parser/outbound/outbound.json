@@ -15,12 +15,13 @@
                                                       "BeardShell",
                                                       "Russia",
                                                       "Ukraine"
-                                                  ]
+                                                  ],
+                                         "actor":  "G0007"
                                      },
                         "iocs":  [
                                      {
                                          "id":  "ioc-1",
-                                         "type":  "file",
+                                         "type":  "filename",
                                          "malign":  true,
                                          "hash":  "sha1",
                                          "value":  "5603E99151F8803C13D48D83B8A64D071542F01B",
@@ -33,7 +34,7 @@
                                      },
                                      {
                                          "id":  "ioc-2",
-                                         "type":  "file",
+                                         "type":  "filename",
                                          "malign":  true,
                                          "hash":  "sha1",
                                          "value":  "6D39F49AA11CE0574D581F10DB0F9BAE423CE3D5",
@@ -353,7 +354,8 @@
                                                       "Iran",
                                                       "Israel",
                                                       "Albania"
-                                                  ]
+                                                  ],
+                                         "actor":  "G0000"
                                      },
                         "iocs":  [
                                      {
@@ -407,7 +409,7 @@
                                      },
                                      {
                                          "id":  "ioc-8",
-                                         "type":  "file",
+                                         "type":  "filename",
                                          "malign":  true,
                                          "hash":  "md5",
                                          "name":  "handala.exe",
@@ -638,12 +640,13 @@
                                                       "Ukraine",
                                                       "Slovakia",
                                                       "Romania"
-                                                  ]
+                                                  ],
+                                         "actor":  "G0007"
                                      },
                         "iocs":  [
                                      {
                                          "id":  "ioc-1",
-                                         "type":  "file",
+                                         "type":  "filename",
                                          "malign":  true,
                                          "hash":  "md5",
                                          "value":  "f3b869a8d5ad243e35963ba6d7f89855",
@@ -651,7 +654,7 @@
                                      },
                                      {
                                          "id":  "ioc-2",
-                                         "type":  "file",
+                                         "type":  "filename",
                                          "malign":  true,
                                          "hash":  "sha1",
                                          "value":  "c1b272067491258ea4a2b1d2789d82d157aaf90a",
@@ -659,7 +662,7 @@
                                      },
                                      {
                                          "id":  "ioc-3",
-                                         "type":  "file",
+                                         "type":  "filename",
                                          "malign":  true,
                                          "hash":  "sha256",
                                          "value":  "a944a09783023a2c6c62d3601cbd5392a03d808a6a51728e07a3270861c2a8ee",
@@ -667,7 +670,7 @@
                                      },
                                      {
                                          "id":  "ioc-4",
-                                         "type":  "file",
+                                         "type":  "filename",
                                          "malign":  true,
                                          "hash":  "md5",
                                          "value":  "859c4b85ed85e6cc4eadb1a037a61e16",
@@ -675,7 +678,7 @@
                                      },
                                      {
                                          "id":  "ioc-5",
-                                         "type":  "file",
+                                         "type":  "filename",
                                          "malign":  true,
                                          "hash":  "md5",
                                          "value":  "e4a5c4b205e1b80dc20d9a2fb4126d06",
@@ -683,7 +686,7 @@
                                      },
                                      {
                                          "id":  "ioc-6",
-                                         "type":  "file",
+                                         "type":  "filename",
                                          "malign":  true,
                                          "hash":  "md5",
                                          "value":  "154ff6774294e0e6a46581c8452a77de",

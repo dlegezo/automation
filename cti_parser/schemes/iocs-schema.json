@@ -23,7 +23,9 @@
                             "url",
                             "created",
                             "severity",
-                            "confidence"
+                            "confidence",
+                            "tags",
+                            "actor"
                         ],
                         "properties": {
                             "url": {
@@ -64,7 +66,8 @@
                             },
                             "actor": {
                                 "type": "string",
-                                "description": "Threat actor in MITRE G... format associated with the report, if identified"
+                                "pattern": "^G[0-9]{4}$",
+                                "description": "Threat actor in MITRE ATT&CK group format (G####), for example G0007"
                             }
                         }
                     },
@@ -92,12 +95,14 @@
                                         "domain",
                                         "url",
                                         "email",
-                                        "file",
+                                        "filename",
                                         "filepath",
                                         "process",
                                         "cmdline",
                                         "regkey",
                                         "mutex",
+                                        "pipe",
+                                        "service",
                                         "cert"
                                     ],
                                     "description": "Type of IOC"
@@ -127,50 +132,7 @@
                                     "type": "string",
                                     "description": "Additional comments or context about the IOC"
                                 }
-                            },
-                            "allOf": [
-                                {
-                                    "if": {
-                                        "properties": {
-                                            "type": {
-                                                "const": "file"
-                                            }
-                                        }
-                                    },
-                                    "then": {
-                                        "required": [
-                                            "hash"
-                                        ]
-                                    },
-                                    "else": {
-                                        "not": {
-                                            "required": [
-                                                "hash"
-                                            ]
-                                        }
-                                    }
-                                },
-                                {
-                                    "if": {
-                                        "properties": {
-                                            "type": {
-                                                "enum": [
-                                                    "file",
-                                                    "domain",
-                                                    "ip"
-                                                ]
-                                            }
-                                        }
-                                    },
-                                    "else": {
-                                        "not": {
-                                            "required": [
-                                                "cert_serial"
-                                            ]
-                                        }
-                                    }
-                                }
-                            ]
+                            }
                         }
                     },
                     "vulns": {
