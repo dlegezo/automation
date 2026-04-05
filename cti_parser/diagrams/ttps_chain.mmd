@@ -3,127 +3,195 @@ flowchart LR
     %% TTP chains only (derived from xrefs)
 
     subgraph report_1["Report 1: https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/"]
-    r1_T1001["T1001"]
+    r1_T1001_001["T1001.001"]
     r1_T1005["T1005"]
+    r1_T1056_001["T1056.001"]
     r1_T1059_001["T1059.001"]
     r1_T1071_001["T1071.001"]
     r1_T1082["T1082"]
-    r1_T1102["T1102"]
+    r1_T1102_002["T1102.002"]
+    r1_T1113["T1113"]
+    r1_T1115["T1115"]
     r1_T1129["T1129"]
-    r1_T1480["T1480"]
+    r1_T1480_001["T1480.001"]
     r1_T1546_015["T1546.015"]
-    r1_T1567["T1567"]
+    r1_T1564_001["T1564.001"]
+    r1_T1567_002["T1567.002"]
     r1_T1573_002["T1573.002"]
+    r1_T1583_006["T1583.006"]
     r1_T1587_001["T1587.001"]
-    r1_T1587_001 -->|uses| r1_T1129
-    r1_T1129 -->|uses| r1_T1546_015
-    r1_T1546_015 -->|uses| r1_T1059_001
-    r1_T1059_001 -->|uses| r1_T1480
-    r1_T1480 -->|uses| r1_T1082
-    r1_T1082 -->|uses| r1_T1005
-    r1_T1005 -->|uses| r1_T1001
-    r1_T1001 -->|uses| r1_T1573_002
-    r1_T1573_002 -->|uses| r1_T1071_001
-    r1_T1071_001 -->|uses| r1_T1102
-    r1_T1102 -->|uses| r1_T1567
+    r1_T1583_006 -->|follows| r1_T1102_002
+    r1_T1587_001 -->|follows| r1_T1129
+    r1_T1129 -->|follows| r1_T1546_015
+    r1_T1546_015 -->|follows| r1_T1059_001
+    r1_T1059_001 -->|follows| r1_T1480_001
+    r1_T1480_001 -->|follows| r1_T1082
+    r1_T1082 -->|follows| r1_T1005
+    r1_T1005 -->|follows| r1_T1056_001
+    r1_T1056_001 -->|follows| r1_T1113
+    r1_T1113 -->|follows| r1_T1115
+    r1_T1115 -->|follows| r1_T1564_001
+    r1_T1564_001 -->|follows| r1_T1001_001
+    r1_T1001_001 -->|follows| r1_T1573_002
+    r1_T1573_002 -->|follows| r1_T1071_001
+    r1_T1071_001 -->|follows| r1_T1102_002
+    r1_T1102_002 -->|follows| r1_T1567_002
     end
 
     subgraph report_2["Report 2: https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/"]
     r2_T1003_001["T1003.001"]
+    r2_T1003_002["T1003.002"]
+    r2_T1021_001["T1021.001"]
+    r2_T1037_003["T1037.003"]
+    r2_T1047["T1047"]
+    r2_T1053_005["T1053.005"]
     r2_T1059_001["T1059.001"]
-    r2_T1078["T1078"]
+    r2_T1078_002["T1078.002"]
     r2_T1087_002["T1087.002"]
+    r2_T1105["T1105"]
+    r2_T1110["T1110"]
     r2_T1133["T1133"]
-    r2_T1480["T1480"]
+    r2_T1199["T1199"]
+    r2_T1480_001["T1480.001"]
+    r2_T1484_001["T1484.001"]
     r2_T1485["T1485"]
     r2_T1486["T1486"]
     r2_T1490["T1490"]
     r2_T1561_002["T1561.002"]
     r2_T1570["T1570"]
-    r2_T1133 -->|uses| r2_T1570
-    r2_T1570 -->|uses| r2_T1003_001
-    r2_T1003_001 -->|uses| r2_T1087_002
-    r2_T1087_002 -->|uses| r2_T1078
-    r2_T1078 -->|uses| r2_T1480
-    r2_T1480 -->|uses| r2_T1059_001
-    r2_T1059_001 -->|uses| r2_T1485
-    r2_T1485 -->|uses| r2_T1561_002
-    r2_T1485 -->|uses| r2_T1490
-    r2_T1485 -->|uses| r2_T1486
+    r2_T1572["T1572"]
+    r2_T1199 -->|follows| r2_T1110
+    r2_T1110 -->|follows| r2_T1078_002
+    r2_T1078_002 -->|follows| r2_T1133
+    r2_T1133 -->|follows| r2_T1021_001
+    r2_T1021_001 -->|follows| r2_T1570
+    r2_T1570 -->|follows| r2_T1105
+    r2_T1105 -->|follows| r2_T1572
+    r2_T1572 -->|follows| r2_T1047
+    r2_T1047 -->|follows| r2_T1003_001
+    r2_T1003_001 -->|follows| r2_T1003_002
+    r2_T1003_002 -->|follows| r2_T1087_002
+    r2_T1087_002 -->|follows| r2_T1484_001
+    r2_T1484_001 -->|follows| r2_T1037_003
+    r2_T1037_003 -->|follows| r2_T1053_005
+    r2_T1053_005 -->|follows| r2_T1480_001
+    r2_T1480_001 -->|follows| r2_T1059_001
+    r2_T1059_001 -->|follows| r2_T1485
+    r2_T1485 -->|follows| r2_T1561_002
+    r2_T1485 -->|follows| r2_T1490
+    r2_T1485 -->|follows| r2_T1486
     end
 
     subgraph report_3["Report 3: https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/"]
     r3_T1027_003["T1027.003"]
+    r3_T1027_007["T1027.007"]
     r3_T1053_005["T1053.005"]
     r3_T1071_001["T1071.001"]
     r3_T1102_002["T1102.002"]
-    r3_T1114["T1114"]
+    r3_T1106["T1106"]
+    r3_T1114_001["T1114.001"]
     r3_T1137_006["T1137.006"]
+    r3_T1140["T1140"]
     r3_T1203["T1203"]
     r3_T1480_002["T1480.002"]
     r3_T1497_003["T1497.003"]
     r3_T1546_015["T1546.015"]
     r3_T1566_001["T1566.001"]
-    r3_T1566_001 -->|uses| r3_T1203
-    r3_T1203 -->|uses| r3_T1137_006
-    r3_T1137_006 -->|uses| r3_T1114
-    r3_T1203 -->|uses| r3_T1053_005
-    r3_T1053_005 -->|uses| r3_T1546_015
-    r3_T1546_015 -->|uses| r3_T1027_003
-    r3_T1027_003 -->|uses| r3_T1497_003
-    r3_T1497_003 -->|uses| r3_T1480_002
-    r3_T1480_002 -->|uses| r3_T1071_001
-    r3_T1071_001 -->|uses| r3_T1102_002
+    r3_T1566_001 -->|follows| r3_T1203
+    r3_T1203 -->|follows| r3_T1137_006
+    r3_T1137_006 -->|follows| r3_T1114_001
+    r3_T1203 -->|follows| r3_T1053_005
+    r3_T1053_005 -->|follows| r3_T1546_015
+    r3_T1546_015 -->|follows| r3_T1027_003
+    r3_T1027_003 -->|follows| r3_T1497_003
+    r3_T1497_003 -->|follows| r3_T1480_002
+    r3_T1480_002 -->|follows| r3_T1027_007
+    r3_T1027_007 -->|follows| r3_T1140
+    r3_T1140 -->|follows| r3_T1106
+    r3_T1106 -->|follows| r3_T1071_001
+    r3_T1071_001 -->|follows| r3_T1102_002
     end
 
     subgraph report_4["Report 4: https://blog.talosintelligence.com/knife-cutting-the-edge/"]
     r4_T1041["T1041"]
     r4_T1071_001["T1071.001"]
+    r4_T1105["T1105"]
     r4_T1557["T1557"]
-    r4_T1557 -->|follows| r4_T1071_001
-    r4_T1071_001 -->|follows| r4_T1041
+    r4_T1565_002["T1565.002"]
+    r4_T1572["T1572"]
+    r4_T1557 -->|follows| r4_T1565_002
+    r4_T1565_002 -->|follows| r4_T1105
+    r4_T1105 -->|follows| r4_T1071_001
+    r4_T1071_001 -->|follows| r4_T1572
+    r4_T1572 -->|follows| r4_T1041
     end
 
     subgraph report_5["Report 5: https://jp.security.ntt/insights_resources/tech_blog/stoatwaffle_malware/"]
     r5_T1041["T1041"]
+    r5_T1059_003["T1059.003"]
+    r5_T1059_007["T1059.007"]
+    r5_T1071_001["T1071.001"]
     r5_T1105["T1105"]
-    r5_T1204["T1204"]
+    r5_T1204_002["T1204.002"]
+    r5_T1518["T1518"]
     r5_T1555_003["T1555.003"]
-    r5_T1204 -->|follows| r5_T1105
+    r5_T1204_002 -->|follows| r5_T1105
+    r5_T1059_003 -->|follows| r5_T1059_007
+    r5_T1059_007 -->|follows| r5_T1105
     r5_T1105 -->|follows| r5_T1555_003
-    r5_T1555_003 -->|follows| r5_T1041
+    r5_T1555_003 -->|follows| r5_T1518
+    r5_T1518 -->|follows| r5_T1071_001
+    r5_T1071_001 -->|follows| r5_T1041
     end
 
     classDef ttp fill:#e6f2ff,stroke:#0066cc,stroke-width:1px
-    class r1_T1001 ttp
+    class r1_T1001_001 ttp
     class r1_T1005 ttp
+    class r1_T1056_001 ttp
     class r1_T1059_001 ttp
     class r1_T1071_001 ttp
     class r1_T1082 ttp
-    class r1_T1102 ttp
+    class r1_T1102_002 ttp
+    class r1_T1113 ttp
+    class r1_T1115 ttp
     class r1_T1129 ttp
-    class r1_T1480 ttp
+    class r1_T1480_001 ttp
     class r1_T1546_015 ttp
-    class r1_T1567 ttp
+    class r1_T1564_001 ttp
+    class r1_T1567_002 ttp
     class r1_T1573_002 ttp
+    class r1_T1583_006 ttp
     class r1_T1587_001 ttp
     class r2_T1003_001 ttp
+    class r2_T1003_002 ttp
+    class r2_T1021_001 ttp
+    class r2_T1037_003 ttp
+    class r2_T1047 ttp
+    class r2_T1053_005 ttp
     class r2_T1059_001 ttp
-    class r2_T1078 ttp
+    class r2_T1078_002 ttp
     class r2_T1087_002 ttp
+    class r2_T1105 ttp
+    class r2_T1110 ttp
     class r2_T1133 ttp
-    class r2_T1480 ttp
+    class r2_T1199 ttp
+    class r2_T1480_001 ttp
+    class r2_T1484_001 ttp
     class r2_T1485 ttp
     class r2_T1486 ttp
     class r2_T1490 ttp
     class r2_T1561_002 ttp
     class r2_T1570 ttp
+    class r2_T1572 ttp
     class r3_T1027_003 ttp
+    class r3_T1027_007 ttp
     class r3_T1053_005 ttp
     class r3_T1071_001 ttp
     class r3_T1102_002 ttp
-    class r3_T1114 ttp
+    class r3_T1106 ttp
+    class r3_T1114_001 ttp
     class r3_T1137_006 ttp
+    class r3_T1140 ttp
     class r3_T1203 ttp
     class r3_T1480_002 ttp
     class r3_T1497_003 ttp
@@ -131,8 +199,15 @@ flowchart LR
     class r3_T1566_001 ttp
     class r4_T1041 ttp
     class r4_T1071_001 ttp
+    class r4_T1105 ttp
     class r4_T1557 ttp
+    class r4_T1565_002 ttp
+    class r4_T1572 ttp
     class r5_T1041 ttp
+    class r5_T1059_003 ttp
+    class r5_T1059_007 ttp
+    class r5_T1071_001 ttp
     class r5_T1105 ttp
-    class r5_T1204 ttp
+    class r5_T1204_002 ttp
+    class r5_T1518 ttp
     class r5_T1555_003 ttp

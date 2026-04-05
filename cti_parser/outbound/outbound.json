@@ -77,79 +77,79 @@
                         "ttps":  [
                                      {
                                          "id":  "T1583.006",
-                                         "comment":  "Acquire Infrastructure: Web Services - BeardShell relies on Icedrive cloud storage. Covenant relies on Filen cloud storage."
+                                         "comment":  "Acquire Infrastructure: Web Services - BeardShell uses Icedrive and modified Covenant uses Filen as cloud C2 infrastructure."
                                      },
                                      {
                                          "id":  "T1587.001",
-                                         "comment":  "Develop Capabilities: Malware - BeardShell and SlimAgent are custom malware."
+                                         "comment":  "Develop Capabilities: Malware - SlimAgent and BeardShell are custom malware maintained by Sednit developers."
                                      },
                                      {
                                          "id":  "T1059.001",
-                                         "comment":  "Command and Scripting Interpreter: PowerShell - BeardShell executes PowerShell commands."
+                                         "comment":  "Command and Scripting Interpreter: PowerShell - BeardShell executes PowerShell commands in-process."
                                      },
                                      {
                                          "id":  "T1129",
-                                         "comment":  "Shared Modules - BeardShell and SlimAgent are full-fledged DLL files."
+                                         "comment":  "Shared Modules - Core implants are delivered as DLL modules (SlimAgent and BeardShell)."
                                      },
                                      {
                                          "id":  "T1546.015",
-                                         "comment":  "Event Triggered Execution: Component Object Model Hijacking - BeardShell and SlimAgent are made persistent by hijacking COM objects."
+                                         "comment":  "Event Triggered Execution: Component Object Model Hijacking - Persistence is achieved through COM hijacking."
                                      },
                                      {
                                          "id":  "T1027",
-                                         "comment":  "Obfuscated Files or Information - BeardShell Icedrive token decryption is obfuscated."
+                                         "comment":  "Obfuscated Files or Information - BeardShell applies opaque-predicate obfuscation around token handling code."
                                      },
                                      {
                                          "id":  "T1140",
-                                         "comment":  "Deobfuscate/Decode Files or Information - BeardShell decrypts its strings."
+                                         "comment":  "Deobfuscate/Decode Files or Information - BeardShell decrypts protected strings and tokens at runtime."
                                      },
                                      {
-                                         "id":  "T1480",
-                                         "comment":  "Execution Guardrails - BeardShell only executes in taskhost.exe or taskhostw.exe. SlimAgent only executes in explorer.exe."
+                                         "id":  "T1480.001",
+                                         "comment":  "Execution Guardrails: Environmental Keying - Implant logic is gated by specific host process conditions (taskhost/taskhostw/explorer)."
                                      },
                                      {
-                                         "id":  "T1564",
-                                         "comment":  "Hide Artifacts - SlimAgent logs are written into a hidden file."
+                                         "id":  "T1564.001",
+                                         "comment":  "Hide Artifacts: Hidden Files and Directories - SlimAgent stores spying logs in hidden files."
                                      },
                                      {
                                          "id":  "T1082",
-                                         "comment":  "System Information Discovery - BeardShell sends a fingerprint of the compromised machine."
+                                         "comment":  "System Information Discovery - BeardShell fingerprints compromised hosts."
                                      },
                                      {
                                          "id":  "T1005",
-                                         "comment":  "Data from Local System - BeardShell, Covenant, and SlimAgent collect data from a compromised machine."
+                                         "comment":  "Data from Local System - BeardShell, Covenant, and SlimAgent collect local host data."
                                      },
                                      {
                                          "id":  "T1056.001",
-                                         "comment":  "Input Capture: Keylogging - SlimAgent performs keylogging."
+                                         "comment":  "Input Capture: Keylogging - SlimAgent records keystrokes."
                                      },
                                      {
                                          "id":  "T1113",
-                                         "comment":  "Screen Capture - SlimAgent captures screenshots of the compromised machine."
+                                         "comment":  "Screen Capture - SlimAgent captures screenshots from infected systems."
                                      },
                                      {
                                          "id":  "T1115",
-                                         "comment":  "Clipboard Data - SlimAgent collects clipboard data."
+                                         "comment":  "Clipboard Data - SlimAgent collects clipboard content."
                                      },
                                      {
-                                         "id":  "T1001",
-                                         "comment":  "Data Obfuscation - BeardShell exfiltrates data in fake images."
+                                         "id":  "T1001.001",
+                                         "comment":  "Data Obfuscation: Junk Data - BeardShell wraps exfiltrated content in fake image artifacts."
                                      },
                                      {
                                          "id":  "T1071.001",
-                                         "comment":  "Application Layer Protocol: Web Protocols - BeardShell and Covenant use HTTPS for C\u0026C."
+                                         "comment":  "Application Layer Protocol: Web Protocols - HTTPS is used for cloud-mediated C2 communications."
                                      },
                                      {
-                                         "id":  "T1102",
-                                         "comment":  "Web Service - BeardShell gets commands from Icedrive. Covenant gets commands from Filen."
+                                         "id":  "T1102.002",
+                                         "comment":  "Web Service: Bidirectional Communication - Icedrive and Filen APIs are used as command channels."
                                      },
                                      {
                                          "id":  "T1573.002",
-                                         "comment":  "Encrypted Channel: Asymmetric Cryptography - BeardShell communications with Icedrive are encrypted using HTTPS. Covenant communications with its controller uses RSA-encrypted session keys."
+                                         "comment":  "Encrypted Channel: Asymmetric Cryptography - Communications are protected via encrypted channels including RSA-protected sessions in Covenant flow."
                                      },
                                      {
-                                         "id":  "T1567",
-                                         "comment":  "Exfiltration Over Web Service - BeardShell exfiltrates data to Icedrive. Covenant exfiltrates data to Filen."
+                                         "id":  "T1567.002",
+                                         "comment":  "Exfiltration Over Web Service: Exfiltration to Cloud Storage - Collected data is exfiltrated through cloud storage services."
                                      }
                                  ],
                         "queries":  [
@@ -192,7 +192,7 @@
                                           "to":  [
                                                      "ioc-2"
                                                  ],
-                                          "comment":  "BeardShell only executes in taskhost.exe or taskhostw.exe"
+                                          "comment":  "BeardShell executes only under taskhost.exe or taskhostw.exe conditions."
                                       },
                                       {
                                           "id":  "xref-02",
@@ -203,7 +203,7 @@
                                           "to":  [
                                                      "ioc-1"
                                                  ],
-                                          "comment":  "SlimAgent only executes in explorer.exe"
+                                          "comment":  "SlimAgent execution is constrained to explorer.exe."
                                       },
                                       {
                                           "id":  "xref-03",
@@ -214,11 +214,22 @@
                                           "to":  [
                                                      "ioc-3"
                                                  ],
-                                          "comment":  "BeardShell relies on Icedrive cloud storage"
+                                          "comment":  "BeardShell uses Icedrive cloud URLs for command exchange."
                                       },
                                       {
                                           "id":  "xref-04",
-                                          "type":  "uses",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1583.006"
+                                                   ],
+                                          "to":  [
+                                                     "T1102.002"
+                                                 ],
+                                          "comment":  "Provisioned cloud web services are directly used for bidirectional C2."
+                                      },
+                                      {
+                                          "id":  "xref-05",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1587.001"
                                                    ],
@@ -228,114 +239,158 @@
                                           "comment":  "Custom malware capability is delivered through DLL modules."
                                       },
                                       {
-                                          "id":  "xref-05",
-                                          "type":  "uses",
+                                          "id":  "xref-06",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1129"
                                                    ],
                                           "to":  [
                                                      "T1546.015"
                                                  ],
-                                          "comment":  "Module execution is followed by COM hijacking persistence."
+                                          "comment":  "Module execution is persisted with COM hijacking."
                                       },
                                       {
-                                          "id":  "xref-06",
-                                          "type":  "uses",
+                                          "id":  "xref-07",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1546.015"
                                                    ],
                                           "to":  [
                                                      "T1059.001"
                                                  ],
-                                          "comment":  "Persistent components execute scripted commands."
+                                          "comment":  "Persistent components execute scripted PowerShell tasks."
                                       },
                                       {
-                                          "id":  "xref-07",
-                                          "type":  "uses",
+                                          "id":  "xref-08",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1059.001"
                                                    ],
                                           "to":  [
-                                                     "T1480"
+                                                     "T1480.001"
                                                  ],
-                                          "comment":  "Execution path enforces host guardrails before activity."
+                                          "comment":  "Execution flow enforces process-based environmental keying."
                                       },
                                       {
-                                          "id":  "xref-08",
-                                          "type":  "uses",
+                                          "id":  "xref-09",
+                                          "type":  "follows",
                                           "from":  [
-                                                       "T1480"
+                                                       "T1480.001"
                                                    ],
                                           "to":  [
                                                      "T1082"
                                                  ],
-                                          "comment":  "Guardrail checks are followed by host fingerprinting."
+                                          "comment":  "Guardrail validation is followed by host fingerprinting."
                                       },
                                       {
-                                          "id":  "xref-09",
-                                          "type":  "uses",
+                                          "id":  "xref-10",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1082"
                                                    ],
                                           "to":  [
                                                      "T1005"
                                                  ],
-                                          "comment":  "System discovery guides local data collection."
+                                          "comment":  "System discovery informs local data collection."
                                       },
                                       {
-                                          "id":  "xref-10",
-                                          "type":  "uses",
+                                          "id":  "xref-11",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1005"
                                                    ],
                                           "to":  [
-                                                     "T1001"
+                                                     "T1056.001"
                                                  ],
-                                          "comment":  "Collected data is packaged with obfuscation."
+                                          "comment":  "Collected local context includes keyboard capture."
                                       },
                                       {
-                                          "id":  "xref-11",
-                                          "type":  "uses",
+                                          "id":  "xref-12",
+                                          "type":  "follows",
                                           "from":  [
-                                                       "T1001"
+                                                       "T1056.001"
+                                                   ],
+                                          "to":  [
+                                                     "T1113"
+                                                 ],
+                                          "comment":  "Keylogging activity is complemented with screenshot capture."
+                                      },
+                                      {
+                                          "id":  "xref-13",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1113"
+                                                   ],
+                                          "to":  [
+                                                     "T1115"
+                                                 ],
+                                          "comment":  "Visual capture is paired with clipboard collection."
+                                      },
+                                      {
+                                          "id":  "xref-14",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1115"
+                                                   ],
+                                          "to":  [
+                                                     "T1564.001"
+                                                 ],
+                                          "comment":  "Captured data is stored as hidden artifacts."
+                                      },
+                                      {
+                                          "id":  "xref-15",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1564.001"
+                                                   ],
+                                          "to":  [
+                                                     "T1001.001"
+                                                 ],
+                                          "comment":  "Hidden collection is packed with junk-data style obfuscation."
+                                      },
+                                      {
+                                          "id":  "xref-16",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1001.001"
                                                    ],
                                           "to":  [
                                                      "T1573.002"
                                                  ],
-                                          "comment":  "Obfuscated data is sent over encrypted channels."
+                                          "comment":  "Obfuscated payloads are sent via encrypted channels."
                                       },
                                       {
-                                          "id":  "xref-12",
-                                          "type":  "uses",
+                                          "id":  "xref-17",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1573.002"
                                                    ],
                                           "to":  [
                                                      "T1071.001"
                                                  ],
-                                          "comment":  "Encrypted communication is carried over HTTPS."
+                                          "comment":  "Encrypted sessions are carried over HTTPS web protocols."
                                       },
                                       {
-                                          "id":  "xref-13",
-                                          "type":  "uses",
+                                          "id":  "xref-18",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1071.001"
                                                    ],
                                           "to":  [
-                                                     "T1102"
+                                                     "T1102.002"
                                                  ],
-                                          "comment":  "C2 traffic uses cloud web services."
+                                          "comment":  "HTTPS communications are implemented through cloud web services."
                                       },
                                       {
-                                          "id":  "xref-14",
-                                          "type":  "uses",
+                                          "id":  "xref-19",
+                                          "type":  "follows",
                                           "from":  [
-                                                       "T1102"
+                                                       "T1102.002"
                                                    ],
                                           "to":  [
-                                                     "T1567"
+                                                     "T1567.002"
                                                  ],
-                                          "comment":  "Web service channel is used for exfiltration."
+                                          "comment":  "The same cloud services are used to exfiltrate collected data."
                                       }
                                   ]
                         
@@ -419,52 +474,88 @@
                                  ],
                         "ttps":  [
                                      {
-                                         "id":  "T1190",
-                                         "comment":  "Exploit Public-Facing Application - Compromised VPN accounts for initial access."
+                                         "id":  "T1199",
+                                         "comment":  "Trusted Relationship - IT and service providers are leveraged as access paths into downstream victim environments."
+                                     },
+                                     {
+                                         "id":  "T1110",
+                                         "comment":  "Brute Force - Repeated VPN authentication attempts are used to gain entry."
+                                     },
+                                     {
+                                         "id":  "T1078.002",
+                                         "comment":  "Valid Accounts: Domain Accounts - Compromised domain credentials are used for operational access."
                                      },
                                      {
                                          "id":  "T1133",
-                                         "comment":  "External Remote Services - RDP for hands-on lateral movement."
+                                         "comment":  "External Remote Services - Operators access victim environments through VPN/RDP remote services."
+                                     },
+                                     {
+                                         "id":  "T1021.001",
+                                         "comment":  "Remote Services: Remote Desktop Protocol - Extensive hands-on lateral movement is performed with RDP."
                                      },
                                      {
                                          "id":  "T1570",
-                                         "comment":  "Lateral Tool Transfer - NetBird deployment via browser download."
+                                         "comment":  "Lateral Tool Transfer - Tooling is manually moved and staged across compromised hosts."
+                                     },
+                                     {
+                                         "id":  "T1105",
+                                         "comment":  "Ingress Tool Transfer - NetBird and VeraCrypt are downloaded and deployed on victim systems."
+                                     },
+                                     {
+                                         "id":  "T1572",
+                                         "comment":  "Protocol Tunneling - NetBird is used to tunnel operator traffic into internal network segments."
+                                     },
+                                     {
+                                         "id":  "T1047",
+                                         "comment":  "Windows Management Instrumentation - WMIC remote process creation is used during pre-impact operations."
                                      },
                                      {
                                          "id":  "T1003.001",
-                                         "comment":  "OS Credential Dumping: LSASS Memory - comsvcs.dll MiniDump."
+                                         "comment":  "OS Credential Dumping: LSASS Memory - rundll32 with comsvcs MiniDump is used to dump LSASS."
+                                     },
+                                     {
+                                         "id":  "T1003.002",
+                                         "comment":  "OS Credential Dumping: Security Account Manager - Registry hive export activity targets credential material."
                                      },
                                      {
                                          "id":  "T1087.002",
-                                         "comment":  "Account Discovery: Domain Accounts - ADRecon PowerShell."
+                                         "comment":  "Account Discovery: Domain Accounts - ADRecon enumerates Active Directory account information."
                                      },
                                      {
-                                         "id":  "T1485",
-                                         "comment":  "Data Destruction - Handala Wiper (MBR/file overwrite)."
+                                         "id":  "T1484.001",
+                                         "comment":  "Domain Policy Modification: Group Policy Modification - Wiper components are distributed through GPO mechanisms."
                                      },
                                      {
-                                         "id":  "T1561.002",
-                                         "comment":  "Disk Wipe: Disk Structure Wipe - Custom MBR wiping."
+                                         "id":  "T1037.003",
+                                         "comment":  "Boot or Logon Initialization Scripts: Network Logon Script - Logon scripts trigger destructive components."
                                      },
                                      {
-                                         "id":  "T1490",
-                                         "comment":  "Inhibit System Recovery - Multiple parallel wiping methods."
+                                         "id":  "T1053.005",
+                                         "comment":  "Scheduled Task/Job: Scheduled Task - Scheduled execution is used for staged destructive launch."
                                      },
                                      {
-                                         "id":  "T1486",
-                                         "comment":  "Data Encrypted for Impact - VeraCrypt disk encryption."
+                                         "id":  "T1480.001",
+                                         "comment":  "Execution Guardrails: Environmental Keying - Domain Admin validation is used before destructive actions."
                                      },
                                      {
                                          "id":  "T1059.001",
-                                         "comment":  "Command and Scripting Interpreter: PowerShell - AI-assisted wiping script."
+                                         "comment":  "Command and Scripting Interpreter: PowerShell - AI-assisted PowerShell scripts orchestrate wiping activity."
                                      },
                                      {
-                                         "id":  "T1480",
-                                         "comment":  "Execution Guardrails - Domain Admin creds validation pre-impact."
+                                         "id":  "T1485",
+                                         "comment":  "Data Destruction - Multiple destructive routines erase files and system content."
                                      },
                                      {
-                                         "id":  "T1078",
-                                         "comment":  "Valid Accounts - Compromised DA credentials for GPO deployment."
+                                         "id":  "T1561.002",
+                                         "comment":  "Disk Wipe: Disk Structure Wipe - Custom MBR wiping is used for deep destructive impact."
+                                     },
+                                     {
+                                         "id":  "T1490",
+                                         "comment":  "Inhibit System Recovery - Parallel destructive methods are used to complicate restoration."
+                                     },
+                                     {
+                                         "id":  "T1486",
+                                         "comment":  "Data Encrypted for Impact - VeraCrypt encryption is used to deny system and data access."
                                      }
                                  ],
                         "queries":  [
@@ -506,119 +597,253 @@
                                                        "query-1"
                                                    ],
                                           "to":  [
-                                                     "ioc-1"
+                                                     "ioc-6"
                                                  ],
-                                          "comment":  ""
+                                          "comment":  "Detection query aligns with observed LSASS dump command behavior."
                                       },
                                       {
                                           "id":  "xref-2",
                                           "type":  "uses",
                                           "from":  [
-                                                       "T1133"
+                                                       "query-2"
                                                    ],
                                           "to":  [
-                                                     "T1570"
+                                                     "ioc-7"
                                                  ],
-                                          "comment":  "Initial remote access is followed by tooling transfer."
+                                          "comment":  "Detection query aligns with WMIC-based registry hive dumping activity."
                                       },
                                       {
                                           "id":  "xref-3",
                                           "type":  "uses",
                                           "from":  [
+                                                       "query-3"
+                                                   ],
+                                          "to":  [
+                                                     "ioc-1",
+                                                     "ioc-2",
+                                                     "ioc-3"
+                                                 ],
+                                          "comment":  "Network query covers C2 and VPN infrastructure observed in intrusions."
+                                      },
+                                      {
+                                          "id":  "xref-4",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1199"
+                                                   ],
+                                          "to":  [
+                                                     "T1110"
+                                                 ],
+                                          "comment":  "Trusted-provider access patterns include repeated credential attack activity."
+                                      },
+                                      {
+                                          "id":  "xref-5",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1110"
+                                                   ],
+                                          "to":  [
+                                                     "T1078.002"
+                                                 ],
+                                          "comment":  "Brute-force and credential abuse enable use of valid domain accounts."
+                                      },
+                                      {
+                                          "id":  "xref-6",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1078.002"
+                                                   ],
+                                          "to":  [
+                                                     "T1133"
+                                                 ],
+                                          "comment":  "Compromised credentials are used over external remote services."
+                                      },
+                                      {
+                                          "id":  "xref-7",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1133"
+                                                   ],
+                                          "to":  [
+                                                     "T1021.001"
+                                                 ],
+                                          "comment":  "Initial remote access transitions into internal RDP-based movement."
+                                      },
+                                      {
+                                          "id":  "xref-8",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1021.001"
+                                                   ],
+                                          "to":  [
+                                                     "T1570"
+                                                 ],
+                                          "comment":  "RDP footholds are used to transfer operator tooling laterally."
+                                      },
+                                      {
+                                          "id":  "xref-9",
+                                          "type":  "follows",
+                                          "from":  [
                                                        "T1570"
+                                                   ],
+                                          "to":  [
+                                                     "T1105"
+                                                 ],
+                                          "comment":  "Transferred tooling includes downloaded utilities such as NetBird and VeraCrypt."
+                                      },
+                                      {
+                                          "id":  "xref-10",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1105"
+                                                   ],
+                                          "to":  [
+                                                     "T1572"
+                                                 ],
+                                          "comment":  "Ingressed NetBird tooling is used to tunnel operational traffic."
+                                      },
+                                      {
+                                          "id":  "xref-11",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1572"
+                                                   ],
+                                          "to":  [
+                                                     "T1047"
+                                                 ],
+                                          "comment":  "Tunnel-enabled access supports remote WMI process execution."
+                                      },
+                                      {
+                                          "id":  "xref-12",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1047"
                                                    ],
                                           "to":  [
                                                      "T1003.001"
                                                  ],
-                                          "comment":  "Transferred tooling supports credential dumping."
+                                          "comment":  "WMI-executed commands precede LSASS credential dumping."
                                       },
                                       {
-                                          "id":  "xref-4",
-                                          "type":  "uses",
+                                          "id":  "xref-13",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1003.001"
                                                    ],
                                           "to":  [
-                                                     "T1087.002"
+                                                     "T1003.002"
                                                  ],
-                                          "comment":  "Credential access enables AD account discovery."
+                                          "comment":  "LSASS dumping is paired with registry/SAM extraction techniques."
                                       },
                                       {
-                                          "id":  "xref-5",
-                                          "type":  "uses",
+                                          "id":  "xref-14",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1003.002"
+                                                   ],
+                                          "to":  [
+                                                     "T1087.002"
+                                                 ],
+                                          "comment":  "Credential access supports subsequent AD account discovery."
+                                      },
+                                      {
+                                          "id":  "xref-15",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1087.002"
                                                    ],
                                           "to":  [
-                                                     "T1078"
+                                                     "T1484.001"
                                                  ],
-                                          "comment":  "Discovery helps operationalize valid domain accounts."
+                                          "comment":  "Domain awareness is operationalized through GPO modification for distribution."
                                       },
                                       {
-                                          "id":  "xref-6",
-                                          "type":  "uses",
+                                          "id":  "xref-16",
+                                          "type":  "follows",
                                           "from":  [
-                                                       "T1078"
+                                                       "T1484.001"
                                                    ],
                                           "to":  [
-                                                     "T1480"
+                                                     "T1037.003"
                                                  ],
-                                          "comment":  "Validated privileged access is checked before impact."
+                                          "comment":  "Group Policy changes deliver network logon script execution."
                                       },
                                       {
-                                          "id":  "xref-7",
-                                          "type":  "uses",
+                                          "id":  "xref-17",
+                                          "type":  "follows",
                                           "from":  [
-                                                       "T1480"
+                                                       "T1037.003"
+                                                   ],
+                                          "to":  [
+                                                     "T1053.005"
+                                                 ],
+                                          "comment":  "Logon script staging chains into scheduled-task driven payload launch."
+                                      },
+                                      {
+                                          "id":  "xref-18",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1053.005"
+                                                   ],
+                                          "to":  [
+                                                     "T1480.001"
+                                                 ],
+                                          "comment":  "Scheduled destructive workflows include environment-based guardrail checks."
+                                      },
+                                      {
+                                          "id":  "xref-19",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1480.001"
                                                    ],
                                           "to":  [
                                                      "T1059.001"
                                                  ],
-                                          "comment":  "Guardrails precede scripted destructive orchestration."
+                                          "comment":  "Validated execution context enables scripted destructive orchestration."
                                       },
                                       {
-                                          "id":  "xref-8",
-                                          "type":  "uses",
+                                          "id":  "xref-20",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1059.001"
                                                    ],
                                           "to":  [
                                                      "T1485"
                                                  ],
-                                          "comment":  "PowerShell execution drives destructive actions."
+                                          "comment":  "PowerShell logic drives destructive file and system actions."
                                       },
                                       {
-                                          "id":  "xref-9",
-                                          "type":  "uses",
+                                          "id":  "xref-21",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1485"
                                                    ],
                                           "to":  [
                                                      "T1561.002"
                                                  ],
-                                          "comment":  "General destruction escalates to disk structure wipe."
+                                          "comment":  "Destructive phase escalates into disk-structure wiping."
                                       },
                                       {
-                                          "id":  "xref-10",
-                                          "type":  "uses",
+                                          "id":  "xref-22",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1485"
                                                    ],
                                           "to":  [
                                                      "T1490"
                                                  ],
-                                          "comment":  "Destructive phase includes inhibiting recovery."
+                                          "comment":  "Destruction includes inhibiting practical recovery."
                                       },
                                       {
-                                          "id":  "xref-11",
-                                          "type":  "uses",
+                                          "id":  "xref-23",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1485"
                                                    ],
                                           "to":  [
                                                      "T1486"
                                                  ],
-                                          "comment":  "Destruction is combined with encryption for impact."
+                                          "comment":  "Destructive operations are combined with encryption-for-impact."
                                       }
                                   ]
                         
@@ -745,47 +970,63 @@
                         "ttps":  [
                                      {
                                          "id":  "T1566.001",
-                                         "comment":  "Phishing: Spearphishing Attachment - weaponized RTFs delivered as attachments."
+                                         "comment":  "Phishing: Spearphishing Attachment - Weaponized RTF lures are delivered as malicious attachments."
+                                     },
+                                     {
+                                         "id":  "T1204.002",
+                                         "comment":  "User Execution: Malicious File - Opening the exploit RTF is required to trigger execution flow."
                                      },
                                      {
                                          "id":  "T1203",
-                                         "comment":  "Exploitation for Client Execution - CVE-2026-21509 exploited by crafted RTF files."
-                                     },
-                                     {
-                                         "id":  "T1053.005",
-                                         "comment":  "Scheduled Task/Job: Scheduled Task - OneDriveHealth task created via schtasks.exe."
-                                     },
-                                     {
-                                         "id":  "T1546.015",
-                                         "comment":  "Event Triggered Execution: Component Object Model Hijacking - persistence via CLSID InProcServer32 hijack."
+                                         "comment":  "Exploitation for Client Execution - CVE-2026-21509 is exploited to launch staged infection."
                                      },
                                      {
                                          "id":  "T1137.006",
-                                         "comment":  "Office Application Startup: Add-ins - malicious Outlook VBA project loaded at startup."
+                                         "comment":  "Office Application Startup: Add-ins - MiniDoor VBA project persists at Outlook startup."
+                                     },
+                                     {
+                                         "id":  "T1114.001",
+                                         "comment":  "Email Collection: Local Email Collection - Outlook VBA forwards local mailbox content to attacker-controlled mailboxes."
+                                     },
+                                     {
+                                         "id":  "T1053.005",
+                                         "comment":  "Scheduled Task/Job: Scheduled Task - OneDriveHealth scheduled task triggers explorer restart and staged execution."
+                                     },
+                                     {
+                                         "id":  "T1546.015",
+                                         "comment":  "Event Triggered Execution: Component Object Model Hijacking - CLSID InProcServer32 hijack loads malicious EhStoreShell.dll."
                                      },
                                      {
                                          "id":  "T1027.003",
-                                         "comment":  "Obfuscated Files or Information: Steganography - shellcode hidden in SplashScreen.png LSB data."
+                                         "comment":  "Obfuscated Files or Information: Steganography - Shellcode is hidden in PNG LSB data (SplashScreen.png)."
                                      },
                                      {
                                          "id":  "T1497.003",
-                                         "comment":  "Virtualization/Sandbox Evasion: Time Based Checks - Sleep timing guardrail check in loader."
-                                     },
-                                     {
-                                         "id":  "T1114",
-                                         "comment":  "Email Collection - MiniDoor Outlook VBA forwards mailbox messages to attacker-controlled addresses."
-                                     },
-                                     {
-                                         "id":  "T1071.001",
-                                         "comment":  "Application Layer Protocol: Web Protocols - Covenant Grunt uses HTTPS for C2 traffic."
-                                     },
-                                     {
-                                         "id":  "T1102.002",
-                                         "comment":  "Web Service: Bidirectional Communication - Filen API abused as C2Bridge channel."
+                                         "comment":  "Virtualization/Sandbox Evasion: Time Based Checks - Sleep timing validation is used as anti-analysis guardrail."
                                      },
                                      {
                                          "id":  "T1480.002",
-                                         "comment":  "Execution Guardrails: Mutual Exclusion - campaign components create mutexes to avoid duplicate execution."
+                                         "comment":  "Execution Guardrails: Mutual Exclusion - Mutexes are used to prevent duplicate implant execution."
+                                     },
+                                     {
+                                         "id":  "T1027.007",
+                                         "comment":  "Obfuscated Files or Information: Dynamic API Resolution - DJB2 API hashing is used to resolve APIs at runtime."
+                                     },
+                                     {
+                                         "id":  "T1140",
+                                         "comment":  "Deobfuscate/Decode Files or Information - XOR and encoded payload material is decoded during runtime."
+                                     },
+                                     {
+                                         "id":  "T1106",
+                                         "comment":  "Native API - Native APIs are used for memory allocation and shellcode execution."
+                                     },
+                                     {
+                                         "id":  "T1071.001",
+                                         "comment":  "Application Layer Protocol: Web Protocols - HTTPS is used for implant communications."
+                                     },
+                                     {
+                                         "id":  "T1102.002",
+                                         "comment":  "Web Service: Bidirectional Communication - Filen API is abused through C2Bridge for command exchange."
                                      }
                                  ],
                         "vulns":  [
@@ -846,7 +1087,7 @@
                                       },
                                       {
                                           "id":  "xref-2",
-                                          "type":  "uses",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1566.001"
                                                    ],
@@ -857,7 +1098,7 @@
                                       },
                                       {
                                           "id":  "xref-3",
-                                          "type":  "uses",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1203"
                                                    ],
@@ -868,18 +1109,18 @@
                                       },
                                       {
                                           "id":  "xref-4",
-                                          "type":  "uses",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1137.006"
                                                    ],
                                           "to":  [
-                                                     "T1114"
+                                                     "T1114.001"
                                                  ],
-                                          "comment":  "Outlook add-in persistence enables mailbox collection."
+                                          "comment":  "Outlook add-in persistence enables local mailbox collection and forwarding."
                                       },
                                       {
                                           "id":  "xref-5",
-                                          "type":  "uses",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1203"
                                                    ],
@@ -890,7 +1131,7 @@
                                       },
                                       {
                                           "id":  "xref-6",
-                                          "type":  "uses",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1053.005"
                                                    ],
@@ -901,7 +1142,7 @@
                                       },
                                       {
                                           "id":  "xref-7",
-                                          "type":  "uses",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1546.015"
                                                    ],
@@ -912,7 +1153,7 @@
                                       },
                                       {
                                           "id":  "xref-8",
-                                          "type":  "uses",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1027.003"
                                                    ],
@@ -923,29 +1164,62 @@
                                       },
                                       {
                                           "id":  "xref-9",
-                                          "type":  "uses",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1497.003"
                                                    ],
                                           "to":  [
                                                      "T1480.002"
                                                  ],
-                                          "comment":  "Evasion path chains into mutual exclusion guardrails."
+                                          "comment":  "Timing-based checks chain into mutex-based execution control."
                                       },
                                       {
                                           "id":  "xref-10",
-                                          "type":  "uses",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1480.002"
                                                    ],
                                           "to":  [
-                                                     "T1071.001"
+                                                     "T1027.007"
                                                  ],
-                                          "comment":  "Guardrail-validated implant proceeds to HTTPS C2."
+                                          "comment":  "Execution guardrails protect dynamically resolved API execution path."
                                       },
                                       {
                                           "id":  "xref-11",
-                                          "type":  "uses",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1027.007"
+                                                   ],
+                                          "to":  [
+                                                     "T1140"
+                                                 ],
+                                          "comment":  "Dynamically resolved routines decode staged payload data."
+                                      },
+                                      {
+                                          "id":  "xref-12",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1140"
+                                                   ],
+                                          "to":  [
+                                                     "T1106"
+                                                 ],
+                                          "comment":  "Decoded payloads are executed via native API calls."
+                                      },
+                                      {
+                                          "id":  "xref-13",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1106"
+                                                   ],
+                                          "to":  [
+                                                     "T1071.001"
+                                                 ],
+                                          "comment":  "In-memory shellcode execution leads to active web-protocol C2."
+                                      },
+                                      {
+                                          "id":  "xref-14",
+                                          "type":  "follows",
                                           "from":  [
                                                        "T1071.001"
                                                    ],
@@ -1060,23 +1334,31 @@
                         "ttps":  [
                                      {
                                          "id":  "T1557",
-                                         "comment":  "Adversary-in-the-Middle behavior on gateway/edge devices is central to DKnife operations."
+                                         "comment":  "Adversary-in-the-Middle - Gateway and edge implants intercept and modify victim traffic in-line."
                                      },
                                      {
                                          "id":  "T1040",
-                                         "comment":  "Framework performs deep packet inspection and traffic monitoring on routed traffic."
+                                         "comment":  "Network Sniffing - Deep packet inspection monitors and parses routed traffic for targeting and telemetry."
+                                     },
+                                     {
+                                         "id":  "T1565.002",
+                                         "comment":  "Data Manipulation: Transmitted Data Manipulation - HTTP/DNS responses are altered to redirect victims and serve malicious payloads."
+                                     },
+                                     {
+                                         "id":  "T1105",
+                                         "comment":  "Ingress Tool Transfer - DKnife update and delivery components fetch malicious archives and payload files from C2 infrastructure."
                                      },
                                      {
                                          "id":  "T1071.001",
-                                         "comment":  "C2 and telemetry channels operate over web protocols (HTTP/HTTPS)."
+                                         "comment":  "Application Layer Protocol: Web Protocols - C2 and telemetry use HTTP/HTTPS channels."
+                                     },
+                                     {
+                                         "id":  "T1572",
+                                         "comment":  "Protocol Tunneling - N2N-based remote component establishes tunneled communications for remote control and relay."
                                      },
                                      {
                                          "id":  "T1041",
-                                         "comment":  "Collected credentials and traffic-derived data are exfiltrated to remote C2 endpoints."
-                                     },
-                                     {
-                                         "id":  "T1565",
-                                         "comment":  "Update and binary responses are manipulated to deliver attacker-controlled payloads."
+                                         "comment":  "Exfiltration Over C2 Channel - Captured user/network telemetry and credentials are exfiltrated through C2 endpoints."
                                      }
                                  ],
                         "vulns":  [
@@ -1100,6 +1382,29 @@
                                           "id":  "xref-2",
                                           "type":  "uses",
                                           "from":  [
+                                                       "ioc-10",
+                                                       "ioc-11"
+                                                   ],
+                                          "to":  [
+                                                     "T1105"
+                                                 ],
+                                          "comment":  "Downloaded install and payload components represent inbound tool transfer."
+                                      },
+                                      {
+                                          "id":  "xref-3",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "ioc-5"
+                                                   ],
+                                          "to":  [
+                                                     "T1565.002"
+                                                 ],
+                                          "comment":  "Redirected update package delivery URL is aligned with response manipulation behavior."
+                                      },
+                                      {
+                                          "id":  "xref-4",
+                                          "type":  "uses",
+                                          "from":  [
                                                        "ioc-2",
                                                        "ioc-3",
                                                        "ioc-6",
@@ -1109,40 +1414,62 @@
                                                      "T1071.001",
                                                      "T1041"
                                                  ],
-                                          "comment":  "C2 infrastructure and protocol endpoints support web-protocol C2 and exfiltration."
-                                      },
-                                      {
-                                          "id":  "xref-3",
-                                          "type":  "uses",
-                                          "from":  [
-                                                       "ioc-5"
-                                                   ],
-                                          "to":  [
-                                                     "T1565"
-                                                 ],
-                                          "comment":  "Redirected update package delivery URL is aligned with response manipulation behavior."
-                                      },
-                                      {
-                                          "id":  "xref-4",
-                                          "type":  "follows",
-                                          "from":  [
-                                                       "T1557"
-                                                   ],
-                                          "to":  [
-                                                     "T1071.001"
-                                                 ],
-                                          "comment":  "Traffic interception enables controlled C2 redirection over web protocols."
+                                          "comment":  "C2 infrastructure and protocol endpoints support web-protocol C2 and data exfiltration."
                                       },
                                       {
                                           "id":  "xref-5",
                                           "type":  "follows",
                                           "from":  [
+                                                       "T1557"
+                                                   ],
+                                          "to":  [
+                                                     "T1565.002"
+                                                 ],
+                                          "comment":  "Inline AiTM interception enables direct manipulation of transmitted content."
+                                      },
+                                      {
+                                          "id":  "xref-6",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1565.002"
+                                                   ],
+                                          "to":  [
+                                                     "T1105"
+                                                 ],
+                                          "comment":  "Manipulated traffic redirects victims to malware delivery workflows."
+                                      },
+                                      {
+                                          "id":  "xref-7",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1105"
+                                                   ],
+                                          "to":  [
+                                                     "T1071.001"
+                                                 ],
+                                          "comment":  "Delivered tooling continues operations over web-based command channels."
+                                      },
+                                      {
+                                          "id":  "xref-8",
+                                          "type":  "follows",
+                                          "from":  [
                                                        "T1071.001"
+                                                   ],
+                                          "to":  [
+                                                     "T1572"
+                                                 ],
+                                          "comment":  "Web C2 operations are augmented with tunnel-based overlay transport."
+                                      },
+                                      {
+                                          "id":  "xref-9",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1572"
                                                    ],
                                           "to":  [
                                                      "T1041"
                                                  ],
-                                          "comment":  "C2 communication flow precedes data exfiltration to remote infrastructure."
+                                          "comment":  "Tunneled control channel supports sustained telemetry and credential exfiltration."
                                       }
                                   ]
                     },
@@ -1272,36 +1599,36 @@
                                  ],
                         "ttps":  [
                                      {
-                                         "id":  "T1204",
-                                         "comment":  "User opens and trusts a malicious VS Code repository, triggering task execution."
+                                         "id":  "T1204.002",
+                                         "comment":  "User Execution: Malicious File - Opening and trusting a malicious VS Code repository triggers task execution."
                                      },
                                      {
                                          "id":  "T1059.003",
-                                         "comment":  "Initial payloads are executed via cmd.exe on Windows."
+                                         "comment":  "Command and Scripting Interpreter: Windows Command Shell - Initial Vercel-delivered stages execute through cmd.exe."
                                      },
                                      {
                                          "id":  "T1059.007",
-                                         "comment":  "StoatWaffle modules are implemented in and execute Node.js JavaScript code."
+                                         "comment":  "Command and Scripting Interpreter: JavaScript - Loader, stealer, and RAT logic execute as Node.js JavaScript code."
                                      },
                                      {
                                          "id":  "T1105",
-                                         "comment":  "Multiple downloader stages retrieve additional payloads and modules from attacker infrastructure."
+                                         "comment":  "Ingress Tool Transfer - Multi-stage downloader fetches additional components (vscode-bootstrap.cmd, env.npl, modules)."
                                      },
                                      {
                                          "id":  "T1555.003",
-                                         "comment":  "Stealer module extracts credentials and extension data from web browsers."
+                                         "comment":  "Credentials from Password Stores: Credentials from Web Browsers - Browser credentials and extension data are stolen."
                                      },
                                      {
                                          "id":  "T1518",
-                                         "comment":  "Stealer module enumerates installed software and sends the inventory to C2."
-                                     },
-                                     {
-                                         "id":  "T1041",
-                                         "comment":  "Stolen data and command results are exfiltrated over the same C2 channel."
+                                         "comment":  "Software Discovery - Installed software inventory is collected from the victim endpoint."
                                      },
                                      {
                                          "id":  "T1071.001",
-                                         "comment":  "Loader, stealer, and RAT modules communicate with HTTP-based C2 endpoints."
+                                         "comment":  "Application Layer Protocol: Web Protocols - C2 polling and command exchanges use HTTP API paths."
+                                     },
+                                     {
+                                         "id":  "T1041",
+                                         "comment":  "Exfiltration Over C2 Channel - Stolen data and RAT command results are uploaded over the same control channel."
                                      }
                                  ],
                         "vulns":  [
@@ -1343,7 +1670,7 @@
                                                        "ioc-9"
                                                    ],
                                           "to":  [
-                                                     "T1204",
+                                                     "T1204.002",
                                                      "T1059.003",
                                                      "T1059.007",
                                                      "T1105"
@@ -1383,7 +1710,7 @@
                                           "id":  "xref-5",
                                           "type":  "follows",
                                           "from":  [
-                                                       "T1204"
+                                                       "T1204.002"
                                                    ],
                                           "to":  [
                                                      "T1105"
@@ -1394,23 +1721,67 @@
                                           "id":  "xref-6",
                                           "type":  "follows",
                                           "from":  [
-                                                       "T1105"
+                                                       "T1059.003"
                                                    ],
                                           "to":  [
-                                                     "T1555.003"
+                                                     "T1059.007"
                                                  ],
-                                          "comment":  "Downloaded modules proceed to browser credential theft."
+                                          "comment":  "Initial shell execution transitions into Node.js-based scripted execution."
                                       },
                                       {
                                           "id":  "xref-7",
                                           "type":  "follows",
                                           "from":  [
+                                                       "T1059.007"
+                                                   ],
+                                          "to":  [
+                                                     "T1105"
+                                                 ],
+                                          "comment":  "Node.js stagers pull and launch additional payload modules."
+                                      },
+                                      {
+                                          "id":  "xref-8",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1105"
+                                                   ],
+                                          "to":  [
+                                                     "T1555.003"
+                                                 ],
+                                          "comment":  "Downloaded stealer modules perform browser credential theft."
+                                      },
+                                      {
+                                          "id":  "xref-9",
+                                          "type":  "follows",
+                                          "from":  [
                                                        "T1555.003"
+                                                   ],
+                                          "to":  [
+                                                     "T1518"
+                                                 ],
+                                          "comment":  "Credential theft stage is followed by installed-software enumeration."
+                                      },
+                                      {
+                                          "id":  "xref-10",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1518"
+                                                   ],
+                                          "to":  [
+                                                     "T1071.001"
+                                                 ],
+                                          "comment":  "Collected host data is sent through HTTP-based C2 API communications."
+                                      },
+                                      {
+                                          "id":  "xref-11",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1071.001"
                                                    ],
                                           "to":  [
                                                      "T1041"
                                                  ],
-                                          "comment":  "Collected credentials are then exfiltrated to the C2."
+                                          "comment":  "C2 protocol flow carries exfiltration of stolen data and RAT output."
                                       }
                                   ]
                     }
