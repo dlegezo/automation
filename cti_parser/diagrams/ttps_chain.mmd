@@ -84,6 +84,16 @@ flowchart LR
     r4_T1071_001 -->|follows| r4_T1041
     end
 
+    subgraph report_5["Report 5: https://jp.security.ntt/insights_resources/tech_blog/stoatwaffle_malware/"]
+    r5_T1041["T1041"]
+    r5_T1105["T1105"]
+    r5_T1204["T1204"]
+    r5_T1555_003["T1555.003"]
+    r5_T1204 -->|follows| r5_T1105
+    r5_T1105 -->|follows| r5_T1555_003
+    r5_T1555_003 -->|follows| r5_T1041
+    end
+
     classDef ttp fill:#e6f2ff,stroke:#0066cc,stroke-width:1px
     class r1_T1001 ttp
     class r1_T1005 ttp
@@ -122,3 +132,7 @@ flowchart LR
     class r4_T1041 ttp
     class r4_T1071_001 ttp
     class r4_T1557 ttp
+    class r5_T1041 ttp
+    class r5_T1105 ttp
+    class r5_T1204 ttp
+    class r5_T1555_003 ttp

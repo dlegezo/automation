@@ -1145,6 +1145,274 @@
                                           "comment":  "C2 communication flow precedes data exfiltration to remote infrastructure."
                                       }
                                   ]
+                    },
+                    {
+                        "metadata":  {
+                                         "url":  "https://jp.security.ntt/insights_resources/tech_blog/stoatwaffle_malware/",
+                                         "created":  "17/03/2026",
+                                         "severity":  "high",
+                                         "confidence":  "high",
+                                         "tags":  [
+                                                      "WaterPlum",
+                                                      "StoatWaffle",
+                                                      "Contagious Interview",
+                                                      "North Korea",
+                                                      "VSCode",
+                                                      "Node.js",
+                                                      "Vercel"
+                                                  ],
+                                         "actor":  "G0032"
+                                     },
+                        "iocs":  [
+                                     {
+                                         "id":  "ioc-1",
+                                         "type":  "ip",
+                                         "malign":  true,
+                                         "value":  "185.163.125.196",
+                                         "comment":  "StoatWaffle IOC listed by NTT Security Japan"
+                                     },
+                                     {
+                                         "id":  "ioc-2",
+                                         "type":  "ip",
+                                         "malign":  true,
+                                         "value":  "147.124.202.208",
+                                         "comment":  "StoatWaffle IOC listed by NTT Security Japan"
+                                     },
+                                     {
+                                         "id":  "ioc-3",
+                                         "type":  "ip",
+                                         "malign":  true,
+                                         "value":  "163.245.194.216",
+                                         "comment":  "StoatWaffle IOC listed by NTT Security Japan"
+                                     },
+                                     {
+                                         "id":  "ioc-4",
+                                         "type":  "ip",
+                                         "malign":  true,
+                                         "value":  "66.235.168.136",
+                                         "comment":  "StoatWaffle IOC listed by NTT Security Japan"
+                                     },
+                                     {
+                                         "id":  "ioc-5",
+                                         "type":  "ip",
+                                         "malign":  true,
+                                         "value":  "87.236.177.9",
+                                         "comment":  "StoatWaffle IOC listed by NTT Security Japan"
+                                     },
+                                     {
+                                         "id":  "ioc-6",
+                                         "type":  "filepath",
+                                         "malign":  true,
+                                         "value":  ".vscode/tasks.json",
+                                         "comment":  "Malicious VS Code task configuration executed on folder open"
+                                     },
+                                     {
+                                         "id":  "ioc-7",
+                                         "type":  "filename",
+                                         "malign":  true,
+                                         "value":  "vscode-bootstrap.cmd",
+                                         "comment":  "Batch downloader launched from the initial task chain"
+                                     },
+                                     {
+                                         "id":  "ioc-8",
+                                         "type":  "filename",
+                                         "malign":  true,
+                                         "value":  "env.npl",
+                                         "comment":  "First-stage StoatWaffle Node.js downloader"
+                                     },
+                                     {
+                                         "id":  "ioc-9",
+                                         "type":  "process",
+                                         "malign":  true,
+                                         "value":  "cmd.exe",
+                                         "comment":  "Downloaded Vercel-hosted payloads are executed through cmd.exe"
+                                     },
+                                     {
+                                         "id":  "ioc-10",
+                                         "type":  "url",
+                                         "malign":  true,
+                                         "value":  "/api/errorMessage",
+                                         "comment":  "First-stage downloader polling path on StoatWaffle C2"
+                                     },
+                                     {
+                                         "id":  "ioc-11",
+                                         "type":  "url",
+                                         "malign":  true,
+                                         "value":  "/api/handleErrors",
+                                         "comment":  "Second-stage downloader polling path on StoatWaffle C2"
+                                     },
+                                     {
+                                         "id":  "ioc-12",
+                                         "type":  "url",
+                                         "malign":  true,
+                                         "value":  "/upload",
+                                         "comment":  "Credential theft upload path"
+                                     },
+                                     {
+                                         "id":  "ioc-13",
+                                         "type":  "url",
+                                         "malign":  true,
+                                         "value":  "/uploadsecond",
+                                         "comment":  "Installed software inventory upload path"
+                                     },
+                                     {
+                                         "id":  "ioc-14",
+                                         "type":  "url",
+                                         "malign":  true,
+                                         "value":  "/api/hsocketNext",
+                                         "comment":  "RAT command retrieval path"
+                                     },
+                                     {
+                                         "id":  "ioc-15",
+                                         "type":  "url",
+                                         "malign":  true,
+                                         "value":  "/api/hsocketResult",
+                                         "comment":  "RAT command result upload path"
+                                     }
+                                 ],
+                        "ttps":  [
+                                     {
+                                         "id":  "T1204",
+                                         "comment":  "User opens and trusts a malicious VS Code repository, triggering task execution."
+                                     },
+                                     {
+                                         "id":  "T1059.003",
+                                         "comment":  "Initial payloads are executed via cmd.exe on Windows."
+                                     },
+                                     {
+                                         "id":  "T1059.007",
+                                         "comment":  "StoatWaffle modules are implemented in and execute Node.js JavaScript code."
+                                     },
+                                     {
+                                         "id":  "T1105",
+                                         "comment":  "Multiple downloader stages retrieve additional payloads and modules from attacker infrastructure."
+                                     },
+                                     {
+                                         "id":  "T1555.003",
+                                         "comment":  "Stealer module extracts credentials and extension data from web browsers."
+                                     },
+                                     {
+                                         "id":  "T1518",
+                                         "comment":  "Stealer module enumerates installed software and sends the inventory to C2."
+                                     },
+                                     {
+                                         "id":  "T1041",
+                                         "comment":  "Stolen data and command results are exfiltrated over the same C2 channel."
+                                     },
+                                     {
+                                         "id":  "T1071.001",
+                                         "comment":  "Loader, stealer, and RAT modules communicate with HTTP-based C2 endpoints."
+                                     }
+                                 ],
+                        "vulns":  [
+
+                                  ],
+                        "queries":  [
+                                        {
+                                            "id":  "query-1",
+                                            "type":  "kql",
+                                            "value":  "DeviceNetworkEvents | where RemoteIP in ('185.163.125.196','147.124.202.208','163.245.194.216','66.235.168.136','87.236.177.9')",
+                                            "comment":  "Detect outbound connections to StoatWaffle IOC IP addresses"
+                                        },
+                                        {
+                                            "id":  "query-2",
+                                            "type":  "kql",
+                                            "value":  "DeviceProcessEvents | where FileName in~ ('cmd.exe','node.exe') | where ProcessCommandLine has_any ('vscode-bootstrap.cmd','env.npl')",
+                                            "comment":  "Detect VS Code / Node.js execution chain associated with StoatWaffle"
+                                        }
+                                    ],
+                        "xrefs":  [
+                                      {
+                                          "id":  "xref-1",
+                                          "type":  "creates",
+                                          "from":  [
+                                                       "ioc-6"
+                                                   ],
+                                          "to":  [
+                                                     "ioc-7",
+                                                     "ioc-8"
+                                                 ],
+                                          "comment":  "Malicious tasks.json triggers the staged downloader chain."
+                                      },
+                                      {
+                                          "id":  "xref-2",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "ioc-7",
+                                                       "ioc-8",
+                                                       "ioc-9"
+                                                   ],
+                                          "to":  [
+                                                     "T1204",
+                                                     "T1059.003",
+                                                     "T1059.007",
+                                                     "T1105"
+                                                 ],
+                                          "comment":  "The VS Code, command shell, and Node.js stages map to user execution and staged payload retrieval."
+                                      },
+                                      {
+                                          "id":  "xref-3",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "ioc-10",
+                                                       "ioc-11",
+                                                       "ioc-14",
+                                                       "ioc-15"
+                                                   ],
+                                          "to":  [
+                                                     "T1071.001",
+                                                     "T1041"
+                                                 ],
+                                          "comment":  "HTTP API paths support C2 polling, command execution, and result exfiltration."
+                                      },
+                                      {
+                                          "id":  "xref-4",
+                                          "type":  "uses",
+                                          "from":  [
+                                                       "ioc-12",
+                                                       "ioc-13"
+                                                   ],
+                                          "to":  [
+                                                     "T1555.003",
+                                                     "T1518",
+                                                     "T1041"
+                                                 ],
+                                          "comment":  "Upload paths are used for credential theft output, software discovery output, and exfiltration."
+                                      },
+                                      {
+                                          "id":  "xref-5",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1204"
+                                                   ],
+                                          "to":  [
+                                                     "T1105"
+                                                 ],
+                                          "comment":  "Repository opening and trust lead to staged downloader retrieval."
+                                      },
+                                      {
+                                          "id":  "xref-6",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1105"
+                                                   ],
+                                          "to":  [
+                                                     "T1555.003"
+                                                 ],
+                                          "comment":  "Downloaded modules proceed to browser credential theft."
+                                      },
+                                      {
+                                          "id":  "xref-7",
+                                          "type":  "follows",
+                                          "from":  [
+                                                       "T1555.003"
+                                                   ],
+                                          "to":  [
+                                                     "T1041"
+                                                 ],
+                                          "comment":  "Collected credentials are then exfiltrated to the C2."
+                                      }
+                                  ]
                     }
                 ]
 }

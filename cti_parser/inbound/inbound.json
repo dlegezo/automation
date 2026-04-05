@@ -24,25 +24,18 @@
       "comment": "RU attaking West, really rich in IOCs including registry, cmdlines, not so recent February 2026"
     },
     {
-      "url": "https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/",
-      "name": "handala-hack-unveiling-groups-modus-operandi",
-      "created": "12/03/2026",
-      "type": "html",
-      "comment": "IR attaking West, rich in IOCs, recent"
-    },
-    {
-      "url": "https://blog.talosintelligence.com/knife-cutting-the-edge/",
-      "name": "knife-cutting-the-edge",
-      "created": "05/02/2026",
-      "type": "html",
-      "comment": "Linux-based implant, non-Win one, really rich in IOCs/TTPs, not so recent February 2026"
-    },
-    {
       "url": "./talos_dknife.pdf",
       "name": "talos_dknife",
       "created": "05/02/2026",
       "type": "pdf",
       "comment": "Same Linux-based implant in pdf to test this format"
+    },
+    {
+      "url": "https://jp.security.ntt/insights_resources/tech_blog/stoatwaffle_malware/",
+      "name": "stoatwaffle_malware",
+      "created": "17/03/2026",
+      "type": "html",
+      "comment": "Non-latin language check, image parsing for IoCs, recent"
     },
     {
       "url": "https://securelist.com/gopix-banking-trojan/119173/",
@@ -57,13 +50,6 @@
       "created": "16/03/2026",
       "type": "html",
       "comment": "IR attaking West, rich in IOCs, recent"
-    },
-    {
-      "url": "https://jp.security.ntt/insights_resources/tech_blog/stoatwaffle_malware/",
-      "name": "stoatwaffle_malware",
-      "created": "17/03/2026",
-      "type": "html",
-      "comment": "Non-latin language check, image parsing for IoCs, recent"
     },
     {
       "url": "https://harfanglab.io/insidethelab/sadfuture-xdspy-latest-evolution/",
