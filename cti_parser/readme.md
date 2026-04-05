@@ -20,7 +20,16 @@
 - CIDR IOCs for IP indicators. Hunting by CIDR?
 - Infection chain is expressed as a plain text timeline.
 
+## APT28
 
+## DKnife
+
+## Stoatwaffle
+
+
+
+
++ fourth report, pdf one
 + metadata[]
     + severity (how interesting is it)
     + confidence
@@ -30,6 +39,7 @@
     + .regkey .email .filepath .mutex .cert .pipe .service
 - queries[].iocs/ttps
 + xrefs[].type == follows for ttps, creates for files, uses for domains
+- DKnife, Handala aren't indexed in Mitre groups
 
 Process tree for detection: different type of links for mitre --follows-> mitre and file --uses/creates-> regkey
 TTL for specific IOC and TTP - report date, let's keep in metadata
