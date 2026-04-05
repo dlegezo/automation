@@ -1,0 +1,44 @@
+flowchart LR
+    %% Auto-generated from outbound/outbound.json
+    %% IOC chains only (derived from xrefs creates/uses)
+
+    subgraph report_1["Report 1: https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/"]
+    r1_ioc_1["ioc-1 | filename | 5603E99151F8803C13D48D83B8A64D071542F01B"]
+    r1_ioc_2["ioc-2 | filename | 6D39F49AA11CE0574D581F10DB0F9BAE423CE3D5"]
+    r1_ioc_3["ioc-3 | url | https://icedrive.net/"]
+    r1_ioc_5["ioc-5 | process | taskhost.exe"]
+    r1_ioc_6["ioc-6 | process | explorer.exe"]
+    r1_ioc_5 -->|creates| r1_ioc_2
+    r1_ioc_6 -->|creates| r1_ioc_1
+    r1_ioc_2 -->|uses| r1_ioc_3
+    end
+
+    subgraph report_2["Report 2: https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/"]
+    r2_no_ioc_chain["No IOC chain found in xrefs"]
+    end
+
+    subgraph report_3["Report 3: https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/"]
+    r3_no_ioc_chain["No IOC chain found in xrefs"]
+    end
+
+    subgraph report_4["Report 4: https://blog.talosintelligence.com/knife-cutting-the-edge/"]
+    r4_no_ioc_chain["No IOC chain found in xrefs"]
+    end
+
+    subgraph report_5["Report 5: https://jp.security.ntt/insights_resources/tech_blog/stoatwaffle_malware/"]
+    r5_ioc_6["ioc-6 | filepath | .vscode/tasks.json"]
+    r5_ioc_7["ioc-7 | filename | vscode-bootstrap.cmd"]
+    r5_ioc_8["ioc-8 | filename | env.npl"]
+    r5_ioc_6 -->|creates| r5_ioc_7
+    r5_ioc_6 -->|creates| r5_ioc_8
+    end
+
+    classDef ioc fill:#eefaf1,stroke:#2c7a4b,stroke-width:1px
+    class r1_ioc_1 ioc
+    class r1_ioc_2 ioc
+    class r1_ioc_3 ioc
+    class r1_ioc_5 ioc
+    class r1_ioc_6 ioc
+    class r5_ioc_6 ioc
+    class r5_ioc_7 ioc
+    class r5_ioc_8 ioc
