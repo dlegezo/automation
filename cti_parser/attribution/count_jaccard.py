@@ -4,6 +4,9 @@
 For each report pair in outbound JSON, the script computes:
 1) TTP Jaccard distance on report.ttps IDs
 2) TTP-chain Jaccard distance on report.xrefs edges where type == "follows"
+3) IOC Jaccard distance on normalized IOC entries from report.iocs
+4) IOC-chain Jaccard distance on report.xrefs edges where type in {"creates", "uses"}
+    and both edge endpoints resolve to IOC entries
 
 Output is written to attribution/count_jaccard.md as a compact markdown table.
 """
@@ -80,17 +83,58 @@ def extract_follows_edges(report: Dict, ttps: Set[str]) -> Set[Tuple[str, str]]:
     return edges
 
 
-def build_table(rows: Iterable[Tuple[str, str, float, float]]) -> str:
+def normalize_ioc(ioc: Dict) -> str:
+    # IOC IDs are local per report (ioc-1, ioc-2...), so normalize by content.
+    ioc_type = str(ioc.get("type", "")).strip().lower()
+    value = str(ioc.get("value", "")).strip().lower()
+    hash_type = str(ioc.get("hash", "")).strip().lower()
+    cert_serial = str(ioc.get("cert_serial", "")).strip().lower()
+    return f"{ioc_type}|{value}|{hash_type}|{cert_serial}"
+
+
+def extract_iocs(report: Dict) -> Tuple[Set[str], Dict[str, str]]:
+    normalized_set: Set[str] = set()
+    id_to_norm: Dict[str, str] = {}
+
+    for item in report.get("iocs", []):
+        norm = normalize_ioc(item)
+        normalized_set.add(norm)
+        ioc_id = str(item.get("id", ""))
+        if ioc_id:
+            id_to_norm[ioc_id] = norm
+
+    return normalized_set, id_to_norm
+
+
+def extract_ioc_chain_edges(report: Dict, id_to_ioc: Dict[str, str]) -> Set[Tuple[str, str, str]]:
+    edges: Set[Tuple[str, str, str]] = set()
+    for xref in report.get("xrefs", []):
+        rel_type = xref.get("type")
+        if rel_type not in {"creates", "uses"}:
+            continue
+
+        src_norm = [id_to_ioc[src] for src in xref.get("from", []) if src in id_to_ioc]
+        dst_norm = [id_to_ioc[dst] for dst in xref.get("to", []) if dst in id_to_ioc]
+
+        for src, dst in itertools.product(src_norm, dst_norm):
+            edges.add((rel_type, src, dst))
+
+    return edges
+
+
+def build_table(rows: Iterable[Tuple[str, str, float, float, float, float]]) -> str:
     lines: List[str] = []
     lines.append("# Jaccard Distances Between Reports")
     lines.append("")
     lines.append("Jaccard distance formula: 1 - (intersection/union).")
     lines.append("Lower is closer. 0 means identical, 1 means no overlap.")
     lines.append("")
-    lines.append("| Report A | Report B | TTP distance | TTP follows-chain distance |")
-    lines.append("| --- | --- | ---: | ---: |")
-    for rep_a, rep_b, ttp_dist, chain_dist in rows:
-        lines.append(f"| {rep_a} | {rep_b} | {ttp_dist:.4f} | {chain_dist:.4f} |")
+    lines.append("| Report A | Report B | TTP distance | TTP follows-chain distance | IOC distance | IOC creates/uses-chain distance |")
+    lines.append("| --- | --- | ---: | ---: | ---: | ---: |")
+    for rep_a, rep_b, ttp_dist, chain_dist, ioc_dist, ioc_chain_dist in rows:
+        lines.append(
+            f"| {rep_a} | {rep_b} | {ttp_dist:.4f} | {chain_dist:.4f} | {ioc_dist:.4f} | {ioc_chain_dist:.4f} |"
+        )
     lines.append("")
     return "\n".join(lines)
 
@@ -111,17 +155,21 @@ def main() -> None:
     for idx, report in enumerate(reports, start=1):
         label = report_label(report, idx)
         ttps = extract_ttps(report)
-        chains = extract_follows_edges(report, ttps)
-        extracted.append((label, ttps, chains))
+        ttp_chains = extract_follows_edges(report, ttps)
+        iocs, ioc_id_map = extract_iocs(report)
+        ioc_chains = extract_ioc_chain_edges(report, ioc_id_map)
+        extracted.append((label, ttps, ttp_chains, iocs, ioc_chains))
 
-    rows: List[Tuple[str, str, float, float]] = []
+    rows: List[Tuple[str, str, float, float, float, float]] = []
     for i in range(len(extracted)):
         for j in range(i + 1, len(extracted)):
-            label_a, ttps_a, chains_a = extracted[i]
-            label_b, ttps_b, chains_b = extracted[j]
+            label_a, ttps_a, ttp_chains_a, iocs_a, ioc_chains_a = extracted[i]
+            label_b, ttps_b, ttp_chains_b, iocs_b, ioc_chains_b = extracted[j]
             ttp_dist = jaccard_distance(ttps_a, ttps_b)
-            chain_dist = jaccard_distance(chains_a, chains_b)
-            rows.append((label_a, label_b, ttp_dist, chain_dist))
+            ttp_chain_dist = jaccard_distance(ttp_chains_a, ttp_chains_b)
+            ioc_dist = jaccard_distance(iocs_a, iocs_b)
+            ioc_chain_dist = jaccard_distance(ioc_chains_a, ioc_chains_b)
+            rows.append((label_a, label_b, ttp_dist, ttp_chain_dist, ioc_dist, ioc_chain_dist))
 
     markdown = build_table(rows)
     output_path.parent.mkdir(parents=True, exist_ok=True)
