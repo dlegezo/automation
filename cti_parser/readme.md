@@ -29,7 +29,7 @@ Detailed specs stay in docs and schema files to avoid duplication.
 ## Outbound
 
 - Per-report parsed outputs live in [outbound](outbound)
-- Severity recalculation script (Jaccard distance against inbound tags_of_interest): [outbound/count_severity.py](outbound/count_severity.py)
+- Severity recalculation script (Jaccard distance against inbound tags_of_interest): [utils/count_severity.py](utils/count_severity.py)
 
 Current per-report files:
 - [outbound/sednit-reloaded-back-trenches.json](outbound/sednit-reloaded-back-trenches.json)
@@ -40,8 +40,9 @@ Current per-report files:
 
 ## Attribution
 
-- Pairwise report distance analysis (TTP, follows-chain, tags): [attribution/count_jaccard.py](attribution/count_jaccard.py)
-- Generated table: [attribution/count_jaccard.md](attribution/count_jaccard.md)
+- Pairwise report distance analysis (TTP, follows-chain, tags): [utils/count_attribution.py](utils/count_attribution.py)
+- Shared Jaccard and normalization helpers: [utils/utils.py](utils/utils.py)
+- Generated table: [attribution/attribution.md](attribution/attribution.md)
 
 ## Diagrams
 
@@ -52,13 +53,6 @@ Current per-report files:
   - [diagrams/iocs-schema.mmd](diagrams/iocs-schema.mmd)
   - [diagrams/ttps_chain.mmd](diagrams/ttps_chain.mmd)
   - [diagrams/iocs_chain.mmd](diagrams/iocs_chain.mmd)
-
-## API
-
-- HTTP server implementation: [api/server.py](api/server.py)
-- API documentation: [docs/api.md](docs/api.md)
-
-Note: [docs/api.md](docs/api.md) may still mention the previous monolithic outbound file path. Use per-report outbound JSON files as the current source of truth.
 
 ## Notes
 

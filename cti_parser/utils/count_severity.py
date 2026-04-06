@@ -12,27 +12,19 @@ import json
 from pathlib import Path
 from typing import Any, Iterable, Set
 
+from utils import jaccard_distance, normalize_tag
+
 
 def parse_args() -> argparse.Namespace:
     base_dir = Path(__file__).resolve().parent
     default_inbound = base_dir.parent / "inbound" / "inbound.json"
+    default_outbound = base_dir.parent / "outbound"
 
     parser = argparse.ArgumentParser(description="Count severity for outbound report files")
     parser.add_argument("--inbound", default=str(default_inbound), help="Path to inbound JSON")
-    parser.add_argument("--outbound-dir", default=str(base_dir), help="Path to outbound directory")
+    parser.add_argument("--outbound-dir", default=str(default_outbound), help="Path to outbound directory")
     parser.add_argument("--dry-run", action="store_true", help="Print values without writing files")
     return parser.parse_args()
-
-
-def jaccard_distance(left: Set[str], right: Set[str]) -> float:
-    union = left | right
-    if not union:
-        return 0.0
-    return 1.0 - (len(left & right) / len(union))
-
-
-def normalize_tag(value: str) -> str:
-    return value.strip().lower()
 
 
 def flatten_tag_values(node: Any) -> Iterable[str]:

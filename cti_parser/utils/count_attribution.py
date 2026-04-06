@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Compute pairwise Jaccard distances between CTI reports.
+"""Compute pairwise attribution distances between CTI reports.
 
-For each report pair in outbound JSON, the script computes:
+For each report pair in outbound per-report JSON files, the script computes:
 1) TTP Jaccard distance on report.ttps IDs
 2) TTP-chain Jaccard distance on report.xrefs edges where type == "follows"
 3) Tags Jaccard distance on report.metadata.tags
 
-Output is written to attribution/count_jaccard.md as a compact markdown table.
+Output is written to attribution/attribution.md as a compact markdown table.
 """
 
 from __future__ import annotations
@@ -19,32 +19,25 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Set, Tuple
 from urllib.parse import urlparse
 
+from utils import jaccard_distance, normalize_tag
+
 
 TTP_RE = re.compile(r"^T[0-9]{4}(\.[0-9]{3})?$")
 
 
 def parse_args() -> argparse.Namespace:
     base_dir = Path(__file__).resolve().parent
-    default_input = base_dir.parent / "outbound" / "outbound.json"
-    default_output = base_dir / "count_jaccard.md"
+    default_input_dir = base_dir.parent / "outbound"
+    default_output = base_dir.parent / "attribution" / "attribution.md"
 
-    parser = argparse.ArgumentParser(description="Count Jaccard distances between reports")
-    parser.add_argument("--input", default=str(default_input), help="Path to outbound JSON")
+    parser = argparse.ArgumentParser(description="Count pairwise attribution distances between reports")
+    parser.add_argument("--input-dir", default=str(default_input_dir), help="Path to outbound report JSON directory")
     parser.add_argument("--output", default=str(default_output), help="Path to markdown output")
     return parser.parse_args()
 
 
 def is_ttp(value: str) -> bool:
     return bool(TTP_RE.match(value))
-
-
-def jaccard_distance(left: Set, right: Set) -> float:
-    union = left | right
-    if not union:
-        return 0.0
-    intersection = left & right
-    similarity = len(intersection) / len(union)
-    return 1.0 - similarity
 
 
 def report_label(report: Dict, index: int) -> str:
@@ -69,33 +62,50 @@ def extract_ttps(report: Dict) -> Set[str]:
     return result
 
 
-def extract_follows_edges(report: Dict, ttps: Set[str]) -> Set[Tuple[str, str]]:
-    edges: Set[Tuple[str, str]] = set()
+def extract_follows_edges(report: Dict, ttps: Set[str]) -> Set[str]:
+    edges: Set[str] = set()
     for xref in report.get("xrefs", []):
         if xref.get("type") != "follows":
             continue
         sources = [x for x in xref.get("from", []) if x in ttps and is_ttp(x)]
         targets = [x for x in xref.get("to", []) if x in ttps and is_ttp(x)]
         for src, dst in itertools.product(sources, targets):
-            edges.add((src, dst))
+            edges.add(f"{src}->{dst}")
     return edges
 
 
 def extract_tags(report: Dict) -> Set[str]:
-    """Extract tags from report metadata."""
     tags: Set[str] = set()
     metadata = report.get("metadata", {})
     tag_list = metadata.get("tags", [])
     if isinstance(tag_list, list):
         for tag in tag_list:
             if isinstance(tag, str):
-                tags.add(tag.strip().lower())
+                tags.add(normalize_tag(tag))
     return tags
+
+
+def iter_report_files(input_dir: Path) -> Iterable[Path]:
+    for path in sorted(input_dir.glob("*.json")):
+        if path.name.lower() == "outbound.json":
+            continue
+        yield path
+
+
+def load_reports(input_dir: Path) -> List[Dict]:
+    reports: List[Dict] = []
+    for report_file in iter_report_files(input_dir):
+        with report_file.open("r", encoding="utf-8-sig") as f:
+            doc = json.load(f)
+        report = doc.get("report", {})
+        if report:
+            reports.append(report)
+    return reports
 
 
 def build_table(rows: Iterable[Tuple[str, str, float, float, float]]) -> str:
     lines: List[str] = []
-    lines.append("# Jaccard Distances Between Reports")
+    lines.append("# Attribution Distances Between Reports")
     lines.append("")
     lines.append("Jaccard distance formula: 1 - (intersection/union).")
     lines.append("Lower is closer. 0 means identical, 1 means no overlap.")
@@ -112,13 +122,10 @@ def build_table(rows: Iterable[Tuple[str, str, float, float, float]]) -> str:
 
 def main() -> None:
     args = parse_args()
-    input_path = Path(args.input).resolve()
+    input_dir = Path(args.input_dir).resolve()
     output_path = Path(args.output).resolve()
 
-    with input_path.open("r", encoding="utf-8-sig") as f:
-        doc = json.load(f)
-
-    reports = doc.get("reports", [])
+    reports = load_reports(input_dir)
     if len(reports) < 2:
         raise ValueError("Need at least two reports to compute pairwise distances")
 
@@ -144,9 +151,9 @@ def main() -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(markdown, encoding="utf-8")
 
-    print(f"Input : {input_path}")
-    print(f"Output: {output_path}")
-    print(f"Pairs : {len(rows)}")
+    print(f"Input dir: {input_dir}")
+    print(f"Output   : {output_path}")
+    print(f"Pairs    : {len(rows)}")
 
 
 if __name__ == "__main__":
