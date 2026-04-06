@@ -1,6 +1,8 @@
-Read the reports listed in ./inbound/inbound.json, consider it as a main input. This file data format described in ./schemes/pipeline-schema.json. You cound be sure input JSON data strictly follows it
+Read the reports listed in ./inbound/inbound.json, consider it as a main input. This file data format described in ./schemes/pipeline-schema.json. You cound be sure input JSON data strictly follows it. During reports parsing you have to get data not only from text and tables, but also parse pictures with data and diagrams  
 
 To provide JSON output strictly follows ./scheme/iocs-schema.json. in ./outbound directory for every report create corresponding <report_name>.JSON file with parsed data. You also should consult iocs-schema.json comments to understand the meaning and possible values of every field
 
 Duplicate from schema
 In reports metadata tags should contain coutries, industries, all actors and malware names. Actor should contain MITRE group name informat GXXXX but only if it exists in MITRE list. Otherwise just use vendors' actor name from report. Severity metadata field means how interesting for the customer, how near to their business this report is
+
+ttps should contain all
