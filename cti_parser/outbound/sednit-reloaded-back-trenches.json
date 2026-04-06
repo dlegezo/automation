@@ -1,0 +1,403 @@
+{
+    "$schema": "../schemes/iocs-schema.json",
+    "$id": "sednit-reloaded-back-trenches.json",
+    "report": {
+        "metadata": {
+            "url": "https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/",
+            "created": "10/03/2026",
+            "severity": "high",
+            "confidence": "high",
+            "tags": [
+                "Sednit",
+                "APT28",
+                "G0007",
+                "Fancy Bear",
+                "SlimAgent",
+                "BeardShell",
+                "Covenant",
+                "Russia",
+                "Ukraine",
+                "Europe",
+                "Cybersecurity",
+                "APT",
+                "Espionage"
+            ],
+            "actor": "G0007"
+        },
+        "iocs": [
+            {
+                "id": "ioc-1",
+                "type": "filename",
+                "malign": true,
+                "hash": "sha1",
+                "value": "5603E99151F8803C13D48D83B8A64D071542F01B",
+                "file_name": "eapphost.dll",
+                "file_type": "dynamic library",
+                "platform": "Windows",
+                "capabilities": "Keylogging, screen capture, clipboard data collection",
+                "detection": "Win64/Spy.KeyLogger.LS",
+                "comment": "SlimAgent keylogger"
+            },
+            {
+                "id": "ioc-2",
+                "type": "filename",
+                "malign": true,
+                "hash": "sha1",
+                "value": "6D39F49AA11CE0574D581F10DB0F9BAE423CE3D5",
+                "file_name": "tcpiphlpsvc.dll",
+                "file_type": "dynamic library",
+                "platform": "Windows",
+                "capabilities": "Remote access, data collection",
+                "detection": "Win64/BeardShell.A",
+                "comment": "BeardShell trojan"
+            },
+            {
+                "id": "ioc-3",
+                "type": "url",
+                "malign": false,
+                "value": "https://icedrive.net/",
+                "comment": "BeardShell C2 infrastructure, legit service abused by the malware"
+            },
+            {
+                "id": "ioc-4",
+                "type": "url",
+                "malign": false,
+                "value": "https://filen.com/",
+                "comment": "Covenant C2 infrastructure, legit service abused by the malware"
+            },
+            {
+                "id": "ioc-5",
+                "type": "process",
+                "malign": false,
+                "value": "taskhost.exe",
+                "comment": "BeardShell only executes in taskhost.exe or taskhostw.exe"
+            },
+            {
+                "id": "ioc-6",
+                "type": "process",
+                "malign": false,
+                "value": "explorer.exe",
+                "comment": "SlimAgent only executes in explorer.exe"
+            }
+        ],
+        "ttps": [
+            {
+                "id": "T1583.006",
+                "comment": "Acquire Infrastructure: Web Services - BeardShell uses Icedrive and modified Covenant uses Filen as cloud C2 infrastructure."
+            },
+            {
+                "id": "T1587.001",
+                "comment": "Develop Capabilities: Malware - SlimAgent and BeardShell are custom malware maintained by Sednit developers."
+            },
+            {
+                "id": "T1059.001",
+                "comment": "Command and Scripting Interpreter: PowerShell - BeardShell executes PowerShell commands in-process."
+            },
+            {
+                "id": "T1129",
+                "comment": "Shared Modules - Core implants are delivered as DLL modules (SlimAgent and BeardShell)."
+            },
+            {
+                "id": "T1546.015",
+                "comment": "Event Triggered Execution: Component Object Model Hijacking - Persistence is achieved through COM hijacking."
+            },
+            {
+                "id": "T1027",
+                "comment": "Obfuscated Files or Information - BeardShell applies opaque-predicate obfuscation around token handling code."
+            },
+            {
+                "id": "T1140",
+                "comment": "Deobfuscate/Decode Files or Information - BeardShell decrypts protected strings and tokens at runtime."
+            },
+            {
+                "id": "T1480.001",
+                "comment": "Execution Guardrails: Environmental Keying - Implant logic is gated by specific host process conditions (taskhost/taskhostw/explorer)."
+            },
+            {
+                "id": "T1564.001",
+                "comment": "Hide Artifacts: Hidden Files and Directories - SlimAgent stores spying logs in hidden files."
+            },
+            {
+                "id": "T1082",
+                "comment": "System Information Discovery - BeardShell fingerprints compromised hosts."
+            },
+            {
+                "id": "T1005",
+                "comment": "Data from Local System - BeardShell, Covenant, and SlimAgent collect local host data."
+            },
+            {
+                "id": "T1056.001",
+                "comment": "Input Capture: Keylogging - SlimAgent records keystrokes."
+            },
+            {
+                "id": "T1113",
+                "comment": "Screen Capture - SlimAgent captures screenshots from infected systems."
+            },
+            {
+                "id": "T1115",
+                "comment": "Clipboard Data - SlimAgent collects clipboard content."
+            },
+            {
+                "id": "T1001.001",
+                "comment": "Data Obfuscation: Junk Data - BeardShell wraps exfiltrated content in fake image artifacts."
+            },
+            {
+                "id": "T1071.001",
+                "comment": "Application Layer Protocol: Web Protocols - HTTPS is used for cloud-mediated C2 communications."
+            },
+            {
+                "id": "T1102.002",
+                "comment": "Web Service: Bidirectional Communication - Icedrive and Filen APIs are used as command channels."
+            },
+            {
+                "id": "T1573.002",
+                "comment": "Encrypted Channel: Asymmetric Cryptography - Communications are protected via encrypted channels including RSA-protected sessions in Covenant flow."
+            },
+            {
+                "id": "T1567.002",
+                "comment": "Exfiltration Over Web Service: Exfiltration to Cloud Storage - Collected data is exfiltrated through cloud storage services."
+            }
+        ],
+        "queries": [
+            {
+                "id": "query-01",
+                "type": "kql",
+                "value": "",
+                "iocs": [
+                    "ioc-5",
+                    "ioc-6"
+                ],
+                "comment": "SlimAgent and BeardShell execution, dll injection"
+            },
+            {
+                "id": "query-02",
+                "type": "yara",
+                "value": "",
+                "iocs": [
+                    "ioc-1"
+                ],
+                "comment": "SlimAgent 2024 file detection by specific function names. content:\"FN_log_window_text\""
+            },
+            {
+                "id": "query-03",
+                "type": "yara",
+                "value": "",
+                "iocs": [
+                    "ioc-2"
+                ],
+                "comment": "Modified Covenant file detection by specific function names. content:\"GruntUUID\" and content:\"filenClient\""
+            }
+        ],
+        "xrefs": [
+            {
+                "id": "xref-01",
+                "type": "creates",
+                "from": [
+                    "ioc-5"
+                ],
+                "to": [
+                    "ioc-2"
+                ],
+                "comment": "BeardShell executes only under taskhost.exe or taskhostw.exe conditions."
+            },
+            {
+                "id": "xref-02",
+                "type": "creates",
+                "from": [
+                    "ioc-6"
+                ],
+                "to": [
+                    "ioc-1"
+                ],
+                "comment": "SlimAgent execution is constrained to explorer.exe."
+            },
+            {
+                "id": "xref-03",
+                "type": "uses",
+                "from": [
+                    "ioc-2"
+                ],
+                "to": [
+                    "ioc-3"
+                ],
+                "comment": "BeardShell uses Icedrive cloud URLs for command exchange."
+            },
+            {
+                "id": "xref-04",
+                "type": "follows",
+                "from": [
+                    "T1583.006"
+                ],
+                "to": [
+                    "T1102.002"
+                ],
+                "comment": "Provisioned cloud web services are directly used for bidirectional C2."
+            },
+            {
+                "id": "xref-05",
+                "type": "follows",
+                "from": [
+                    "T1587.001"
+                ],
+                "to": [
+                    "T1129"
+                ],
+                "comment": "Custom malware capability is delivered through DLL modules."
+            },
+            {
+                "id": "xref-06",
+                "type": "follows",
+                "from": [
+                    "T1129"
+                ],
+                "to": [
+                    "T1546.015"
+                ],
+                "comment": "Module execution is persisted with COM hijacking."
+            },
+            {
+                "id": "xref-07",
+                "type": "follows",
+                "from": [
+                    "T1546.015"
+                ],
+                "to": [
+                    "T1059.001"
+                ],
+                "comment": "Persistent components execute scripted PowerShell tasks."
+            },
+            {
+                "id": "xref-08",
+                "type": "follows",
+                "from": [
+                    "T1059.001"
+                ],
+                "to": [
+                    "T1480.001"
+                ],
+                "comment": "Execution flow enforces process-based environmental keying."
+            },
+            {
+                "id": "xref-09",
+                "type": "follows",
+                "from": [
+                    "T1480.001"
+                ],
+                "to": [
+                    "T1082"
+                ],
+                "comment": "Guardrail validation is followed by host fingerprinting."
+            },
+            {
+                "id": "xref-10",
+                "type": "follows",
+                "from": [
+                    "T1082"
+                ],
+                "to": [
+                    "T1005"
+                ],
+                "comment": "System discovery informs local data collection."
+            },
+            {
+                "id": "xref-11",
+                "type": "follows",
+                "from": [
+                    "T1005"
+                ],
+                "to": [
+                    "T1056.001"
+                ],
+                "comment": "Collected local context includes keyboard capture."
+            },
+            {
+                "id": "xref-12",
+                "type": "follows",
+                "from": [
+                    "T1056.001"
+                ],
+                "to": [
+                    "T1113"
+                ],
+                "comment": "Keylogging activity is complemented with screenshot capture."
+            },
+            {
+                "id": "xref-13",
+                "type": "follows",
+                "from": [
+                    "T1113"
+                ],
+                "to": [
+                    "T1115"
+                ],
+                "comment": "Visual capture is paired with clipboard collection."
+            },
+            {
+                "id": "xref-14",
+                "type": "follows",
+                "from": [
+                    "T1115"
+                ],
+                "to": [
+                    "T1564.001"
+                ],
+                "comment": "Captured data is stored as hidden artifacts."
+            },
+            {
+                "id": "xref-15",
+                "type": "follows",
+                "from": [
+                    "T1564.001"
+                ],
+                "to": [
+                    "T1001.001"
+                ],
+                "comment": "Hidden collection is packed with junk-data style obfuscation."
+            },
+            {
+                "id": "xref-16",
+                "type": "follows",
+                "from": [
+                    "T1001.001"
+                ],
+                "to": [
+                    "T1573.002"
+                ],
+                "comment": "Obfuscated payloads are sent via encrypted channels."
+            },
+            {
+                "id": "xref-17",
+                "type": "follows",
+                "from": [
+                    "T1573.002"
+                ],
+                "to": [
+                    "T1071.001"
+                ],
+                "comment": "Encrypted sessions are carried over HTTPS web protocols."
+            },
+            {
+                "id": "xref-18",
+                "type": "follows",
+                "from": [
+                    "T1071.001"
+                ],
+                "to": [
+                    "T1102.002"
+                ],
+                "comment": "HTTPS communications are implemented through cloud web services."
+            },
+            {
+                "id": "xref-19",
+                "type": "follows",
+                "from": [
+                    "T1102.002"
+                ],
+                "to": [
+                    "T1567.002"
+                ],
+                "comment": "The same cloud services are used to exfiltrate collected data."
+            }
+        ]
+    }
+}

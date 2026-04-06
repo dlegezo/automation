@@ -11,10 +11,17 @@
                 "tags": [
                     "Sednit",
                     "APT28",
+                    "G0007",
+                    "Fancy Bear",
                     "SlimAgent",
                     "BeardShell",
+                    "Covenant",
                     "Russia",
-                    "Ukraine"
+                    "Ukraine",
+                    "Europe",
+                    "Cybersecurity",
+                    "APT",
+                    "Espionage"
                 ],
                 "actor": "G0007"
             },
@@ -405,9 +412,19 @@
                     "Void Manticore",
                     "Red Sandstorm",
                     "Banished Kitten",
+                    "Karma",
+                    "Homeland Justice",
+                    "G0000",
                     "Iran",
+                    "MOIS",
                     "Israel",
-                    "Albania"
+                    "Albania",
+                    "United States",
+                    "Cybersecurity",
+                    "APT",
+                    "Destructive",
+                    "Wiping",
+                    "Ransomware"
                 ],
                 "actor": "G0000"
             },
@@ -951,7 +968,9 @@
                 "confidence": "high",
                 "tags": [
                     "APT28",
+                    "Fancy Bear",
                     "Operation Neusploit",
+                    "G0007",
                     "CVE-2026-21509",
                     "MiniDoor",
                     "PixyNetLoader",
@@ -959,7 +978,12 @@
                     "Russia",
                     "Ukraine",
                     "Slovakia",
-                    "Romania"
+                    "Romania",
+                    "Europe",
+                    "Cybersecurity",
+                    "APT",
+                    "Phishing",
+                    "Exploitation"
                 ],
                 "actor": "G0007"
             },
@@ -1534,12 +1558,20 @@
                 "confidence": "medium",
                 "tags": [
                     "DKnife",
-                    "DarkNimbus",
-                    "ShadowPad",
+                    "Spellbinder",
                     "WizardNet",
+                    "ShadowPad",
+                    "DarkNimbus",
+                    "MOONSHINE",
+                    "China",
                     "China-nexus",
+                    "Gateway",
                     "AiTM",
-                    "gateway"
+                    "Adversary-in-the-Middle",
+                    "Linux",
+                    "ELF",
+                    "Cyber-espionage",
+                    "APT"
                 ],
                 "actor": "G0000"
             },
@@ -1861,13 +1893,21 @@
                 "severity": "high",
                 "confidence": "high",
                 "tags": [
-                    "WaterPlum",
                     "StoatWaffle",
+                    "WaterPlum",
                     "Contagious Interview",
+                    "G0032",
+                    "OtterCookie",
                     "North Korea",
+                    "DPRK",
                     "VSCode",
                     "Node.js",
-                    "Vercel"
+                    "Vercel",
+                    "JavaScript",
+                    "Malware",
+                    "Stealer",
+                    "RAT",
+                    "Cyber-espionage"
                 ],
                 "actor": "G0032"
             },

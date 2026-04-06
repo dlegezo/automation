@@ -1,0 +1,563 @@
+{
+    "$schema": "../schemes/iocs-schema.json",
+    "$id": "handala-hack-unveiling-groups-modus-operandi.json",
+    "report": {
+        "metadata": {
+            "url": "https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/",
+            "created": "12/03/2026",
+            "severity": "critical",
+            "confidence": "high",
+            "tags": [
+                "Handala",
+                "Void Manticore",
+                "Red Sandstorm",
+                "Banished Kitten",
+                "Karma",
+                "Homeland Justice",
+                "G0000",
+                "Iran",
+                "MOIS",
+                "Israel",
+                "Albania",
+                "United States",
+                "Cybersecurity",
+                "APT",
+                "Destructive",
+                "Wiping",
+                "Ransomware"
+            ],
+            "actor": "G0000"
+        },
+        "iocs": [
+            {
+                "id": "ioc-1",
+                "type": "ip",
+                "malign": true,
+                "value": "107.189.19.52",
+                "comment": "C2 server for additional payload retrieval"
+            },
+            {
+                "id": "ioc-2",
+                "type": "ip",
+                "malign": false,
+                "value": "169.150.227.0/24",
+                "comment": "Commercial VPN segment used for egress to Israel targets"
+            },
+            {
+                "id": "ioc-3",
+                "type": "ip",
+                "malign": false,
+                "value": "146.185.219.235",
+                "comment": "Israeli VPN node used for egress"
+            },
+            {
+                "id": "ioc-4",
+                "type": "process",
+                "malign": false,
+                "value": "netbird.exe",
+                "comment": "Zero-trust Wireguard-based mesh network deployed for internal lateral movement"
+            },
+            {
+                "id": "ioc-5",
+                "type": "process",
+                "malign": false,
+                "value": "VeraCrypt.exe",
+                "comment": "Disk encryption utility downloaded for destructive encryption"
+            },
+            {
+                "id": "ioc-6",
+                "type": "cmdline",
+                "malign": true,
+                "value": "rundll32.exe comsvcs.dll MiniDump",
+                "comment": "LSASS credential dumping pre-wiping. Value is keywords enumeration, cmdline is <path>rundll32.exe <paht>comsvcs.dll, MiniDump <PID> <path_filename>.dmp full"
+            },
+            {
+                "id": "ioc-7",
+                "type": "cmdline",
+                "malign": true,
+                "value": "wmic.exe process call create",
+                "comment": "Copies registry hives from VSS (SYSTEM hive). Value is cmdline start, cmdline is wmic[.exe] process call create \"reg.exe save HKLM\\SYSTEM <path_filename>\""
+            },
+            {
+                "id": "ioc-8",
+                "type": "filename",
+                "malign": true,
+                "hash": "md5",
+                "name": "handala.exe",
+                "value": "5986ab04dd6b3d259935249741d3eff2",
+                "comment": "Handala Wiper, dropped by initial access vector and used for destructive payload execution"
+            },
+            {
+                "id": "ioc-9",
+                "type": "filename",
+                "malign": true,
+                "hash": "md5",
+                "value": "3cb9dea916432ffb8784ac36d1f2d3cd",
+                "comment": "Handala PowerShell Wiper – AI-assisted script enumerating and deleting files under C:\\Users, distributed via GPO logon script"
+            },
+            {
+                "id": "ioc-10",
+                "type": "filename",
+                "malign": false,
+                "hash": "md5",
+                "file_name": "VeraCrypt Setup.exe",
+                "value": "3236facc7a30df4ba4e57fddfba41ec5",
+                "comment": "VeraCrypt installer downloaded directly onto victim machines for disk encryption-for-impact"
+            },
+            {
+                "id": "ioc-11",
+                "type": "filename",
+                "malign": false,
+                "hash": "md5",
+                "file_name": "netbird-installer.exe",
+                "value": "3dfb151d082df7937b01e2bb6030fe4a",
+                "comment": "NetBird installer downloaded by the attacker to establish zero-trust mesh-network tunneling"
+            },
+            {
+                "id": "ioc-12",
+                "type": "filename",
+                "malign": false,
+                "hash": "md5",
+                "file_name": "netbird.exe",
+                "value": "e035c858c1969cffc1a4978b86e90a30",
+                "comment": "NetBird binary deployed on compromised hosts for internal mesh connectivity and lateral movement facilitation"
+            },
+            {
+                "id": "ioc-13",
+                "type": "ip",
+                "malign": true,
+                "value": "82.25.35.25",
+                "comment": "Handala Hack VPS used as operational infrastructure during intrusions"
+            },
+            {
+                "id": "ioc-14",
+                "type": "ip",
+                "malign": true,
+                "value": "31.57.35.223",
+                "comment": "Handala Hack VPS used as operational infrastructure during intrusions"
+            },
+            {
+                "id": "ioc-15",
+                "type": "filename",
+                "malign": false,
+                "value": "dra.ps1",
+                "comment": "ADRecon PowerShell framework executed for Active Directory enumeration before the destructive phase"
+            },
+            {
+                "id": "ioc-16",
+                "type": "filename",
+                "malign": true,
+                "value": "handala.bat",
+                "comment": "Batch script distributed via GPO logon scripts that triggers both Handala wiper executable and PowerShell wiper"
+            }
+        ],
+        "ttps": [
+            {
+                "id": "T1199",
+                "comment": "Trusted Relationship - IT and service providers are leveraged as access paths into downstream victim environments."
+            },
+            {
+                "id": "T1110",
+                "comment": "Brute Force - Repeated VPN authentication attempts are used to gain entry."
+            },
+            {
+                "id": "T1078.002",
+                "comment": "Valid Accounts: Domain Accounts - Compromised domain credentials are used for operational access."
+            },
+            {
+                "id": "T1133",
+                "comment": "External Remote Services - Operators access victim environments through VPN/RDP remote services."
+            },
+            {
+                "id": "T1021.001",
+                "comment": "Remote Services: Remote Desktop Protocol - Extensive hands-on lateral movement is performed with RDP."
+            },
+            {
+                "id": "T1570",
+                "comment": "Lateral Tool Transfer - Tooling is manually moved and staged across compromised hosts."
+            },
+            {
+                "id": "T1105",
+                "comment": "Ingress Tool Transfer - NetBird and VeraCrypt are downloaded and deployed on victim systems."
+            },
+            {
+                "id": "T1572",
+                "comment": "Protocol Tunneling - NetBird is used to tunnel operator traffic into internal network segments."
+            },
+            {
+                "id": "T1047",
+                "comment": "Windows Management Instrumentation - WMIC remote process creation is used during pre-impact operations."
+            },
+            {
+                "id": "T1003.001",
+                "comment": "OS Credential Dumping: LSASS Memory - rundll32 with comsvcs MiniDump is used to dump LSASS."
+            },
+            {
+                "id": "T1003.002",
+                "comment": "OS Credential Dumping: Security Account Manager - Registry hive export activity targets credential material."
+            },
+            {
+                "id": "T1087.002",
+                "comment": "Account Discovery: Domain Accounts - ADRecon enumerates Active Directory account information."
+            },
+            {
+                "id": "T1484.001",
+                "comment": "Domain Policy Modification: Group Policy Modification - Wiper components are distributed through GPO mechanisms."
+            },
+            {
+                "id": "T1037.003",
+                "comment": "Boot or Logon Initialization Scripts: Network Logon Script - Logon scripts trigger destructive components."
+            },
+            {
+                "id": "T1053.005",
+                "comment": "Scheduled Task/Job: Scheduled Task - Scheduled execution is used for staged destructive launch."
+            },
+            {
+                "id": "T1480.001",
+                "comment": "Execution Guardrails: Environmental Keying - Domain Admin validation is used before destructive actions."
+            },
+            {
+                "id": "T1059.001",
+                "comment": "Command and Scripting Interpreter: PowerShell - AI-assisted PowerShell scripts orchestrate wiping activity."
+            },
+            {
+                "id": "T1485",
+                "comment": "Data Destruction - Multiple destructive routines erase files and system content."
+            },
+            {
+                "id": "T1561.002",
+                "comment": "Disk Wipe: Disk Structure Wipe - Custom MBR wiping is used for deep destructive impact."
+            },
+            {
+                "id": "T1490",
+                "comment": "Inhibit System Recovery - Parallel destructive methods are used to complicate restoration."
+            },
+            {
+                "id": "T1486",
+                "comment": "Data Encrypted for Impact - VeraCrypt encryption is used to deny system and data access."
+            }
+        ],
+        "queries": [
+            {
+                "id": "query-1",
+                "type": "kql",
+                "value": "Process | where ProcessImageName in~('rundll32.exe', 'powershell.exe') | where ProcessCommandLine contains 'comsvcs.dll' and ProcessCommandLine contains 'MiniDump'",
+                "iocs": [
+                    "ioc-6"
+                ],
+                "comment": "Pre-wiping recon: LSASS dump"
+            },
+            {
+                "id": "query-2",
+                "type": "kql",
+                "value": "Process | where ProcessImageName in~('wmic.exe', 'powershell.exe') | where ProcessCommandLine contains 'process call create' and ProcessCommandLine contains 'reg.exe save'",
+                "iocs": [
+                    "ioc-7"
+                ],
+                "comment": "Pre-wiping recon: registry copy"
+            },
+            {
+                "id": "query-3",
+                "type": "kql",
+                "value": "DeviceNetworkEvents | where RemoteIP in ('107.189.19.52', '169.150.227.0/24', '146.185.219.235') | where ActionType == 'ConnectionSuccess'",
+                "iocs": [
+                    "ioc-1",
+                    "ioc-2",
+                    "ioc-3"
+                ],
+                "comment": "Suspicious C2/VPN connections from Iranian actors. Here could also detect IR IPs"
+            }
+        ],
+        "xrefs": [
+            {
+                "id": "xref-1",
+                "type": "uses",
+                "from": [
+                    "query-1"
+                ],
+                "to": [
+                    "ioc-6"
+                ],
+                "comment": "Detection query aligns with observed LSASS dump command behavior."
+            },
+            {
+                "id": "xref-2",
+                "type": "uses",
+                "from": [
+                    "query-2"
+                ],
+                "to": [
+                    "ioc-7"
+                ],
+                "comment": "Detection query aligns with WMIC-based registry hive dumping activity."
+            },
+            {
+                "id": "xref-3",
+                "type": "uses",
+                "from": [
+                    "query-3"
+                ],
+                "to": [
+                    "ioc-1",
+                    "ioc-2",
+                    "ioc-3"
+                ],
+                "comment": "Network query covers C2 and VPN infrastructure observed in intrusions."
+            },
+            {
+                "id": "xref-4",
+                "type": "follows",
+                "from": [
+                    "T1199"
+                ],
+                "to": [
+                    "T1110"
+                ],
+                "comment": "Trusted-provider access patterns include repeated credential attack activity."
+            },
+            {
+                "id": "xref-5",
+                "type": "follows",
+                "from": [
+                    "T1110"
+                ],
+                "to": [
+                    "T1078.002"
+                ],
+                "comment": "Brute-force and credential abuse enable use of valid domain accounts."
+            },
+            {
+                "id": "xref-6",
+                "type": "follows",
+                "from": [
+                    "T1078.002"
+                ],
+                "to": [
+                    "T1133"
+                ],
+                "comment": "Compromised credentials are used over external remote services."
+            },
+            {
+                "id": "xref-7",
+                "type": "follows",
+                "from": [
+                    "T1133"
+                ],
+                "to": [
+                    "T1021.001"
+                ],
+                "comment": "Initial remote access transitions into internal RDP-based movement."
+            },
+            {
+                "id": "xref-8",
+                "type": "follows",
+                "from": [
+                    "T1021.001"
+                ],
+                "to": [
+                    "T1570"
+                ],
+                "comment": "RDP footholds are used to transfer operator tooling laterally."
+            },
+            {
+                "id": "xref-9",
+                "type": "follows",
+                "from": [
+                    "T1570"
+                ],
+                "to": [
+                    "T1105"
+                ],
+                "comment": "Transferred tooling includes downloaded utilities such as NetBird and VeraCrypt."
+            },
+            {
+                "id": "xref-10",
+                "type": "follows",
+                "from": [
+                    "T1105"
+                ],
+                "to": [
+                    "T1572"
+                ],
+                "comment": "Ingressed NetBird tooling is used to tunnel operational traffic."
+            },
+            {
+                "id": "xref-11",
+                "type": "follows",
+                "from": [
+                    "T1572"
+                ],
+                "to": [
+                    "T1047"
+                ],
+                "comment": "Tunnel-enabled access supports remote WMI process execution."
+            },
+            {
+                "id": "xref-12",
+                "type": "follows",
+                "from": [
+                    "T1047"
+                ],
+                "to": [
+                    "T1003.001"
+                ],
+                "comment": "WMI-executed commands precede LSASS credential dumping."
+            },
+            {
+                "id": "xref-13",
+                "type": "follows",
+                "from": [
+                    "T1003.001"
+                ],
+                "to": [
+                    "T1003.002"
+                ],
+                "comment": "LSASS dumping is paired with registry/SAM extraction techniques."
+            },
+            {
+                "id": "xref-14",
+                "type": "follows",
+                "from": [
+                    "T1003.002"
+                ],
+                "to": [
+                    "T1087.002"
+                ],
+                "comment": "Credential access supports subsequent AD account discovery."
+            },
+            {
+                "id": "xref-15",
+                "type": "follows",
+                "from": [
+                    "T1087.002"
+                ],
+                "to": [
+                    "T1484.001"
+                ],
+                "comment": "Domain awareness is operationalized through GPO modification for distribution."
+            },
+            {
+                "id": "xref-16",
+                "type": "follows",
+                "from": [
+                    "T1484.001"
+                ],
+                "to": [
+                    "T1037.003"
+                ],
+                "comment": "Group Policy changes deliver network logon script execution."
+            },
+            {
+                "id": "xref-17",
+                "type": "follows",
+                "from": [
+                    "T1037.003"
+                ],
+                "to": [
+                    "T1053.005"
+                ],
+                "comment": "Logon script staging chains into scheduled-task driven payload launch."
+            },
+            {
+                "id": "xref-18",
+                "type": "follows",
+                "from": [
+                    "T1053.005"
+                ],
+                "to": [
+                    "T1480.001"
+                ],
+                "comment": "Scheduled destructive workflows include environment-based guardrail checks."
+            },
+            {
+                "id": "xref-19",
+                "type": "follows",
+                "from": [
+                    "T1480.001"
+                ],
+                "to": [
+                    "T1059.001"
+                ],
+                "comment": "Validated execution context enables scripted destructive orchestration."
+            },
+            {
+                "id": "xref-20",
+                "type": "follows",
+                "from": [
+                    "T1059.001"
+                ],
+                "to": [
+                    "T1485"
+                ],
+                "comment": "PowerShell logic drives destructive file and system actions."
+            },
+            {
+                "id": "xref-21",
+                "type": "follows",
+                "from": [
+                    "T1485"
+                ],
+                "to": [
+                    "T1561.002"
+                ],
+                "comment": "Destructive phase escalates into disk-structure wiping."
+            },
+            {
+                "id": "xref-22",
+                "type": "follows",
+                "from": [
+                    "T1485"
+                ],
+                "to": [
+                    "T1490"
+                ],
+                "comment": "Destruction includes inhibiting practical recovery."
+            },
+            {
+                "id": "xref-23",
+                "type": "follows",
+                "from": [
+                    "T1485"
+                ],
+                "to": [
+                    "T1486"
+                ],
+                "comment": "Destructive operations are combined with encryption-for-impact."
+            },
+            {
+                "id": "xref-24",
+                "type": "creates",
+                "from": [
+                    "ioc-11"
+                ],
+                "to": [
+                    "ioc-4"
+                ],
+                "comment": "NetBird installer deploys netbird.exe on victim machines for zero-trust mesh tunneling."
+            },
+            {
+                "id": "xref-25",
+                "type": "creates",
+                "from": [
+                    "ioc-10"
+                ],
+                "to": [
+                    "ioc-5"
+                ],
+                "comment": "VeraCrypt installer deploys VeraCrypt.exe used for disk encryption-for-impact."
+            },
+            {
+                "id": "xref-26",
+                "type": "creates",
+                "from": [
+                    "ioc-16"
+                ],
+                "to": [
+                    "ioc-8",
+                    "ioc-9"
+                ],
+                "comment": "handala.bat distributed via GPO logon scripts sequentially executes Handala wiper (handala.exe) and PowerShell wiper."
+            }
+        ]
+    }
+}

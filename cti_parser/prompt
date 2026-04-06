@@ -1,3 +1,5 @@
 Read the reports listed in ./inbound/inbound.json, consider it as a main input. This file data format described in ./schemes/pipeline-schema.json. You cound be sure input JSON data strictly follows it
 
 To provide JSON output strictly follows ./scheme/iocs-schema.json. in ./outbound directory for every report create corresponding <report_name>.JSON file with parsed data
+
+In reports metadata tags should contain coutries, industries, all actors and malware names.   

@@ -1,0 +1,340 @@
+{
+    "$schema": "../schemes/iocs-schema.json",
+    "$id": "talos-dknife.json",
+    "report": {
+        "metadata": {
+            "url": "https://blog.talosintelligence.com/knife-cutting-the-edge/",
+            "created": "05/02/2026",
+            "severity": "high",
+            "confidence": "medium",
+            "tags": [
+                "DKnife",
+                "Spellbinder",
+                "WizardNet",
+                "ShadowPad",
+                "DarkNimbus",
+                "MOONSHINE",
+                "China",
+                "China-nexus",
+                "Gateway",
+                "AiTM",
+                "Adversary-in-the-Middle",
+                "Linux",
+                "ELF",
+                "Cyber-espionage",
+                "APT"
+            ],
+            "actor": "G0000"
+        },
+        "iocs": [
+            {
+                "id": "ioc-1",
+                "type": "domain",
+                "malign": true,
+                "value": "ad.scgawj.com",
+                "comment": "ShadowPad C2 domain from Talos IOC set"
+            },
+            {
+                "id": "ioc-2",
+                "type": "ip",
+                "malign": true,
+                "value": "47.93.54.134",
+                "comment": "DKnife C2 IP"
+            },
+            {
+                "id": "ioc-3",
+                "type": "ip",
+                "malign": true,
+                "value": "117.175.185.81",
+                "comment": "DKnife C2 IP"
+            },
+            {
+                "id": "ioc-4",
+                "type": "ip",
+                "malign": true,
+                "value": "43.132.205.118",
+                "comment": "WizardNet landing page host linked in Talos research"
+            },
+            {
+                "id": "ioc-5",
+                "type": "url",
+                "malign": true,
+                "value": "http://43.132.205.118:81/app/minibrowser11_rpl.zip",
+                "comment": "WizardNet downloader URL"
+            },
+            {
+                "id": "ioc-6",
+                "type": "url",
+                "malign": true,
+                "value": "http://47.93.54.134:8005/",
+                "comment": "DKnife update/C2 endpoint"
+            },
+            {
+                "id": "ioc-7",
+                "type": "url",
+                "malign": true,
+                "value": "https://47.93.54.134:8003/protocol/tcp-data",
+                "comment": "DKnife exfiltration endpoint"
+            },
+            {
+                "id": "ioc-8",
+                "type": "filename",
+                "malign": true,
+                "hash": "sha256",
+                "value": "17a2dd45f9f57161b4cc40924296c4deab65beea447efb46d3178a9e76815d06",
+                "comment": "DKnife downloader ELF sample"
+            },
+            {
+                "id": "ioc-9",
+                "type": "filename",
+                "malign": true,
+                "hash": "sha256",
+                "value": "9d592198b73c45f08b76cdd6c45611a7bccf0f13975f02f2dde779590339e5d9",
+                "comment": "dknife.bin sample"
+            },
+            {
+                "id": "ioc-10",
+                "type": "filename",
+                "malign": true,
+                "hash": "sha256",
+                "value": "2550aa4c4bc0a020ec4b16973df271b81118a7abea77f77fec2f575a32dc3444",
+                "comment": "Install.exe RAR SFX sample"
+            },
+            {
+                "id": "ioc-11",
+                "type": "filename",
+                "malign": true,
+                "hash": "sha256",
+                "value": "94116f358b8efb9b40834609564ae162ba246e40d822d510794ffdda96c85bc5",
+                "comment": "TosBtKbdLayer.dll DarkNimbus payload"
+            },
+            {
+                "id": "ioc-12",
+                "type": "filename",
+                "malign": true,
+                "hash": "sha256",
+                "file_name": "bin.tar.gz",
+                "value": "c0fbbdec744b46df7ea9ad638b016e1d6ef6554046eabfd75cbd17a9cbe4424b",
+                "comment": "DKnife framework archive fetched from C2 by the downloader; contains all seven ELF components"
+            },
+            {
+                "id": "ioc-13",
+                "type": "filename",
+                "malign": true,
+                "hash": "sha256",
+                "file_name": "TosBtKbd.dll",
+                "value": "43891d3898a54a132d198be47a44a8d4856201fa7a87f3f850432ba9e038893a",
+                "comment": "ShadowPad DLL loader – sideloaded by legitimate TosBtKbd.exe, loads DarkNimbus backdoor (TosBtKbdLayer.dll)"
+            },
+            {
+                "id": "ioc-14",
+                "type": "ip",
+                "malign": true,
+                "value": "110.92.64.117",
+                "comment": "Additional DKnife C2 IP from Talos IOC set"
+            },
+            {
+                "id": "ioc-15",
+                "type": "ip",
+                "malign": true,
+                "value": "49.89.41.187",
+                "comment": "Additional DKnife C2 IP from Talos IOC set"
+            },
+            {
+                "id": "ioc-16",
+                "type": "ip",
+                "malign": true,
+                "value": "43.155.62.54",
+                "comment": "WizardNet campaign landing page IP hosting minibrowser11_rpl.zip"
+            },
+            {
+                "id": "ioc-17",
+                "type": "ip",
+                "malign": true,
+                "value": "210.56.49.72",
+                "comment": "WizardNet campaign landing page IP hosting minibrowser11_rpl.zip"
+            },
+            {
+                "id": "ioc-18",
+                "type": "url",
+                "malign": true,
+                "value": "http://43.155.62.54:81/app/minibrowser11_rpl.zip",
+                "comment": "Alternative WizardNet downloader URL on second landing page IP"
+            }
+        ],
+        "ttps": [
+            {
+                "id": "T1557",
+                "comment": "Adversary-in-the-Middle - Gateway and edge implants intercept and modify victim traffic in-line."
+            },
+            {
+                "id": "T1040",
+                "comment": "Network Sniffing - Deep packet inspection monitors and parses routed traffic for targeting and telemetry."
+            },
+            {
+                "id": "T1565.002",
+                "comment": "Data Manipulation: Transmitted Data Manipulation - HTTP/DNS responses are altered to redirect victims and serve malicious payloads."
+            },
+            {
+                "id": "T1105",
+                "comment": "Ingress Tool Transfer - DKnife update and delivery components fetch malicious archives and payload files from C2 infrastructure."
+            },
+            {
+                "id": "T1071.001",
+                "comment": "Application Layer Protocol: Web Protocols - C2 and telemetry use HTTP/HTTPS channels."
+            },
+            {
+                "id": "T1572",
+                "comment": "Protocol Tunneling - N2N-based remote component establishes tunneled communications for remote control and relay."
+            },
+            {
+                "id": "T1041",
+                "comment": "Exfiltration Over C2 Channel - Captured user/network telemetry and credentials are exfiltrated through C2 endpoints."
+            }
+        ],
+        "vulns": [],
+        "xrefs": [
+            {
+                "id": "xref-1",
+                "type": "uses",
+                "from": [
+                    "ioc-8",
+                    "ioc-9"
+                ],
+                "to": [
+                    "T1557",
+                    "T1040"
+                ],
+                "comment": "Core DKnife binaries implement AiTM interception and packet inspection capabilities."
+            },
+            {
+                "id": "xref-2",
+                "type": "uses",
+                "from": [
+                    "ioc-10",
+                    "ioc-11"
+                ],
+                "to": [
+                    "T1105"
+                ],
+                "comment": "Downloaded install and payload components represent inbound tool transfer."
+            },
+            {
+                "id": "xref-3",
+                "type": "uses",
+                "from": [
+                    "ioc-5"
+                ],
+                "to": [
+                    "T1565.002"
+                ],
+                "comment": "Redirected update package delivery URL is aligned with response manipulation behavior."
+            },
+            {
+                "id": "xref-4",
+                "type": "uses",
+                "from": [
+                    "ioc-2",
+                    "ioc-3",
+                    "ioc-6",
+                    "ioc-7"
+                ],
+                "to": [
+                    "T1071.001",
+                    "T1041"
+                ],
+                "comment": "C2 infrastructure and protocol endpoints support web-protocol C2 and data exfiltration."
+            },
+            {
+                "id": "xref-5",
+                "type": "follows",
+                "from": [
+                    "T1557"
+                ],
+                "to": [
+                    "T1565.002"
+                ],
+                "comment": "Inline AiTM interception enables direct manipulation of transmitted content."
+            },
+            {
+                "id": "xref-6",
+                "type": "follows",
+                "from": [
+                    "T1565.002"
+                ],
+                "to": [
+                    "T1105"
+                ],
+                "comment": "Manipulated traffic redirects victims to malware delivery workflows."
+            },
+            {
+                "id": "xref-7",
+                "type": "follows",
+                "from": [
+                    "T1105"
+                ],
+                "to": [
+                    "T1071.001"
+                ],
+                "comment": "Delivered tooling continues operations over web-based command channels."
+            },
+            {
+                "id": "xref-8",
+                "type": "follows",
+                "from": [
+                    "T1071.001"
+                ],
+                "to": [
+                    "T1572"
+                ],
+                "comment": "Web C2 operations are augmented with tunnel-based overlay transport."
+            },
+            {
+                "id": "xref-9",
+                "type": "follows",
+                "from": [
+                    "T1572"
+                ],
+                "to": [
+                    "T1041"
+                ],
+                "comment": "Tunneled control channel supports sustained telemetry and credential exfiltration."
+            },
+            {
+                "id": "xref-10",
+                "type": "creates",
+                "from": [
+                    "ioc-8"
+                ],
+                "to": [
+                    "ioc-12",
+                    "ioc-9"
+                ],
+                "comment": "DKnife downloader ELF fetches bin.tar.gz from C2 URL (ioc-6) and extracts/launches dknife.bin plus all ELF components."
+            },
+            {
+                "id": "xref-11",
+                "type": "creates",
+                "from": [
+                    "ioc-5"
+                ],
+                "to": [
+                    "ioc-10"
+                ],
+                "comment": "WizardNet download URL (minibrowser11_rpl.zip from 43.132.205.118:81) delivers install.exe RAR SFX containing ShadowPad and DarkNimbus."
+            },
+            {
+                "id": "xref-12",
+                "type": "creates",
+                "from": [
+                    "ioc-10"
+                ],
+                "to": [
+                    "ioc-13",
+                    "ioc-11"
+                ],
+                "comment": "install.exe RAR SFX extracts TosBtKbd.dll (ShadowPad loader) and TosBtKbdLayer.dll (DarkNimbus) to disk."
+            }
+        ]
+    }
+}
