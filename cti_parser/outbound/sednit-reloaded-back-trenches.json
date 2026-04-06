@@ -5,7 +5,7 @@
         "metadata": {
             "url": "https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/",
             "created": "10/03/2026",
-            "severity": "high",
+            "severity": 94,
             "confidence": "high",
             "tags": [
                 "Sednit",

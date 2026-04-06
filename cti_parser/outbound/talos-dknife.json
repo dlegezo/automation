@@ -5,7 +5,7 @@
         "metadata": {
             "url": "https://blog.talosintelligence.com/knife-cutting-the-edge/",
             "created": "05/02/2026",
-            "severity": "high",
+            "severity": 93,
             "confidence": "medium",
             "tags": [
                 "DKnife",

@@ -65,5 +65,41 @@
         }
       }
     }
+  },
+  "tags_of_interest": {
+    "type": "object",
+    "description": "Monitoring profile tags used to compute per-report severity from tag Jaccard distance",
+    "required": [
+      "countries",
+      "industries",
+      "malware",
+      "actors"
+    ],
+    "properties": {
+      "countries": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "industries": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "malware": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "actors": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
   }
 }

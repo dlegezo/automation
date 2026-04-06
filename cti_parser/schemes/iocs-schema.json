@@ -39,14 +39,10 @@
                                 "description": "Date when the report was created, in format DD/MM/YYYY"
                             },
                             "severity": {
-                                "type": "string",
-                                "enum": [
-                                    "low",
-                                    "medium",
-                                    "high",
-                                    "critical"
-                                ],
-                                "description": "Severity level of the report based on victims geolocation and industry"
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 100,
+                                "description": "Integer Jaccard distance percentage between report metadata.tags and inbound tags_of_interest (0=maximum overlap, 100=no overlap)"
                             },
                             "confidence": {
                                 "type": "string",
