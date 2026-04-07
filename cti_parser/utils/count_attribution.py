@@ -6,20 +6,19 @@ For each report pair in outbound per-report JSON files, the script computes:
 2) TTP-chain Jaccard distance on report.xrefs edges where type == "follows"
 3) Tags Jaccard distance on report.metadata.tags
 
-Output is written to attribution/attribution.md as a compact markdown table.
+Output is written to diagrams/attribution/attribution.md as a compact markdown table.
 """
 
 from __future__ import annotations
 
 import argparse
 import itertools
-import json
 import re
 from pathlib import Path
 from typing import Dict, Iterable, List, Set, Tuple
 from urllib.parse import urlparse
 
-from utils import jaccard_distance, normalize_tag
+from utils import extract_report_tags, jaccard_distance, load_report_objects
 
 
 TTP_RE = re.compile(r"^T[0-9]{4}(\.[0-9]{3})?$")
@@ -28,7 +27,7 @@ TTP_RE = re.compile(r"^T[0-9]{4}(\.[0-9]{3})?$")
 def parse_args() -> argparse.Namespace:
     base_dir = Path(__file__).resolve().parent
     default_input_dir = base_dir.parent / "outbound"
-    default_output = base_dir.parent / "attribution" / "attribution.md"
+    default_output = base_dir.parent / "diagrams" / "attribution" / "attribution.md"
 
     parser = argparse.ArgumentParser(description="Count pairwise attribution distances between reports")
     parser.add_argument("--input-dir", default=str(default_input_dir), help="Path to outbound report JSON directory")
@@ -74,35 +73,6 @@ def extract_follows_edges(report: Dict, ttps: Set[str]) -> Set[str]:
     return edges
 
 
-def extract_tags(report: Dict) -> Set[str]:
-    tags: Set[str] = set()
-    metadata = report.get("metadata", {})
-    tag_list = metadata.get("tags", [])
-    if isinstance(tag_list, list):
-        for tag in tag_list:
-            if isinstance(tag, str):
-                tags.add(normalize_tag(tag))
-    return tags
-
-
-def iter_report_files(input_dir: Path) -> Iterable[Path]:
-    for path in sorted(input_dir.glob("*.json")):
-        if path.name.lower() == "outbound.json":
-            continue
-        yield path
-
-
-def load_reports(input_dir: Path) -> List[Dict]:
-    reports: List[Dict] = []
-    for report_file in iter_report_files(input_dir):
-        with report_file.open("r", encoding="utf-8-sig") as f:
-            doc = json.load(f)
-        report = doc.get("report", {})
-        if report:
-            reports.append(report)
-    return reports
-
-
 def build_table(rows: Iterable[Tuple[str, str, float, float, float]]) -> str:
     lines: List[str] = []
     lines.append("# Attribution Distances Between Reports")
@@ -125,7 +95,7 @@ def main() -> None:
     input_dir = Path(args.input_dir).resolve()
     output_path = Path(args.output).resolve()
 
-    reports = load_reports(input_dir)
+    reports = load_report_objects(input_dir)
     if len(reports) < 2:
         raise ValueError("Need at least two reports to compute pairwise distances")
 
@@ -134,7 +104,7 @@ def main() -> None:
         label = report_label(report, idx)
         ttps = extract_ttps(report)
         ttp_chains = extract_follows_edges(report, ttps)
-        tags = extract_tags(report)
+        tags = extract_report_tags(report)
         extracted.append((label, ttps, ttp_chains, tags))
 
     rows: List[Tuple[str, str, float, float, float]] = []

@@ -1,64 +1,64 @@
 #!/usr/bin/env python3
-"""Build a Mermaid IOC-chain diagram from outbound JSON.
+"""Build a Mermaid IOC-chain diagram from outbound per-report JSON files.
 
 Default behavior:
-- Input:  cti_parser/outbound/outbound.json
-- Output: cti_parser/diagrams/iocs_chain.mmd
+- Input dir: cti_parser/outbound/*.json
+- Output:    cti_parser/diagrams/iocs_chain.mmd
 
 Only IOC-to-IOC edges are rendered, based on report xrefs where:
 - type is "creates" or "uses"
 - both endpoints are IOC IDs present in report.iocs
-
-Usage:
-    python diagrams/build_iocs_chain_mmd.py
-    python diagrams/build_iocs_chain_mmd.py --input outbound/outbound.json --output diagrams/iocs_chain.mmd
 """
 
 from __future__ import annotations
 
 import argparse
-import json
+import importlib.util
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
 
 
+def _load_utils_module():
+    utils_path = Path(__file__).resolve().parents[2] / "utils" / "utils.py"
+    spec = importlib.util.spec_from_file_location("cti_shared_utils", utils_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load shared utils from {utils_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+_utils = _load_utils_module()
+esc_mermaid = _utils.esc_mermaid
+load_report_objects = _utils.load_report_objects
+sanitize_node_key = _utils.sanitize_node_key
+shorten_text = _utils.shorten_text
+
+
 def parse_args() -> argparse.Namespace:
     script_dir = Path(__file__).resolve().parent
-    parser = argparse.ArgumentParser(description="Generate Mermaid IOC chain .mmd from outbound JSON")
+    parser = argparse.ArgumentParser(description="Generate Mermaid IOC chain .mmd from outbound report JSON files")
     parser.add_argument(
-        "--input",
-        default=str(script_dir.parent / "outbound" / "outbound.json"),
-        help="Path to outbound JSON file",
+        "--input-dir",
+        default=str(script_dir.parent.parent / "outbound"),
+        help="Path to outbound report JSON directory",
     )
     parser.add_argument(
         "--output",
-        default=str(script_dir / "iocs_chain.mmd"),
+        default=str(script_dir.parent / "iocs_chain.mmd"),
         help="Path for generated Mermaid .mmd file",
     )
     return parser.parse_args()
 
 
-def esc(text: str) -> str:
-    return text.replace('"', "'").replace("\n", " ").strip()
-
-
 def node_key(report_index: int, ioc_id: str) -> str:
-    cleaned = []
-    for ch in ioc_id:
-        cleaned.append(ch if ch.isalnum() else "_")
-    return f"r{report_index}_{''.join(cleaned)}"
-
-
-def short_value(value: str, limit: int = 48) -> str:
-    if len(value) <= limit:
-        return value
-    return value[: limit - 3] + "..."
+    return f"r{report_index}_{sanitize_node_key(ioc_id)}"
 
 
 def ioc_label(ioc: Dict) -> str:
     ioc_id = ioc.get("id", "")
     ioc_type = ioc.get("type", "")
-    value = short_value(str(ioc.get("value", "")))
+    value = shorten_text(str(ioc.get("value", "")))
     return f"{ioc_id} | {ioc_type} | {value}"
 
 
@@ -89,21 +89,21 @@ def collect_ioc_edges(report: Dict) -> Tuple[List[Tuple[str, str, str]], Set[str
     return edges, used_iocs, ioc_lookup
 
 
-def build_mermaid(doc: Dict) -> str:
+def build_mermaid(reports: List[Dict]) -> str:
     lines: List[str] = []
     lines.append("flowchart LR")
-    lines.append("    %% Auto-generated from outbound/outbound.json")
+    lines.append("    %% Auto-generated from outbound/*.json")
     lines.append("    %% IOC chains only (derived from xrefs creates/uses)")
 
     class_nodes: List[str] = []
 
-    for idx, report in enumerate(doc.get("reports", []), start=1):
+    for idx, report in enumerate(reports, start=1):
         meta = report.get("metadata", {})
         report_url = meta.get("url", f"report-{idx}")
         edges, used_iocs, ioc_lookup = collect_ioc_edges(report)
 
         lines.append("")
-        lines.append(f"    subgraph report_{idx}[\"Report {idx}: {esc(report_url)}\"]")
+        lines.append(f"    subgraph report_{idx}[\"Report {idx}: {esc_mermaid(report_url)}\"]")
 
         if not edges:
             placeholder = f"r{idx}_no_ioc_chain"
@@ -114,13 +114,13 @@ def build_mermaid(doc: Dict) -> str:
         for ioc_id in sorted(used_iocs):
             node = node_key(idx, ioc_id)
             label = ioc_label(ioc_lookup[ioc_id])
-            lines.append(f"    {node}[\"{esc(label)}\"]")
+            lines.append(f"    {node}[\"{esc_mermaid(label)}\"]")
             class_nodes.append(node)
 
         for src, dst, rel in edges:
             src_node = node_key(idx, src)
             dst_node = node_key(idx, dst)
-            lines.append(f"    {src_node} -->|{esc(rel)}| {dst_node}")
+            lines.append(f"    {src_node} -->|{esc_mermaid(rel)}| {dst_node}")
 
         lines.append("    end")
 
@@ -135,18 +135,17 @@ def build_mermaid(doc: Dict) -> str:
 def main() -> None:
     args = parse_args()
 
-    input_path = Path(args.input).resolve()
+    input_dir = Path(args.input_dir).resolve()
     output_path = Path(args.output).resolve()
 
-    with input_path.open("r", encoding="utf-8-sig") as fh:
-        doc = json.load(fh)
+    reports = load_report_objects(input_dir)
 
-    mermaid = build_mermaid(doc)
+    mermaid = build_mermaid(reports)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(mermaid, encoding="utf-8")
 
-    print(f"Input : {input_path}")
+    print(f"Input dir: {input_dir}")
     print(f"Output: {output_path}")
     print("IOC chain Mermaid generation complete.")
 

@@ -1,16 +1,33 @@
 flowchart LR
-    %% Auto-generated from outbound/outbound.json
+    %% Auto-generated from outbound/*.json
     %% IOC chains only (derived from xrefs creates/uses)
 
-    subgraph report_1["Report 1: https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/"]
-    r1_ioc_1["ioc-1 | filename | 5603E99151F8803C13D48D83B8A64D071542F01B"]
-    r1_ioc_2["ioc-2 | filename | 6D39F49AA11CE0574D581F10DB0F9BAE423CE3D5"]
-    r1_ioc_3["ioc-3 | url | https://icedrive.net/"]
-    r1_ioc_5["ioc-5 | process | taskhost.exe"]
-    r1_ioc_6["ioc-6 | process | explorer.exe"]
-    r1_ioc_5 -->|creates| r1_ioc_2
-    r1_ioc_6 -->|creates| r1_ioc_1
-    r1_ioc_2 -->|uses| r1_ioc_3
+    subgraph report_1["Report 1: https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/"]
+    r1_ioc_1["ioc-1 | filename | f3b869a8d5ad243e35963ba6d7f89855"]
+    r1_ioc_10["ioc-10 | url | https://freefoodaid.com/tables/tables.d"]
+    r1_ioc_11["ioc-11 | process | explorer.exe"]
+    r1_ioc_12["ioc-12 | cmdline | schtasks.exe /Create /tn 'OneDriveHealth' /XM..."]
+    r1_ioc_19["ioc-19 | filename | f05d0b13c633ad889334781cf4091d3e"]
+    r1_ioc_20["ioc-20 | filename | ee0b44346db028a621d1dec99f429823"]
+    r1_ioc_21["ioc-21 | filename | ea6615942f2c23dba7810a6f7d69e2da"]
+    r1_ioc_23["ioc-23 | email | ahmeclaw2002@outlook.com"]
+    r1_ioc_24["ioc-24 | email | ahmeclaw@proton.me"]
+    r1_ioc_4["ioc-4 | filename | 859c4b85ed85e6cc4eadb1a037a61e16"]
+    r1_ioc_5["ioc-5 | filename | e4a5c4b205e1b80dc20d9a2fb4126d06"]
+    r1_ioc_6["ioc-6 | filename | 154ff6774294e0e6a46581c8452a77de"]
+    r1_ioc_9["ioc-9 | url | https://freefoodaid.com/documents/2_2.d"]
+    r1_ioc_9 -->|uses| r1_ioc_1
+    r1_ioc_10 -->|uses| r1_ioc_4
+    r1_ioc_1 -->|creates| r1_ioc_19
+    r1_ioc_4 -->|creates| r1_ioc_5
+    r1_ioc_4 -->|creates| r1_ioc_6
+    r1_ioc_4 -->|creates| r1_ioc_20
+    r1_ioc_12 -->|uses| r1_ioc_20
+    r1_ioc_11 -->|creates| r1_ioc_5
+    r1_ioc_5 -->|uses| r1_ioc_6
+    r1_ioc_5 -->|creates| r1_ioc_21
+    r1_ioc_19 -->|uses| r1_ioc_23
+    r1_ioc_19 -->|uses| r1_ioc_24
     end
 
     subgraph report_2["Report 2: https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/"]
@@ -27,70 +44,61 @@ flowchart LR
     r2_ioc_16 -->|creates| r2_ioc_9
     end
 
-    subgraph report_3["Report 3: https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/"]
-    r3_ioc_1["ioc-1 | filename | f3b869a8d5ad243e35963ba6d7f89855"]
-    r3_ioc_10["ioc-10 | url | https://freefoodaid.com/tables/tables.d"]
-    r3_ioc_11["ioc-11 | process | explorer.exe"]
-    r3_ioc_12["ioc-12 | cmdline | schtasks.exe /Create /tn 'OneDriveHealth' /XM..."]
-    r3_ioc_19["ioc-19 | filename | f05d0b13c633ad889334781cf4091d3e"]
-    r3_ioc_20["ioc-20 | filename | ee0b44346db028a621d1dec99f429823"]
-    r3_ioc_21["ioc-21 | filename | ea6615942f2c23dba7810a6f7d69e2da"]
-    r3_ioc_23["ioc-23 | email | ahmeclaw2002@outlook.com"]
-    r3_ioc_24["ioc-24 | email | ahmeclaw@proton.me"]
-    r3_ioc_4["ioc-4 | filename | 859c4b85ed85e6cc4eadb1a037a61e16"]
-    r3_ioc_5["ioc-5 | filename | e4a5c4b205e1b80dc20d9a2fb4126d06"]
-    r3_ioc_6["ioc-6 | filename | 154ff6774294e0e6a46581c8452a77de"]
-    r3_ioc_9["ioc-9 | url | https://freefoodaid.com/documents/2_2.d"]
-    r3_ioc_9 -->|uses| r3_ioc_1
-    r3_ioc_10 -->|uses| r3_ioc_4
-    r3_ioc_1 -->|creates| r3_ioc_19
-    r3_ioc_4 -->|creates| r3_ioc_5
-    r3_ioc_4 -->|creates| r3_ioc_6
-    r3_ioc_4 -->|creates| r3_ioc_20
-    r3_ioc_12 -->|uses| r3_ioc_20
-    r3_ioc_11 -->|creates| r3_ioc_5
-    r3_ioc_5 -->|uses| r3_ioc_6
-    r3_ioc_5 -->|creates| r3_ioc_21
-    r3_ioc_19 -->|uses| r3_ioc_23
-    r3_ioc_19 -->|uses| r3_ioc_24
+    subgraph report_3["Report 3: https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/"]
+    r3_ioc_1["ioc-1 | filename | 5603E99151F8803C13D48D83B8A64D071542F01B"]
+    r3_ioc_2["ioc-2 | filename | 6D39F49AA11CE0574D581F10DB0F9BAE423CE3D5"]
+    r3_ioc_3["ioc-3 | url | https://icedrive.net/"]
+    r3_ioc_5["ioc-5 | process | taskhost.exe"]
+    r3_ioc_6["ioc-6 | process | explorer.exe"]
+    r3_ioc_5 -->|creates| r3_ioc_2
+    r3_ioc_6 -->|creates| r3_ioc_1
+    r3_ioc_2 -->|uses| r3_ioc_3
     end
 
-    subgraph report_4["Report 4: https://blog.talosintelligence.com/knife-cutting-the-edge/"]
-    r4_ioc_10["ioc-10 | filename | 2550aa4c4bc0a020ec4b16973df271b81118a7abea77f..."]
-    r4_ioc_11["ioc-11 | filename | 94116f358b8efb9b40834609564ae162ba246e40d822d..."]
-    r4_ioc_12["ioc-12 | filename | c0fbbdec744b46df7ea9ad638b016e1d6ef6554046eab..."]
-    r4_ioc_13["ioc-13 | filename | 43891d3898a54a132d198be47a44a8d4856201fa7a87f..."]
-    r4_ioc_5["ioc-5 | url | http://43.132.205.118:81/app/minibrowser11_rp..."]
-    r4_ioc_8["ioc-8 | filename | 17a2dd45f9f57161b4cc40924296c4deab65beea447ef..."]
-    r4_ioc_9["ioc-9 | filename | 9d592198b73c45f08b76cdd6c45611a7bccf0f13975f0..."]
-    r4_ioc_8 -->|creates| r4_ioc_12
-    r4_ioc_8 -->|creates| r4_ioc_9
-    r4_ioc_5 -->|creates| r4_ioc_10
-    r4_ioc_10 -->|creates| r4_ioc_13
-    r4_ioc_10 -->|creates| r4_ioc_11
+    subgraph report_4["Report 4: https://jp.security.ntt/insights_resources/tech_blog/stoatwaffle_malware/"]
+    r4_ioc_10["ioc-10 | url | /api/errorMessage"]
+    r4_ioc_11["ioc-11 | url | /api/handleErrors"]
+    r4_ioc_6["ioc-6 | filepath | .vscode/tasks.json"]
+    r4_ioc_7["ioc-7 | filename | vscode-bootstrap.cmd"]
+    r4_ioc_8["ioc-8 | filename | env.npl"]
+    r4_ioc_9["ioc-9 | process | cmd.exe"]
+    r4_ioc_6 -->|creates| r4_ioc_7
+    r4_ioc_6 -->|creates| r4_ioc_8
+    r4_ioc_9 -->|creates| r4_ioc_7
+    r4_ioc_7 -->|creates| r4_ioc_8
+    r4_ioc_8 -->|uses| r4_ioc_10
+    r4_ioc_8 -->|uses| r4_ioc_11
     end
 
-    subgraph report_5["Report 5: https://jp.security.ntt/insights_resources/tech_blog/stoatwaffle_malware/"]
-    r5_ioc_10["ioc-10 | url | /api/errorMessage"]
-    r5_ioc_11["ioc-11 | url | /api/handleErrors"]
-    r5_ioc_6["ioc-6 | filepath | .vscode/tasks.json"]
-    r5_ioc_7["ioc-7 | filename | vscode-bootstrap.cmd"]
-    r5_ioc_8["ioc-8 | filename | env.npl"]
-    r5_ioc_9["ioc-9 | process | cmd.exe"]
-    r5_ioc_6 -->|creates| r5_ioc_7
-    r5_ioc_6 -->|creates| r5_ioc_8
-    r5_ioc_9 -->|creates| r5_ioc_7
-    r5_ioc_7 -->|creates| r5_ioc_8
-    r5_ioc_8 -->|uses| r5_ioc_10
-    r5_ioc_8 -->|uses| r5_ioc_11
+    subgraph report_5["Report 5: https://blog.talosintelligence.com/knife-cutting-the-edge/"]
+    r5_ioc_10["ioc-10 | filename | 2550aa4c4bc0a020ec4b16973df271b81118a7abea77f..."]
+    r5_ioc_11["ioc-11 | filename | 94116f358b8efb9b40834609564ae162ba246e40d822d..."]
+    r5_ioc_12["ioc-12 | filename | c0fbbdec744b46df7ea9ad638b016e1d6ef6554046eab..."]
+    r5_ioc_13["ioc-13 | filename | 43891d3898a54a132d198be47a44a8d4856201fa7a87f..."]
+    r5_ioc_5["ioc-5 | url | http://43.132.205.118:81/app/minibrowser11_rp..."]
+    r5_ioc_8["ioc-8 | filename | 17a2dd45f9f57161b4cc40924296c4deab65beea447ef..."]
+    r5_ioc_9["ioc-9 | filename | 9d592198b73c45f08b76cdd6c45611a7bccf0f13975f0..."]
+    r5_ioc_8 -->|creates| r5_ioc_12
+    r5_ioc_8 -->|creates| r5_ioc_9
+    r5_ioc_5 -->|creates| r5_ioc_10
+    r5_ioc_10 -->|creates| r5_ioc_13
+    r5_ioc_10 -->|creates| r5_ioc_11
     end
 
     classDef ioc fill:#eefaf1,stroke:#2c7a4b,stroke-width:1px
     class r1_ioc_1 ioc
-    class r1_ioc_2 ioc
-    class r1_ioc_3 ioc
+    class r1_ioc_10 ioc
+    class r1_ioc_11 ioc
+    class r1_ioc_12 ioc
+    class r1_ioc_19 ioc
+    class r1_ioc_20 ioc
+    class r1_ioc_21 ioc
+    class r1_ioc_23 ioc
+    class r1_ioc_24 ioc
+    class r1_ioc_4 ioc
     class r1_ioc_5 ioc
     class r1_ioc_6 ioc
+    class r1_ioc_9 ioc
     class r2_ioc_10 ioc
     class r2_ioc_11 ioc
     class r2_ioc_16 ioc
@@ -99,28 +107,20 @@ flowchart LR
     class r2_ioc_8 ioc
     class r2_ioc_9 ioc
     class r3_ioc_1 ioc
-    class r3_ioc_10 ioc
-    class r3_ioc_11 ioc
-    class r3_ioc_12 ioc
-    class r3_ioc_19 ioc
-    class r3_ioc_20 ioc
-    class r3_ioc_21 ioc
-    class r3_ioc_23 ioc
-    class r3_ioc_24 ioc
-    class r3_ioc_4 ioc
+    class r3_ioc_2 ioc
+    class r3_ioc_3 ioc
     class r3_ioc_5 ioc
     class r3_ioc_6 ioc
-    class r3_ioc_9 ioc
     class r4_ioc_10 ioc
     class r4_ioc_11 ioc
-    class r4_ioc_12 ioc
-    class r4_ioc_13 ioc
-    class r4_ioc_5 ioc
+    class r4_ioc_6 ioc
+    class r4_ioc_7 ioc
     class r4_ioc_8 ioc
     class r4_ioc_9 ioc
     class r5_ioc_10 ioc
     class r5_ioc_11 ioc
-    class r5_ioc_6 ioc
-    class r5_ioc_7 ioc
+    class r5_ioc_12 ioc
+    class r5_ioc_13 ioc
+    class r5_ioc_5 ioc
     class r5_ioc_8 ioc
     class r5_ioc_9 ioc

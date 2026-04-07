@@ -10,9 +10,9 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Any, Iterable, Set
+from typing import Set
 
-from utils import jaccard_distance, normalize_tag
+from utils import extract_report_tags, flatten_tag_values, iter_report_files, jaccard_distance, normalize_tag
 
 
 def parse_args() -> argparse.Namespace:
@@ -27,17 +27,6 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def flatten_tag_values(node: Any) -> Iterable[str]:
-    if isinstance(node, str):
-        yield node
-    elif isinstance(node, list):
-        for item in node:
-            yield from flatten_tag_values(item)
-    elif isinstance(node, dict):
-        for value in node.values():
-            yield from flatten_tag_values(value)
-
-
 def load_tags_of_interest(inbound_path: Path) -> Set[str]:
     with inbound_path.open("r", encoding="utf-8-sig") as f:
         inbound_doc = json.load(f)
@@ -47,21 +36,6 @@ def load_tags_of_interest(inbound_path: Path) -> Set[str]:
     if not tags:
         raise ValueError("No tags_of_interest found in inbound file")
     return tags
-
-
-def load_report_tags(report_doc: dict) -> Set[str]:
-    metadata = report_doc.get("report", {}).get("metadata", {})
-    raw_tags = metadata.get("tags", [])
-    if not isinstance(raw_tags, list):
-        return set()
-    return {normalize_tag(tag) for tag in raw_tags if isinstance(tag, str) and tag.strip()}
-
-
-def iter_report_files(outbound_dir: Path) -> Iterable[Path]:
-    for path in sorted(outbound_dir.glob("*.json")):
-        if path.name.lower() == "outbound.json":
-            continue
-        yield path
 
 
 def main() -> None:
@@ -76,7 +50,8 @@ def main() -> None:
         with report_path.open("r", encoding="utf-8-sig") as f:
             report_doc = json.load(f)
 
-        report_tags = load_report_tags(report_doc)
+        report = report_doc.get("report", {})
+        report_tags = extract_report_tags(report if isinstance(report, dict) else {})
         severity = int(round(jaccard_distance(report_tags, tags_of_interest) * 100))
 
         report_doc.setdefault("report", {}).setdefault("metadata", {})["severity"] = severity

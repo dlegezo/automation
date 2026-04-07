@@ -1,41 +1,35 @@
 flowchart LR
-    %% Auto-generated from outbound/outbound.json
+    %% Auto-generated from outbound/*.json
     %% TTP chains only (derived from xrefs)
 
-    subgraph report_1["Report 1: https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/"]
-    r1_T1001_001["T1001.001 - Data Obfuscation: Junk Data"]
-    r1_T1005["T1005 - Data from Local System"]
-    r1_T1056_001["T1056.001 - Input Capture: Keylogging"]
-    r1_T1059_001["T1059.001 - Command and Scripting Interpreter: PowerShell"]
+    subgraph report_1["Report 1: https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/"]
+    r1_T1027_003["T1027.003 - Obfuscated Files or Information: Steganography"]
+    r1_T1027_007["T1027.007 - Obfuscated Files or Information: Dynamic API Resolution"]
+    r1_T1053_005["T1053.005 - Scheduled Task/Job: Scheduled Task"]
     r1_T1071_001["T1071.001 - Application Layer Protocol: Web Protocols"]
-    r1_T1082["T1082 - System Information Discovery"]
     r1_T1102_002["T1102.002 - Web Service: Bidirectional Communication"]
-    r1_T1113["T1113 - Screen Capture"]
-    r1_T1115["T1115 - Clipboard Data"]
-    r1_T1129["T1129 - Shared Modules"]
-    r1_T1480_001["T1480.001 - Execution Guardrails: Environmental Keying"]
+    r1_T1106["T1106 - Native API"]
+    r1_T1114_001["T1114.001 - Email Collection: Local Email Collection"]
+    r1_T1137_006["T1137.006 - Office Application Startup: Add-ins"]
+    r1_T1140["T1140 - Deobfuscate/Decode Files or Information"]
+    r1_T1203["T1203 - Exploitation for Client Execution"]
+    r1_T1480_002["T1480.002 - Execution Guardrails: Mutual Exclusion"]
+    r1_T1497_003["T1497.003 - Virtualization/Sandbox Evasion: Time Based Checks"]
     r1_T1546_015["T1546.015 - Event Triggered Execution: Component Object Model Hijacking"]
-    r1_T1564_001["T1564.001 - Hide Artifacts: Hidden Files and Directories"]
-    r1_T1567_002["T1567.002 - Exfiltration Over Web Service: Exfiltration to Cloud Storage"]
-    r1_T1573_002["T1573.002 - Encrypted Channel: Asymmetric Cryptography"]
-    r1_T1583_006["T1583.006 - Acquire Infrastructure: Web Services"]
-    r1_T1587_001["T1587.001 - Develop Capabilities: Malware"]
-    r1_T1583_006 -->|follows| r1_T1102_002
-    r1_T1587_001 -->|follows| r1_T1129
-    r1_T1129 -->|follows| r1_T1546_015
-    r1_T1546_015 -->|follows| r1_T1059_001
-    r1_T1059_001 -->|follows| r1_T1480_001
-    r1_T1480_001 -->|follows| r1_T1082
-    r1_T1082 -->|follows| r1_T1005
-    r1_T1005 -->|follows| r1_T1056_001
-    r1_T1056_001 -->|follows| r1_T1113
-    r1_T1113 -->|follows| r1_T1115
-    r1_T1115 -->|follows| r1_T1564_001
-    r1_T1564_001 -->|follows| r1_T1001_001
-    r1_T1001_001 -->|follows| r1_T1573_002
-    r1_T1573_002 -->|follows| r1_T1071_001
+    r1_T1566_001["T1566.001 - Phishing: Spearphishing Attachment"]
+    r1_T1566_001 -->|follows| r1_T1203
+    r1_T1203 -->|follows| r1_T1137_006
+    r1_T1137_006 -->|follows| r1_T1114_001
+    r1_T1203 -->|follows| r1_T1053_005
+    r1_T1053_005 -->|follows| r1_T1546_015
+    r1_T1546_015 -->|follows| r1_T1027_003
+    r1_T1027_003 -->|follows| r1_T1497_003
+    r1_T1497_003 -->|follows| r1_T1480_002
+    r1_T1480_002 -->|follows| r1_T1027_007
+    r1_T1027_007 -->|follows| r1_T1140
+    r1_T1140 -->|follows| r1_T1106
+    r1_T1106 -->|follows| r1_T1071_001
     r1_T1071_001 -->|follows| r1_T1102_002
-    r1_T1102_002 -->|follows| r1_T1567_002
     end
 
     subgraph report_2["Report 2: https://research.checkpoint.com/2026/handala-hack-unveiling-groups-modus-operandi/"]
@@ -82,86 +76,89 @@ flowchart LR
     r2_T1485 -->|follows| r2_T1486
     end
 
-    subgraph report_3["Report 3: https://www.zscaler.com/blogs/security-research/apt28-leverages-cve-2026-21509-operation-neusploit/"]
-    r3_T1027_003["T1027.003 - Obfuscated Files or Information: Steganography"]
-    r3_T1027_007["T1027.007 - Obfuscated Files or Information: Dynamic API Resolution"]
-    r3_T1053_005["T1053.005 - Scheduled Task/Job: Scheduled Task"]
+    subgraph report_3["Report 3: https://www.welivesecurity.com/en/eset-research/sednit-reloaded-back-trenches/"]
+    r3_T1001_001["T1001.001 - Data Obfuscation: Junk Data"]
+    r3_T1005["T1005 - Data from Local System"]
+    r3_T1056_001["T1056.001 - Input Capture: Keylogging"]
+    r3_T1059_001["T1059.001 - Command and Scripting Interpreter: PowerShell"]
     r3_T1071_001["T1071.001 - Application Layer Protocol: Web Protocols"]
+    r3_T1082["T1082 - System Information Discovery"]
     r3_T1102_002["T1102.002 - Web Service: Bidirectional Communication"]
-    r3_T1106["T1106 - Native API"]
-    r3_T1114_001["T1114.001 - Email Collection: Local Email Collection"]
-    r3_T1137_006["T1137.006 - Office Application Startup: Add-ins"]
-    r3_T1140["T1140 - Deobfuscate/Decode Files or Information"]
-    r3_T1203["T1203 - Exploitation for Client Execution"]
-    r3_T1480_002["T1480.002 - Execution Guardrails: Mutual Exclusion"]
-    r3_T1497_003["T1497.003 - Virtualization/Sandbox Evasion: Time Based Checks"]
+    r3_T1113["T1113 - Screen Capture"]
+    r3_T1115["T1115 - Clipboard Data"]
+    r3_T1129["T1129 - Shared Modules"]
+    r3_T1480_001["T1480.001 - Execution Guardrails: Environmental Keying"]
     r3_T1546_015["T1546.015 - Event Triggered Execution: Component Object Model Hijacking"]
-    r3_T1566_001["T1566.001 - Phishing: Spearphishing Attachment"]
-    r3_T1566_001 -->|follows| r3_T1203
-    r3_T1203 -->|follows| r3_T1137_006
-    r3_T1137_006 -->|follows| r3_T1114_001
-    r3_T1203 -->|follows| r3_T1053_005
-    r3_T1053_005 -->|follows| r3_T1546_015
-    r3_T1546_015 -->|follows| r3_T1027_003
-    r3_T1027_003 -->|follows| r3_T1497_003
-    r3_T1497_003 -->|follows| r3_T1480_002
-    r3_T1480_002 -->|follows| r3_T1027_007
-    r3_T1027_007 -->|follows| r3_T1140
-    r3_T1140 -->|follows| r3_T1106
-    r3_T1106 -->|follows| r3_T1071_001
+    r3_T1564_001["T1564.001 - Hide Artifacts: Hidden Files and Directories"]
+    r3_T1567_002["T1567.002 - Exfiltration Over Web Service: Exfiltration to Cloud Storage"]
+    r3_T1573_002["T1573.002 - Encrypted Channel: Asymmetric Cryptography"]
+    r3_T1583_006["T1583.006 - Acquire Infrastructure: Web Services"]
+    r3_T1587_001["T1587.001 - Develop Capabilities: Malware"]
+    r3_T1583_006 -->|follows| r3_T1102_002
+    r3_T1587_001 -->|follows| r3_T1129
+    r3_T1129 -->|follows| r3_T1546_015
+    r3_T1546_015 -->|follows| r3_T1059_001
+    r3_T1059_001 -->|follows| r3_T1480_001
+    r3_T1480_001 -->|follows| r3_T1082
+    r3_T1082 -->|follows| r3_T1005
+    r3_T1005 -->|follows| r3_T1056_001
+    r3_T1056_001 -->|follows| r3_T1113
+    r3_T1113 -->|follows| r3_T1115
+    r3_T1115 -->|follows| r3_T1564_001
+    r3_T1564_001 -->|follows| r3_T1001_001
+    r3_T1001_001 -->|follows| r3_T1573_002
+    r3_T1573_002 -->|follows| r3_T1071_001
     r3_T1071_001 -->|follows| r3_T1102_002
+    r3_T1102_002 -->|follows| r3_T1567_002
     end
 
-    subgraph report_4["Report 4: https://blog.talosintelligence.com/knife-cutting-the-edge/"]
+    subgraph report_4["Report 4: https://jp.security.ntt/insights_resources/tech_blog/stoatwaffle_malware/"]
     r4_T1041["T1041 - Exfiltration Over C2 Channel"]
+    r4_T1059_003["T1059.003 - Command and Scripting Interpreter: Windows Command Shell"]
+    r4_T1059_007["T1059.007 - Command and Scripting Interpreter: JavaScript"]
     r4_T1071_001["T1071.001 - Application Layer Protocol: Web Protocols"]
     r4_T1105["T1105 - Ingress Tool Transfer"]
-    r4_T1557["T1557 - Adversary-in-the-Middle"]
-    r4_T1565_002["T1565.002 - Data Manipulation: Transmitted Data Manipulation"]
-    r4_T1572["T1572 - Protocol Tunneling"]
-    r4_T1557 -->|follows| r4_T1565_002
-    r4_T1565_002 -->|follows| r4_T1105
-    r4_T1105 -->|follows| r4_T1071_001
-    r4_T1071_001 -->|follows| r4_T1572
-    r4_T1572 -->|follows| r4_T1041
+    r4_T1204_002["T1204.002 - User Execution: Malicious File"]
+    r4_T1518["T1518 - Software Discovery"]
+    r4_T1555_003["T1555.003 - Credentials from Password Stores: Credentials from Web Browsers"]
+    r4_T1204_002 -->|follows| r4_T1105
+    r4_T1059_003 -->|follows| r4_T1059_007
+    r4_T1059_007 -->|follows| r4_T1105
+    r4_T1105 -->|follows| r4_T1555_003
+    r4_T1555_003 -->|follows| r4_T1518
+    r4_T1518 -->|follows| r4_T1071_001
+    r4_T1071_001 -->|follows| r4_T1041
     end
 
-    subgraph report_5["Report 5: https://jp.security.ntt/insights_resources/tech_blog/stoatwaffle_malware/"]
+    subgraph report_5["Report 5: https://blog.talosintelligence.com/knife-cutting-the-edge/"]
     r5_T1041["T1041 - Exfiltration Over C2 Channel"]
-    r5_T1059_003["T1059.003 - Command and Scripting Interpreter: Windows Command Shell"]
-    r5_T1059_007["T1059.007 - Command and Scripting Interpreter: JavaScript"]
     r5_T1071_001["T1071.001 - Application Layer Protocol: Web Protocols"]
     r5_T1105["T1105 - Ingress Tool Transfer"]
-    r5_T1204_002["T1204.002 - User Execution: Malicious File"]
-    r5_T1518["T1518 - Software Discovery"]
-    r5_T1555_003["T1555.003 - Credentials from Password Stores: Credentials from Web Browsers"]
-    r5_T1204_002 -->|follows| r5_T1105
-    r5_T1059_003 -->|follows| r5_T1059_007
-    r5_T1059_007 -->|follows| r5_T1105
-    r5_T1105 -->|follows| r5_T1555_003
-    r5_T1555_003 -->|follows| r5_T1518
-    r5_T1518 -->|follows| r5_T1071_001
-    r5_T1071_001 -->|follows| r5_T1041
+    r5_T1557["T1557 - Adversary-in-the-Middle"]
+    r5_T1565_002["T1565.002 - Data Manipulation: Transmitted Data Manipulation"]
+    r5_T1572["T1572 - Protocol Tunneling"]
+    r5_T1557 -->|follows| r5_T1565_002
+    r5_T1565_002 -->|follows| r5_T1105
+    r5_T1105 -->|follows| r5_T1071_001
+    r5_T1071_001 -->|follows| r5_T1572
+    r5_T1572 -->|follows| r5_T1041
     end
 
     classDef ttp fill:#e6f2ff,stroke:#0066cc,stroke-width:1px
-    class r1_T1001_001 ttp
-    class r1_T1005 ttp
-    class r1_T1056_001 ttp
-    class r1_T1059_001 ttp
+    class r1_T1027_003 ttp
+    class r1_T1027_007 ttp
+    class r1_T1053_005 ttp
     class r1_T1071_001 ttp
-    class r1_T1082 ttp
     class r1_T1102_002 ttp
-    class r1_T1113 ttp
-    class r1_T1115 ttp
-    class r1_T1129 ttp
-    class r1_T1480_001 ttp
+    class r1_T1106 ttp
+    class r1_T1114_001 ttp
+    class r1_T1137_006 ttp
+    class r1_T1140 ttp
+    class r1_T1203 ttp
+    class r1_T1480_002 ttp
+    class r1_T1497_003 ttp
     class r1_T1546_015 ttp
-    class r1_T1564_001 ttp
-    class r1_T1567_002 ttp
-    class r1_T1573_002 ttp
-    class r1_T1583_006 ttp
-    class r1_T1587_001 ttp
+    class r1_T1566_001 ttp
     class r2_T1003_001 ttp
     class r2_T1003_002 ttp
     class r2_T1021_001 ttp
@@ -183,31 +180,34 @@ flowchart LR
     class r2_T1561_002 ttp
     class r2_T1570 ttp
     class r2_T1572 ttp
-    class r3_T1027_003 ttp
-    class r3_T1027_007 ttp
-    class r3_T1053_005 ttp
+    class r3_T1001_001 ttp
+    class r3_T1005 ttp
+    class r3_T1056_001 ttp
+    class r3_T1059_001 ttp
     class r3_T1071_001 ttp
+    class r3_T1082 ttp
     class r3_T1102_002 ttp
-    class r3_T1106 ttp
-    class r3_T1114_001 ttp
-    class r3_T1137_006 ttp
-    class r3_T1140 ttp
-    class r3_T1203 ttp
-    class r3_T1480_002 ttp
-    class r3_T1497_003 ttp
+    class r3_T1113 ttp
+    class r3_T1115 ttp
+    class r3_T1129 ttp
+    class r3_T1480_001 ttp
     class r3_T1546_015 ttp
-    class r3_T1566_001 ttp
+    class r3_T1564_001 ttp
+    class r3_T1567_002 ttp
+    class r3_T1573_002 ttp
+    class r3_T1583_006 ttp
+    class r3_T1587_001 ttp
     class r4_T1041 ttp
+    class r4_T1059_003 ttp
+    class r4_T1059_007 ttp
     class r4_T1071_001 ttp
     class r4_T1105 ttp
-    class r4_T1557 ttp
-    class r4_T1565_002 ttp
-    class r4_T1572 ttp
+    class r4_T1204_002 ttp
+    class r4_T1518 ttp
+    class r4_T1555_003 ttp
     class r5_T1041 ttp
-    class r5_T1059_003 ttp
-    class r5_T1059_007 ttp
     class r5_T1071_001 ttp
     class r5_T1105 ttp
-    class r5_T1204_002 ttp
-    class r5_T1518 ttp
-    class r5_T1555_003 ttp
+    class r5_T1557 ttp
+    class r5_T1565_002 ttp
+    class r5_T1572 ttp

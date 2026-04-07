@@ -8,7 +8,7 @@ Detailed specs stay in docs and schema files to avoid duplication.
 1. Define parsing inputs and monitoring profile in [inbound/inbound.json](inbound/inbound.json).
 2. Validate structures with schemas in [schemes](schemes).
 3. Produce per-report intelligence JSON files in [outbound](outbound).
-4. Build analytical outputs in [attribution](attribution) and [diagrams](diagrams).
+4. Build analytical outputs in [diagrams/attribution](diagrams/attribution) and [diagrams](diagrams).
 
 ## Schemas
 
@@ -42,17 +42,25 @@ Current per-report files:
 
 - Pairwise report distance analysis (TTP, follows-chain, tags): [utils/count_attribution.py](utils/count_attribution.py)
 - Shared Jaccard and normalization helpers: [utils/utils.py](utils/utils.py)
-- Generated table: [attribution/attribution.md](attribution/attribution.md)
+- Generated table: [diagrams/attribution/attribution.md](diagrams/attribution/attribution.md)
 
 ## Diagrams
 
-- TTP chain builder: [diagrams/build_ttps_chain_mmd.py](diagrams/build_ttps_chain_mmd.py)
-- IOC chain builder: [diagrams/build_iocs_chain_mmd.py](diagrams/build_iocs_chain_mmd.py)
+- TTP chain builder: [diagrams/builders/build_ttps_chain_mmd.py](diagrams/builders/build_ttps_chain_mmd.py)
+- IOC chain builder: [diagrams/builders/build_iocs_chain_mmd.py](diagrams/builders/build_iocs_chain_mmd.py)
 - Diagram sources:
   - [diagrams/pipeline-schema.mmd](diagrams/pipeline-schema.mmd)
   - [diagrams/iocs-schema.mmd](diagrams/iocs-schema.mmd)
   - [diagrams/ttps_chain.mmd](diagrams/ttps_chain.mmd)
   - [diagrams/iocs_chain.mmd](diagrams/iocs_chain.mmd)
+
+## Run
+
+- Recalculate report severity: `python cti_parser/utils/count_severity.py`
+- Recalculate attribution markdown: `python cti_parser/utils/count_attribution.py`
+- Rebuild IOC chain diagram: `python cti_parser/diagrams/builders/build_iocs_chain_mmd.py`
+- Rebuild TTP chain diagram: `python cti_parser/diagrams/builders/build_ttps_chain_mmd.py`
+- Start API server: `python cti_parser/api/server.py`
 
 ## Notes
 

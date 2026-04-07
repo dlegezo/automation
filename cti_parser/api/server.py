@@ -6,7 +6,7 @@ Usage:
 
 Endpoints:
     GET /api/v1/list     Returns full inbound/inbound.json
-    GET /api/v1/reports  Returns full outbound/outbound.json
+    GET /api/v1/reports  Returns aggregated reports from outbound/*.json
 """
 
 import json
@@ -17,7 +17,7 @@ from urllib.parse import urlparse
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INBOUND_FILE = os.path.join(BASE_DIR, "inbound", "inbound.json")
-OUTBOUND_FILE = os.path.join(BASE_DIR, "outbound", "outbound.json")
+OUTBOUND_DIR = os.path.join(BASE_DIR, "outbound")
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -43,6 +43,28 @@ class Handler(BaseHTTPRequestHandler):
         except OSError:
             return None, (500, {"error": f"failed to read {label}"})
 
+    def _load_outbound_reports(self):
+        if not os.path.isdir(OUTBOUND_DIR):
+            return None, (404, {"error": "outbound directory not found"})
+
+        reports = []
+        for name in sorted(os.listdir(OUTBOUND_DIR)):
+            if not name.lower().endswith(".json"):
+                continue
+            if name.lower() == "outbound.json":
+                continue
+
+            full_path = os.path.join(OUTBOUND_DIR, name)
+            payload, error = self._load_json(full_path, f"outbound/{name}")
+            if error:
+                return None, error
+
+            report = payload.get("report") if isinstance(payload, dict) else None
+            if isinstance(report, dict) and report:
+                reports.append(report)
+
+        return {"$schema": "../schemes/iocs-schema.json", "$id": "iocs.json", "reports": reports}, None
+
     def do_GET(self):
         path = urlparse(self.path).path
 
@@ -56,7 +78,7 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         if path == "/api/v1/reports":
-            outbound, error = self._load_json(OUTBOUND_FILE, "outbound/outbound.json")
+            outbound, error = self._load_outbound_reports()
             if error:
                 self._respond_json(error[0], error[1])
                 return

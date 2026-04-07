@@ -9,7 +9,7 @@ Base URL (default): `http://127.0.0.1:8080`
 Data sources used by the API:
 
 - `cti_parser/inbound/inbound.json`
-- `cti_parser/outbound/outbound.json`
+- `cti_parser/outbound/*.json` (per-report files)
 
 ## Endpoint: `GET /api/v1/list`
 
@@ -25,13 +25,23 @@ Schema reference: `cti_parser/schemes/pipeline-schema.json`
 
 ## Endpoint: `GET /api/v1/reports`
 
-Returns full unfiltered content of `outbound/outbound.json`.
+Returns aggregated report objects from all JSON files in `outbound/`.
 
 ### Success Response
 
 Status: `200 OK`
 
-Response body: exact contents of `outbound/outbound.json`.
+Response body shape:
+
+```json
+{
+  "$schema": "../schemes/iocs-schema.json",
+  "$id": "iocs.json",
+  "reports": [
+    { "metadata": { }, "iocs": [], "ttps": [] }
+  ]
+}
+```
 
 Schema reference: `cti_parser/schemes/iocs-schema.json`
 
@@ -51,7 +61,7 @@ or
 
 ```json
 {
-  "error": "outbound/outbound.json not found"
+  "error": "outbound directory not found"
 }
 ```
 
@@ -60,9 +70,7 @@ or
 Status: `500 Internal Server Error`
 
 ```json
-{
-  "error": "outbound/outbound.json is not valid JSON"
-}
+{ "error": "outbound/<file>.json is not valid JSON" }
 ```
 
 or

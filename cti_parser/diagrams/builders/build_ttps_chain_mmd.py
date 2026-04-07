@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
-"""Build a Mermaid TTP-chain diagram from outbound JSON.
+"""Build a Mermaid TTP-chain diagram from outbound per-report JSON files.
 
 Default behavior:
-- Input:  cti_parser/outbound/outbound.json
-- Output: cti_parser/diagrams/ttps_chain.mmd
+- Input dir: cti_parser/outbound/*.json
+- Output:    cti_parser/diagrams/ttps_chain.mmd
 
 Only TTP-to-TTP edges are rendered, based on report xrefs where both endpoints
 are ATT&CK technique IDs present in report.ttps.
 
 Usage:
-    python diagrams/build_ttps_chain_mmd.py
-    python diagrams/build_ttps_chain_mmd.py --input outbound/outbound.json --output diagrams/ttps_chain.mmd
+    python diagrams/builders/build_ttps_chain_mmd.py
+    python diagrams/builders/build_ttps_chain_mmd.py --input-dir outbound --output diagrams/ttps_chain.mmd
 """
 
 from __future__ import annotations
 
 import argparse
-import json
+import importlib.util
 import re
 from pathlib import Path
 from urllib.error import URLError, HTTPError
@@ -24,36 +24,45 @@ from urllib.request import Request, urlopen
 from typing import Dict, List, Set, Tuple
 
 
+def _load_utils_module():
+    utils_path = Path(__file__).resolve().parents[2] / "utils" / "utils.py"
+    spec = importlib.util.spec_from_file_location("cti_shared_utils", utils_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load shared utils from {utils_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+_utils = _load_utils_module()
+esc_mermaid = _utils.esc_mermaid
+load_report_objects = _utils.load_report_objects
+sanitize_node_key = _utils.sanitize_node_key
+
+
 def parse_args() -> argparse.Namespace:
     script_dir = Path(__file__).resolve().parent
-    parser = argparse.ArgumentParser(description="Generate Mermaid TTP chain .mmd from outbound JSON")
+    parser = argparse.ArgumentParser(description="Generate Mermaid TTP chain .mmd from outbound report JSON files")
     parser.add_argument(
-        "--input",
-        default=str(script_dir.parent / "outbound" / "outbound.json"),
-        help="Path to outbound JSON file",
+        "--input-dir",
+        default=str(script_dir.parent.parent / "outbound"),
+        help="Path to outbound report JSON directory",
     )
     parser.add_argument(
         "--output",
-        default=str(script_dir / "ttps_chain.mmd"),
+        default=str(script_dir.parent / "ttps_chain.mmd"),
         help="Path for generated Mermaid .mmd file",
     )
     parser.add_argument(
         "--name-cache",
-        default=str(script_dir / "mitre_technique_names.json"),
+        default=str(script_dir.parent / "mitre_technique_names.json"),
         help="Path for MITRE ATT&CK technique-name cache JSON",
     )
     return parser.parse_args()
 
 
-def esc(text: str) -> str:
-    return text.replace('"', "'").replace("\n", " ").strip()
-
-
 def node_key(report_index: int, ttp_id: str) -> str:
-    cleaned = []
-    for ch in ttp_id:
-        cleaned.append(ch if ch.isalnum() else "_")
-    return f"r{report_index}_{''.join(cleaned)}"
+    return f"r{report_index}_{sanitize_node_key(ttp_id)}"
 
 
 def technique_web_path(ttp_id: str) -> str:
@@ -104,12 +113,16 @@ def load_name_cache(cache_path: Path) -> Dict[str, str]:
     if not cache_path.exists():
         return {}
     try:
+        import json
+
         return json.loads(cache_path.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
+    except (OSError, ValueError):
         return {}
 
 
 def save_name_cache(cache_path: Path, cache: Dict[str, str]) -> None:
+    import json
+
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     cache_path.write_text(json.dumps(cache, indent=2, sort_keys=True), encoding="utf-8")
 
@@ -148,21 +161,21 @@ def collect_ttp_edges(report: Dict) -> Tuple[List[Tuple[str, str, str]], Set[str
     return edges, used_ttps
 
 
-def build_mermaid(doc: Dict, name_map: Dict[str, str]) -> str:
+def build_mermaid(reports: List[Dict], name_map: Dict[str, str]) -> str:
     lines: List[str] = []
     lines.append("flowchart LR")
-    lines.append("    %% Auto-generated from outbound/outbound.json")
+    lines.append("    %% Auto-generated from outbound/*.json")
     lines.append("    %% TTP chains only (derived from xrefs)")
 
     class_nodes: List[str] = []
 
-    for idx, report in enumerate(doc.get("reports", []), start=1):
+    for idx, report in enumerate(reports, start=1):
         meta = report.get("metadata", {})
         report_url = meta.get("url", f"report-{idx}")
         edges, used_ttps = collect_ttp_edges(report)
 
         lines.append("")
-        lines.append(f"    subgraph report_{idx}[\"Report {idx}: {esc(report_url)}\"]")
+        lines.append(f"    subgraph report_{idx}[\"Report {idx}: {esc_mermaid(report_url)}\"]")
 
         if not edges:
             placeholder = f"r{idx}_no_ttp_chain"
@@ -175,13 +188,13 @@ def build_mermaid(doc: Dict, name_map: Dict[str, str]) -> str:
             ttp_name = name_map.get(ttp_id, "")
             ttp_name = re.sub(r",\s*(Sub-technique|Technique)\s+T[0-9]{4}(\.[0-9]{3})?$", "", ttp_name).strip()
             label = f"{ttp_id} - {ttp_name}" if ttp_name else ttp_id
-            lines.append(f"    {node}[\"{esc(label)}\"]")
+            lines.append(f"    {node}[\"{esc_mermaid(label)}\"]")
             class_nodes.append(node)
 
         for src, dst, rel in edges:
             src_node = node_key(idx, src)
             dst_node = node_key(idx, dst)
-            lines.append(f"    {src_node} -->|{esc(rel)}| {dst_node}")
+            lines.append(f"    {src_node} -->|{esc_mermaid(rel)}| {dst_node}")
 
         lines.append("    end")
 
@@ -196,15 +209,14 @@ def build_mermaid(doc: Dict, name_map: Dict[str, str]) -> str:
 def main() -> None:
     args = parse_args()
 
-    input_path = Path(args.input).resolve()
+    input_dir = Path(args.input_dir).resolve()
     output_path = Path(args.output).resolve()
     cache_path = Path(args.name_cache).resolve()
 
-    with input_path.open("r", encoding="utf-8-sig") as fh:
-        doc = json.load(fh)
+    reports = load_report_objects(input_dir)
 
     all_ttps: Set[str] = set()
-    for report in doc.get("reports", []):
+    for report in reports:
         for ttp in report.get("ttps", []):
             ttp_id = ttp.get("id", "")
             if ttp_id.startswith("T"):
@@ -214,12 +226,12 @@ def main() -> None:
     name_map = resolve_names(all_ttps, cache)
     save_name_cache(cache_path, cache)
 
-    mermaid = build_mermaid(doc, name_map)
+    mermaid = build_mermaid(reports, name_map)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(mermaid, encoding="utf-8")
 
-    print(f"Input : {input_path}")
+    print(f"Input dir: {input_dir}")
     print(f"Output: {output_path}")
     print(f"Name cache: {cache_path}")
     print("TTP chain Mermaid generation complete.")
