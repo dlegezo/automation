@@ -21,6 +21,14 @@ def jaccard_distance(left: Set[str], right: Set[str]) -> float:
     return 1.0 - similarity
 
 
+def jaccard_similarity(left: Set[str], right: Set[str]) -> float:
+    """Return Jaccard similarity in [0.0, 1.0]."""
+    union = left | right
+    if not union:
+        return 0.0
+    return len(left & right) / len(union)
+
+
 def flatten_tag_values(node: Any) -> Iterable[str]:
     if isinstance(node, str):
         yield node

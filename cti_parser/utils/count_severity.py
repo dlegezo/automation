@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Compute per-report severity from tags Jaccard distance.
+"""Compute per-report severity from tags overlap.
 
-Severity is stored as an integer percentage in report.metadata.severity:
-severity = round(jaccard_distance(report_tags, tags_of_interest) * 100)
+Severity is stored as a float in [0.0, 1.0] in report.metadata.severity:
+severity = jaccard_similarity(report_tags, tags_of_interest)
 """
 
 from __future__ import annotations
@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 from typing import Set
 
-from utils import extract_report_tags, flatten_tag_values, iter_report_files, jaccard_distance, normalize_tag
+from utils import extract_report_tags, flatten_tag_values, iter_report_files, jaccard_similarity, normalize_tag
 
 
 def parse_args() -> argparse.Namespace:
@@ -52,7 +52,7 @@ def main() -> None:
 
         report = report_doc.get("report", {})
         report_tags = extract_report_tags(report if isinstance(report, dict) else {})
-        severity = int(round(jaccard_distance(report_tags, tags_of_interest) * 100))
+        severity = round(jaccard_similarity(report_tags, tags_of_interest), 4)
 
         report_doc.setdefault("report", {}).setdefault("metadata", {})["severity"] = severity
 

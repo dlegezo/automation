@@ -46,7 +46,7 @@ Required fields: `url`, `created`, `severity`, `confidence`, `tags`, `actor`
 |---|---|---|---|---|
 | `url` | string | Yes | format: `uri` | URL of source CTI report, web or local file path. |
 | `created` | string | Yes | pattern: `^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$` | Date in `DD/MM/YYYY` format. |
-| `severity` | string | Yes | enum: `low`, `medium`, `high`, `critical` | Report severity based on victims geolocation and industry. |
+| `severity` | number | Yes | range: `0..1` | Jaccard similarity share of common tags between report tags and inbound `tags_of_interest`. |
 | `confidence` | string | Yes | enum: `low`, `medium`, `high` | Analyst confidence in extracted report intelligence. |
 | `tags` | string[] | Yes | none | Labels associated with the report. |
 | `actor` | string | Yes | pattern: `^G[0-9]{4}$` | Threat actor in MITRE ATT&CK group format (G####), for example `G0007`. |
@@ -129,7 +129,7 @@ Source diagram: [../diagrams/iocs-schema.mmd](../diagrams/iocs-schema.mmd)
       "metadata": {
         "url": "https://example.org/reports/cti-001",
         "created": "27/03/2026",
-        "severity": "high",
+        "severity": 0.4286,
         "confidence": "medium",
         "tags": ["apt", "phishing"],
         "actor": "G0007"
@@ -188,7 +188,7 @@ Source diagram: [../diagrams/iocs-schema.mmd](../diagrams/iocs-schema.mmd)
 ## Validation Notes
 
 - `metadata.created` must strictly match `DD/MM/YYYY`.
-- `metadata.severity` accepts only: `low`, `medium`, `high`, `critical`.
+- `metadata.severity` must be a number from `0` to `1`.
 - `metadata.confidence` accepts only: `low`, `medium`, `high`.
 - `metadata.tags` and `metadata.actor` are required.
 - `metadata.actor` must match `^G[0-9]{4}$`.

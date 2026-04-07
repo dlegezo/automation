@@ -1,35 +1,49 @@
 #!/usr/bin/env python3
-"""Compute pairwise attribution distances between CTI reports.
+"""Build attribution markdown from outbound per-report JSON files.
 
-For each report pair in outbound per-report JSON files, the script computes:
-1) TTP Jaccard distance on report.ttps IDs
-2) TTP-chain Jaccard distance on report.xrefs edges where type == "follows"
-3) Tags Jaccard distance on report.metadata.tags
+Tables generated:
+1) Pairwise attribution distances between reports
+2) Popularity of TTP follows-pairs across reports (count > 1)
 
-Output is written to diagrams/attribution/attribution.md as a compact markdown table.
+Output is written to diagrams/attribution/attribution.md.
 """
 
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import itertools
 import re
+from collections import Counter
 from pathlib import Path
 from typing import Dict, Iterable, List, Set, Tuple
 from urllib.parse import urlparse
 
-from utils import extract_report_tags, jaccard_distance, load_report_objects
 
+def _load_utils_module():
+    utils_path = Path(__file__).resolve().parents[2] / "utils" / "utils.py"
+    spec = importlib.util.spec_from_file_location("cti_shared_utils", utils_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load shared utils from {utils_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+_utils = _load_utils_module()
+extract_report_tags = _utils.extract_report_tags
+jaccard_distance = _utils.jaccard_distance
+load_report_objects = _utils.load_report_objects
 
 TTP_RE = re.compile(r"^T[0-9]{4}(\.[0-9]{3})?$")
 
 
 def parse_args() -> argparse.Namespace:
     base_dir = Path(__file__).resolve().parent
-    default_input_dir = base_dir.parent / "outbound"
-    default_output = base_dir.parent / "diagrams" / "attribution" / "attribution.md"
+    default_input_dir = base_dir.parent.parent / "outbound"
+    default_output = base_dir.parent / "attribution" / "attribution.md"
 
-    parser = argparse.ArgumentParser(description="Count pairwise attribution distances between reports")
+    parser = argparse.ArgumentParser(description="Build attribution markdown between reports")
     parser.add_argument("--input-dir", default=str(default_input_dir), help="Path to outbound report JSON directory")
     parser.add_argument("--output", default=str(default_output), help="Path to markdown output")
     return parser.parse_args()
@@ -73,7 +87,7 @@ def extract_follows_edges(report: Dict, ttps: Set[str]) -> Set[str]:
     return edges
 
 
-def build_table(rows: Iterable[Tuple[str, str, float, float, float]]) -> str:
+def build_distance_table(rows: Iterable[Tuple[str, str, float, float, float]]) -> List[str]:
     lines: List[str] = []
     lines.append("# Attribution Distances Between Reports")
     lines.append("")
@@ -87,7 +101,29 @@ def build_table(rows: Iterable[Tuple[str, str, float, float, float]]) -> str:
             f"| {rep_a} | {rep_b} | {ttp_dist:.4f} | {chain_dist:.4f} | {tags_dist:.4f} |"
         )
     lines.append("")
-    return "\n".join(lines)
+    return lines
+
+
+def build_popularity_table(counter: Counter[str]) -> List[str]:
+    lines: List[str] = []
+    lines.append("## TTP Follows-Pairs Popularity Across Reports")
+    lines.append("")
+    lines.append("Only pairs seen in more than one report are listed.")
+    lines.append("")
+    lines.append("| TTP follows pair | Popularity (reports) |")
+    lines.append("| --- | ---: |")
+
+    popular_pairs = [(pair, count) for pair, count in counter.items() if count > 1]
+    popular_pairs.sort(key=lambda item: (-item[1], item[0]))
+
+    for pair, count in popular_pairs:
+        lines.append(f"| {pair} | {count} |")
+
+    if not popular_pairs:
+        lines.append("| _No pairs with popularity > 1_ | 0 |")
+
+    lines.append("")
+    return lines
 
 
 def main() -> None:
@@ -100,12 +136,18 @@ def main() -> None:
         raise ValueError("Need at least two reports to compute pairwise distances")
 
     extracted = []
+    follows_popularity: Counter[str] = Counter()
+
     for idx, report in enumerate(reports, start=1):
         label = report_label(report, idx)
         ttps = extract_ttps(report)
         ttp_chains = extract_follows_edges(report, ttps)
         tags = extract_report_tags(report)
         extracted.append((label, ttps, ttp_chains, tags))
+
+        # Count each follows pair once per report.
+        for pair in ttp_chains:
+            follows_popularity[pair] += 1
 
     rows: List[Tuple[str, str, float, float, float]] = []
     for i in range(len(extracted)):
@@ -117,9 +159,12 @@ def main() -> None:
             tags_dist = jaccard_distance(tags_a, tags_b)
             rows.append((label_a, label_b, ttp_dist, ttp_chain_dist, tags_dist))
 
-    markdown = build_table(rows)
+    lines = []
+    lines.extend(build_distance_table(rows))
+    lines.extend(build_popularity_table(follows_popularity))
+
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(markdown, encoding="utf-8")
+    output_path.write_text("\n".join(lines), encoding="utf-8")
 
     print(f"Input dir: {input_dir}")
     print(f"Output   : {output_path}")

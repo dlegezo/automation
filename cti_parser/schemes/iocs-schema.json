@@ -39,10 +39,10 @@
                                 "description": "Date when the report was created, in format DD/MM/YYYY"
                             },
                             "severity": {
-                                "type": "integer",
+                                "type": "number",
                                 "minimum": 0,
-                                "maximum": 100,
-                                "description": "Integer Jaccard distance percentage between report metadata.tags and inbound tags_of_interest (0=maximum overlap, 100=no overlap)"
+                                "maximum": 1,
+                                "description": "Jaccard similarity between report metadata.tags and inbound tags_of_interest (share of common tags, 0=no overlap, 1=maximum overlap)"
                             },
                             "confidence": {
                                 "type": "string",

@@ -29,7 +29,7 @@ Detailed specs stay in docs and schema files to avoid duplication.
 ## Outbound
 
 - Per-report parsed outputs live in [outbound](outbound)
-- Severity recalculation script (Jaccard distance against inbound tags_of_interest): [utils/count_severity.py](utils/count_severity.py)
+- Severity recalculation script (Jaccard similarity share against inbound tags_of_interest): [utils/count_severity.py](utils/count_severity.py)
 
 Current per-report files:
 - [outbound/sednit-reloaded-back-trenches.json](outbound/sednit-reloaded-back-trenches.json)
@@ -40,7 +40,7 @@ Current per-report files:
 
 ## Attribution
 
-- Pairwise report distance analysis (TTP, follows-chain, tags): [utils/count_attribution.py](utils/count_attribution.py)
+- Pairwise report distance analysis (TTP, follows-chain, tags) and follows-pair popularity: [diagrams/builders/build_attribution.py](diagrams/builders/build_attribution.py)
 - Shared Jaccard and normalization helpers: [utils/utils.py](utils/utils.py)
 - Generated table: [diagrams/attribution/attribution.md](diagrams/attribution/attribution.md)
 
@@ -57,7 +57,7 @@ Current per-report files:
 ## Run
 
 - Recalculate report severity: `python cti_parser/utils/count_severity.py`
-- Recalculate attribution markdown: `python cti_parser/utils/count_attribution.py`
+- Recalculate attribution markdown: `python cti_parser/diagrams/builders/build_attribution.py`
 - Rebuild IOC chain diagram: `python cti_parser/diagrams/builders/build_iocs_chain_mmd.py`
 - Rebuild TTP chain diagram: `python cti_parser/diagrams/builders/build_ttps_chain_mmd.py`
 - Start API server: `python cti_parser/api/server.py`

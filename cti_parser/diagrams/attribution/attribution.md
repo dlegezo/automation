@@ -15,3 +15,11 @@ Lower is closer. 0 means identical, 1 means no overlap.
 | R3 www.welivesecurity.com/en/eset-research/sednit-reloaded-... | R4 jp.security.ntt/insights_resources/tech_blog/stoa... | 0.9615 | 1.0000 | 1.0000 |
 | R3 www.welivesecurity.com/en/eset-research/sednit-reloaded-... | R5 blog.talosintelligence.com/knife-cutting-the-edge | 0.9600 | 1.0000 | 0.9630 |
 | R4 jp.security.ntt/insights_resources/tech_blog/stoa... | R5 blog.talosintelligence.com/knife-cutting-the-edge | 0.7500 | 1.0000 | 0.9655 |
+
+## TTP Follows-Pairs Popularity Across Reports
+
+Only pairs seen in more than one report are listed.
+
+| TTP follows pair | Popularity (reports) |
+| --- | ---: |
+| T1071.001->T1102.002 | 2 |
