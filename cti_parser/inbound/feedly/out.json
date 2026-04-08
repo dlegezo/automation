@@ -1,0 +1,880 @@
+{
+    "attacks": [
+        {
+            "attackDate": "2026-04-07",
+            "countriesIso": [
+                "IL"
+            ],
+            "countryIso": "IL",
+            "cves": [],
+            "entryIds": [
+                "ROTtd7XiQSCCn/L/RdQQHHwDXS0Yl/rHQxUgXbkZurw=_19d6b15a02f:6fd72f:21a3885c",
+                "glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM=_19d6b17ca76:6f80e7:d367f4ca"
+            ],
+            "firstMentionedAt": "2026-04-08T03:14:32.623000+00:00",
+            "id": "nlp/f/cyberAttack/82876688-cb2e-4411-8d2e-a9ada2c321e9",
+            "industries": [],
+            "iocs": {
+                "exports": [],
+                "iocs": [],
+                "type2count": {}
+            },
+            "lastMentionedAt": "2026-04-08T03:16:54.518000+00:00",
+            "latestActivity": "A verification alert on the pages notes that listings attributed to HANDALA have included unverified or fabricated victim claims and that the post should be treated as unconfirmed until independently corroborated.",
+            "malwareFamilies": [],
+            "nMentions": 2,
+            "overview": "The HANDALA group posted a leak page naming \u201cExposing Israel\u2019s Drone Queen: The Fall of Colonel Haimovich,\u201d claiming to expose a retired Air Force colonel\u2019s role in drone operations; the post date is April 7, 2026 [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM%3D_19d6b17ca76:6f80e7:d367f4ca). The site notes a claim URL exists but shows no screenshots or downloadable proof and records zero images; RedPacket also flags listings from HANDALA as potentially unverified or fabricated, and the page includes a notice that no files were exfiltrated or hosted by RedPacket Security [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM%3D_19d6b17ca76:6f80e7:d367f4ca). This matters because organizations tied to high-profile military or political topics may face reputational and targeted extortion attempts even when technical evidence is thin, and responders must treat such public allegations as a potential trigger for phishing, social engineering, and media-driven pressure campaigns rather than as confirmed data breaches [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM%3D_19d6b17ca76:6f80e7:d367f4ca).\n\nThe campaign pattern here appears focused on attention and narrative-building rather than presenting verifiable stolen data, consistent with politically charged posturing that emphasizes naming and accusation over demonstrable impact [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM%3D_19d6b17ca76:6f80e7:d367f4ca). Financial demands or ransom amounts are not stated on the page, and no clear technical impact is documented, so direct operational or financial loss is unproven from this post alone [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM%3D_19d6b17ca76:6f80e7:d367f4ca). It is likely the group will continue to publish unverified claims to drive publicity and pressure targets, so organizations in related sectors should monitor threat actor communications, validate any alleged data with forensic evidence, and prepare communications plans to counter reputational damage while investigating claims promptly [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM%3D_19d6b17ca76:6f80e7:d367f4ca).",
+            "referenceEntries": {
+                "threatIntelligenceReports": []
+            },
+            "shortOverview": "HANDALA Exposes Israel's \"Drone Queen\" Haimovich",
+            "soWhat": "No files published; allegations enable spear-phishing and extortion against the individual and affiliates.",
+            "status": "New",
+            "threatActors": [],
+            "trendlineUrl": "https://exports.feedly.com/cyber-attacks/trendline/gradient/e59dd63c72b3677febfbafc5dabe686f.svg",
+            "ttpCount": 0,
+            "types": [
+                {
+                    "id": "Ransomware",
+                    "label": "Ransomware Attacks"
+                },
+                {
+                    "id": "DataBreachesAndExfiltration",
+                    "label": "Data Breaches & Exfiltration"
+                }
+            ],
+            "victim": {
+                "aliases": [],
+                "countryIso2": "IL",
+                "description": "A narrative focusing on Colonel Haimovich, associated with Israel's drone operations, highlighting her role and the circumstances surrounding her career.",
+                "id": "nlp/f/entity/cyber-attack-target:82876688-cb2e-4411-8d2e-a9ada2c321e9",
+                "industries": [],
+                "label": "EXPOSING ISRAEL\u2019S DRONE QUEEN: THE FALL OF COLONEL HAIMOVICH",
+                "size": "Unknown",
+                "type": "org",
+                "websites": []
+            },
+            "what": "HANDALA likely posted an unverified leak page naming a retired Israeli colonel."
+        },
+        {
+            "attackDate": "2026-03-19",
+            "countriesIso": [
+                "IL"
+            ],
+            "countryIso": "IL",
+            "cves": [],
+            "entryIds": [
+                "nKesiCLbGJVw6X5R+sYcbNieanfzkq4lBhdwoHRc6Cc=_19d6421ba8c:30a0551:6bcc37b0",
+                "jRObnSwmw9Iod/O9v9vlDaLCsPJOg1X6xoHpfUZUzWQ=_19d639c96a4:3008307:a25f39cb",
+                "v0RIXra+BwQXL/EZag2koFpQIxip+th5xkpZx55qKK8=_19d633f7e75:2f208ae:a25f39cb",
+                "7SCu2UnkLxNvXZdjYzItxcpeF7SxoPrJmF0++fNhNqc=_19d6407c65f:310a502:a25f39cb",
+                "6HK+H9NtKg4J0HzYkXBnmnZKFDTRhWHhuwKWqx2Nn+4=_19d6364fd7d:2f745bd:a25f39cb",
+                "vPpIuqJJz0ul2UV+Yap6rWDARaCm4H75mD/xtUf3nsY=_19d63697ea1:2f7ef4d:a25f39cb",
+                "A0MZmjMtVGC6vDiN9+jhw66o3Pbi3iUbHP7IODjwzJ4=_19d63628a36:2f6e876:a25f39cb",
+                "/gXhhulmBFHYY0FpOl83/uzWw8MHX7h9NN8Kz5TvN9I=_19d642e9fc3:3160301:a25f39cb",
+                "i/ou+q3G6JGtPIV95ojrSjKjj9xlBFD0gDIOiUS1OhA=_19d64253674:314d001:a25f39cb"
+            ],
+            "firstMentionedAt": "2026-04-06T14:43:18.773000+00:00",
+            "id": "nlp/f/cyberAttack/ade3716e-41e0-49d6-a32b-1b4dda99ef53",
+            "industries": [
+                {
+                    "id": "nlp/f/topic/4041",
+                    "label": "Cyber Security Industry",
+                    "type": "industryTopic"
+                },
+                {
+                    "id": "nlp/f/topic/4043",
+                    "label": "Tech Industry",
+                    "type": "industryTopic"
+                }
+            ],
+            "iocs": {
+                "exports": [],
+                "iocs": [],
+                "type2count": {}
+            },
+            "lastMentionedAt": "2026-04-06T19:04:30.403000+00:00",
+            "latestActivity": "Reported tactics included acquisition of an AWS API key, use of TruffleHog to scan for secrets and validate AWS credentials via AWS Security Token Service calls, creation/attachment of a new access key to an existing user, and subsequent reconnaissance; no lateral movement was detected.",
+            "malwareFamilies": [],
+            "nMentions": 9,
+            "overview": "CERT-EU attributes the breach of the European Commission\u2019s cloud hosting to ShinyHunters, who published about 340 GB of stolen data after initial access on March 19, 2026 [1](https://feedly.com/i/entry/nKesiCLbGJVw6X5R%2BsYcbNieanfzkq4lBhdwoHRc6Cc%3D_19d6421ba8c:30a0551:6bcc37b0). The EC\u2019s SOC detected the incident on March 24 and notified CERT\u2011EU on March 25 [1](https://feedly.com/i/entry/nKesiCLbGJVw6X5R%2BsYcbNieanfzkq4lBhdwoHRc6Cc%3D_19d6421ba8c:30a0551:6bcc37b0). Attackers abused a compromised AquaSec Trivy supply\u2011chain release to obtain an AWS API key, then used TruffleHog to find secrets, validated credentials via the AWS Security Token Service, created a new access key for an existing user, and performed reconnaissance before data exfiltration [1](https://feedly.com/i/entry/nKesiCLbGJVw6X5R%2BsYcbNieanfzkq4lBhdwoHRc6Cc%3D_19d6421ba8c:30a0551:6bcc37b0). CERT\u2011EU reports the leak includes personal data and ~51,992 outbound-email files (2.22 GB) that may contain user-submitted content; the europa.eu sites and platform services were not affected and compromised keys were revoked [1](https://feedly.com/i/entry/nKesiCLbGJVw6X5R%2BsYcbNieanfzkq4lBhdwoHRc6Cc%3D_19d6421ba8c:30a0551:6bcc37b0). This matters because supply\u2011chain compromises can grant cloud-wide credential access quickly, and organizations using affected scanners or shared code should assume credential exposure and urgently audit keys and roles [1](https://feedly.com/i/entry/nKesiCLbGJVw6X5R%2BsYcbNieanfzkq4lBhdwoHRc6Cc%3D_19d6421ba8c:30a0551:6bcc37b0).\n\nThe campaign fits a pattern tied to TeamPCP tradecraft (Trivy, KICS, LiteLLM, Telnyx) with ShinyHunters handling public extortion, suggesting coordinated supply\u2011chain-to-extortion operations [1](https://feedly.com/i/entry/nKesiCLbGJVw6X5R%2BsYcbNieanfzkq4lBhdwoHRc6Cc%3D_19d6421ba8c:30a0551:6bcc37b0). Financial and operational impact likely includes breach response costs, regulatory notifications, and reputational damage for hosted tenants; data exposure raises regulatory risk for EU entities [1](https://feedly.com/i/entry/nKesiCLbGJVw6X5R%2BsYcbNieanfzkq4lBhdwoHRc6Cc%3D_19d6421ba8c:30a0551:6bcc37b0). Key takeaways: treat developer tooling and third\u2011party scanners as high risk, rotate and limit AWS keys, monitor STS usage, and assume attackers will validate and escalate credentials quickly; further lateral movement is unlikely based on current findings but remains possible and should be checked [1](https://feedly.com/i/entry/nKesiCLbGJVw6X5R%2BsYcbNieanfzkq4lBhdwoHRc6Cc%3D_19d6421ba8c:30a0551:6bcc37b0).",
+            "referenceEntries": {
+                "threatIntelligenceReports": []
+            },
+            "shortOverview": "ShinyHunters Breaches European Commission Cloud Hosting",
+            "soWhat": "Personal data and 51.9k outbound emails leaked, enabling extortion and spear\u2011phishing",
+            "status": "New",
+            "threatActors": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:ta:d4fd0a30-15d4-4dfd-bf98-beff5fe34c33",
+                        "label": "ShinyHunters",
+                        "type": "threatActor"
+                    }
+                }
+            ],
+            "trendlineUrl": "https://exports.feedly.com/cyber-attacks/trendline/gradient/76e71ecc5d5e11f4e41fbbb42f79f13a.svg",
+            "ttpCount": 0,
+            "types": [
+                {
+                    "id": "DataBreachesAndExfiltration",
+                    "label": "Data Breaches & Exfiltration"
+                },
+                {
+                    "id": "CredentialBased",
+                    "label": "Credential-Based Attacks"
+                },
+                {
+                    "id": "SupplyChainCompromises",
+                    "label": "Supply Chain Compromises"
+                }
+            ],
+            "victim": {
+                "aliases": [],
+                "countryIso2": "IL",
+                "description": "AquaSec is a cybersecurity company that specializes in cloud-native security solutions, providing tools and services to protect applications and data in cloud environments.",
+                "id": "nlp/f/entity/cyber-attack-target:ade3716e-41e0-49d6-a32b-1b4dda99ef53",
+                "industries": [
+                    {
+                        "id": "nlp/f/topic/4041",
+                        "label": "Cyber Security Industry",
+                        "type": "industryTopic"
+                    },
+                    {
+                        "id": "nlp/f/topic/4043",
+                        "label": "Tech Industry",
+                        "type": "industryTopic"
+                    }
+                ],
+                "label": "AquaSec",
+                "size": "Unknown",
+                "type": "org",
+                "websites": []
+            },
+            "what": "ShinyHunters used Trivy supply\u2011chain abuse to steal AWS keys from EC cloud"
+        },
+        {
+            "attackDate": "2026-04-05",
+            "countriesIso": [
+                "IL"
+            ],
+            "countryIso": "IL",
+            "cves": [],
+            "entryIds": [
+                "oMOr+dz7Bd+//Hu3p6694z4WmHjkTb/FDktmIOf43MA=_19d61e10b11:2b5fc98:6bcc37b0",
+                "YM8wWzLpuygM9UEefpX/mUIDlDKg9lLnGV+XED8ywa0=_19d5b8e147c:21524b8:6bcc37b0"
+            ],
+            "firstMentionedAt": "2026-04-05T02:52:11.260000+00:00",
+            "id": "nlp/f/cyberAttack/8ac3b3dc-2554-4c84-8529-2d2dc72a7f94",
+            "industries": [
+                {
+                    "id": "nlp/f/topic/4044",
+                    "label": "Public Sector",
+                    "type": "industryTopic"
+                },
+                {
+                    "id": "nlp/f/topic/4041",
+                    "label": "Cyber Security Industry",
+                    "type": "industryTopic"
+                },
+                {
+                    "id": "nlp/f/topic/4015",
+                    "label": "Defense Industry",
+                    "type": "industryTopic"
+                }
+            ],
+            "iocs": {
+                "exports": [],
+                "iocs": [],
+                "type2count": {}
+            },
+            "lastMentionedAt": "2026-04-06T08:20:31.633000+00:00",
+            "latestActivity": "Handala is reported to have conducted an intrusion campaign over an extended period to target Unit 9900, but the exact date(s) of initial compromise were not specified in the articles.",
+            "malwareFamilies": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:mal:f7667c45-9a30-41cb-b90c-a803ac3e7921",
+                        "label": "Handala (Windows)",
+                        "type": "malwareFamily"
+                    }
+                }
+            ],
+            "nMentions": 2,
+            "overview": "A hacker group called Handala claims it published identifying details for roughly 50 senior officers in Israel\u2019s Unit 9900, a geospatial intelligence unit that handles satellite imagery, drone surveillance, and battlefield planning [1](https://feedly.com/i/entry/YM8wWzLpuygM9UEefpX%2FmUIDlDKg9lLnGV%2BXED8ywa0%3D_19d5b8e147c:21524b8:6bcc37b0). The group says the operation exposed personnel tied to imagery analysis and strike planning, raising immediate safety and operational risks for those individuals and forcing rapid incident response and threat hunting at affected networks [1](https://feedly.com/i/entry/YM8wWzLpuygM9UEefpX%2FmUIDlDKg9lLnGV%2BXED8ywa0%3D_19d5b8e147c:21524b8:6bcc37b0). Independent confirmation is lacking and Israel has not publicly acknowledged the breach [2](https://feedly.com/i/entry/oMOr%2Bdz7Bd%2B%2F%2FHu3p6694z4WmHjkTb%2FFDktmIOf43MA%3D_19d61e10b11:2b5fc98:6bcc37b0). Handala is reported to be Iranian state-linked and to have run multi-month intrusions using sophisticated techniques, which explains the depth of data claimed and the high risk of follow-on targeting of exposed staff or systems [2](https://feedly.com/i/entry/oMOr%2Bdz7Bd%2B%2F%2FHu3p6694z4WmHjkTb%2FFDktmIOf43MA%3D_19d61e10b11:2b5fc98:6bcc37b0).\n\nThe campaign fits a pattern of state-linked disruptive espionage: Handala previously claimed operations against a US company and a private email account tied to a senior US official, showing both data theft and public exposure as tools to amplify impact [2](https://feedly.com/i/entry/oMOr%2Bdz7Bd%2B%2F%2FHu3p6694z4WmHjkTb%2FFDktmIOf43MA%3D_19d61e10b11:2b5fc98:6bcc37b0). Financial and operational costs will likely include emergency security measures, personnel protection, legal/PR response, and potential loss of trust; these are likely to persist while investigations continue [2](https://feedly.com/i/entry/oMOr%2Bdz7Bd%2B%2F%2FHu3p6694z4WmHjkTb%2FFDktmIOf43MA%3D_19d61e10b11:2b5fc98:6bcc37b0). Key takeaways: treat exposed personnel data as high-risk, accelerate credential and access reviews, assume follow-on targeting is very likely, and prioritize protective actions for staff named in the leak [1](https://feedly.com/i/entry/YM8wWzLpuygM9UEefpX%2FmUIDlDKg9lLnGV%2BXED8ywa0%3D_19d5b8e147c:21524b8:6bcc37b0)[2](https://feedly.com/i/entry/oMOr%2Bdz7Bd%2B%2F%2FHu3p6694z4WmHjkTb%2FFDktmIOf43MA%3D_19d61e10b11:2b5fc98:6bcc37b0).",
+            "referenceEntries": {
+                "threatIntelligenceReports": []
+            },
+            "shortOverview": "Handala Exposes Israel's Unit 9900 Personnel",
+            "soWhat": "Exposed names/roles in imagery and strike planning enable targeted harassment, credential theft.",
+            "status": "New",
+            "threatActors": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:ta:7b14f285-86e9-47da-be1a-16ce566c428b",
+                        "label": "Handala",
+                        "type": "threatActor"
+                    }
+                }
+            ],
+            "trendlineUrl": "https://exports.feedly.com/cyber-attacks/trendline/gradient/787a372059aa959683f55ced8e58cff2.svg",
+            "ttpCount": 0,
+            "types": [
+                {
+                    "id": "DataBreachesAndExfiltration",
+                    "label": "Data Breaches & Exfiltration"
+                }
+            ],
+            "victim": {
+                "aliases": [],
+                "countryIso2": "IL",
+                "description": "Unit 9900 is one of Israel\u2019s most advanced geospatial intelligence divisions, specializing in satellite imagery analysis, drone surveillance, and battlefield planning.",
+                "id": "nlp/f/entity/cyber-attack-target:8ac3b3dc-2554-4c84-8529-2d2dc72a7f94",
+                "industries": [
+                    {
+                        "id": "nlp/f/topic/4044",
+                        "label": "Public Sector",
+                        "type": "industryTopic"
+                    },
+                    {
+                        "id": "nlp/f/topic/4041",
+                        "label": "Cyber Security Industry",
+                        "type": "industryTopic"
+                    },
+                    {
+                        "id": "nlp/f/topic/4015",
+                        "label": "Defense Industry",
+                        "type": "industryTopic"
+                    }
+                ],
+                "label": "Unit 9900",
+                "size": "Enterprise",
+                "type": "org",
+                "websites": []
+            },
+            "what": "Likely Iran-linked Handala published IDs after intruding Unit 9900, targeting ~50 senior officers."
+        },
+        {
+            "attackDate": "2026-04-02",
+            "countriesIso": [
+                "IL"
+            ],
+            "countryIso": "IL",
+            "cves": [],
+            "entryIds": [
+                "FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d4f142478:93a60f:ad86dd87"
+            ],
+            "firstMentionedAt": "2026-04-02T16:43:33.368000+00:00",
+            "id": "nlp/f/cyberAttack/e5beb584-fdd1-4d3d-9fc8-f2c4fe2ac74f",
+            "industries": [
+                {
+                    "id": "nlp/f/topic/4046",
+                    "label": "Education Industry",
+                    "type": "industryTopic"
+                }
+            ],
+            "iocs": {
+                "exports": [],
+                "iocs": [],
+                "type2count": {}
+            },
+            "lastMentionedAt": "2026-04-02T16:43:33.368000+00:00",
+            "latestActivity": "RipperSec claimed via a social post/tweet that they targeted the website of Aish.",
+            "malwareFamilies": [],
+            "nMentions": 1,
+            "overview": "RipperSec claimed a DDoS attack against the Aish website on 2026-04-02, according to a FalconFeedsio tweet; the post includes an Israeli flag and the attacker name, and it reports the site is up at the moment [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b%2BvKKK8hgma62Sv6pVFuDo8g%3D_19d4f142478:93a60f:ad86dd87). The timeline is limited to the single report, so immediate impact appears minimal because the site remained accessible at publication time [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b%2BvKKK8hgma62Sv6pVFuDo8g%3D_19d4f142478:93a60f:ad86dd87). The primary method reported is a distributed denial-of-service (DDoS) action as stated in the post [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b%2BvKKK8hgma62Sv6pVFuDo8g%3D_19d4f142478:93a60f:ad86dd87). This matters because even short-lived claims can signal intent, draw copycat activity, or test defenses; organizations with similar profiles should treat public claims as credible probes and verify logging, rate-limiting, and incident response readiness [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b%2BvKKK8hgma62Sv6pVFuDo8g%3D_19d4f142478:93a60f:ad86dd87).\n\nGiven the limited data, the campaign pattern looks opportunistic and low-impact so far, centered on public claims rather than prolonged disruption; this suggests testing or signaling rather than sustained extortion, which is likely rather than certain based on the single report [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b%2BvKKK8hgma62Sv6pVFuDo8g%3D_19d4f142478:93a60f:ad86dd87). Financial and operational impacts are likely minimal in this instance because the site stayed up, but reputational and monitoring costs may follow while teams investigate logs and strengthen mitigation [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b%2BvKKK8hgma62Sv6pVFuDo8g%3D_19d4f142478:93a60f:ad86dd87). Key takeaways: validate the claim quickly, preserve logs, confirm DDoS mitigations, and prepare communications to reduce downstream reputational risk [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b%2BvKKK8hgma62Sv6pVFuDo8g%3D_19d4f142478:93a60f:ad86dd87).",
+            "referenceEntries": {
+                "threatIntelligenceReports": []
+            },
+            "shortOverview": "RipperSec Targets Aish Website with DDoS",
+            "soWhat": "No data disclosed; DDoS validates defenses, raises monitoring costs, invites copycat probes.",
+            "status": "New",
+            "threatActors": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:ta:70d09d1f-15fb-4003-bd9a-b52250d9d57e",
+                        "label": "RipperSec",
+                        "type": "threatActor"
+                    }
+                }
+            ],
+            "trendlineUrl": "https://exports.feedly.com/cyber-attacks/trendline/gradient/1c2026fd5254841ff92cd316823b86a0.svg",
+            "ttpCount": 0,
+            "types": [
+                {
+                    "id": "DdosAndServiceDisruption",
+                    "label": "DDoS & Service Disruption Attacks"
+                }
+            ],
+            "victim": {
+                "aliases": [],
+                "countryIso2": "IL",
+                "description": "Aish is an organization focused on Jewish education and outreach, aiming to strengthen Jewish identity and connection to heritage.",
+                "id": "nlp/f/entity/cyber-attack-target:39e3482a-2a22-43a8-a26e-27675d27394e",
+                "industries": [
+                    {
+                        "id": "nlp/f/topic/4046",
+                        "label": "Education Industry",
+                        "type": "industryTopic"
+                    }
+                ],
+                "label": "Aish",
+                "size": "Medium",
+                "type": "org",
+                "websites": [
+                    "aish.com"
+                ]
+            },
+            "what": "RipperSec likely claimed a DDoS against the Aish website as opportunistic probe."
+        },
+        {
+            "attackDate": "2026-04-02",
+            "countriesIso": [
+                "IL"
+            ],
+            "countryIso": "IL",
+            "cves": [],
+            "entryIds": [
+                "fWE90tBxhbCEWJwaVyGflqVMM9EO7bRe7Y3LNTuOEYc=_19d6c5cdf79:98a3c1:21a3885c",
+                "glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM=_19d6b17ca76:6f80ea:d367f4ca",
+                "ROTtd7XiQSCCn/L/RdQQHHwDXS0Yl/rHQxUgXbkZurw=_19d6b15a02f:6fd731:21a3885c",
+                "M8Gg4NxPcIFiWXYuTa0BOmMXnFOE6mjmChTH6mnoetA=_19d6aa4af20:61fcfa:d367f4ca",
+                "MqFr23Isg7CY07Jx9F8/zqo4aOK8wTw6/JsZfvtVUo0=_19d6adb358e:6976a6:21a3885c",
+                "fku27a1IgKAceEyXlOlSwF9ak3OQoOYdZba5wuIYiYw=_19d63f569c0:30e3e75:a25f39cb",
+                "dxwfUqD3X/fy0DvUphCntKq1I7aEUohaZyv5Gw/CMGI=_19d60ab31eb:27e82d1:ad86dd87",
+                "0SbqINDkVoz1PmrO6M7DRlkZe3X4F2fuYO6VVRNo3WI=_19d60799ca0:a0f6e3:b0d9bd51",
+                "jWXNgXMnvuWw6w0UsfYZb9B6rU08ls35MRVKa8Ke2/o=_19d5f33cafb:257aece:ad86dd87",
+                "CHkmzzYUjKfOIvweRZRGYvZ8kvboBpFXS/ungYxNT3I=_19d55fc465e:18728d0:a25f39cb",
+                "WX7NrcjJEoe/l/yaeQkdgN133u29csfG6xZMNRp4N3g=_19d54a9dfbc:1620df6:a25f39cb",
+                "ZPV/WFeVMRkfvuNPDvrMjZKUcOMT2qYkMrA7RCrrxPs=_19d54a2e404:14d260d:ad86dd87",
+                "nKesiCLbGJVw6X5R+sYcbNieanfzkq4lBhdwoHRc6Cc=_19d53a39c3f:1296f7e:ad86dd87",
+                "CqaxwpJJe0bh0TgMsClLOSz411RnU+NOsdbpCcBBVHc=_19d4e2edbbf:737cd7:a25f39cb",
+                "Ub222fEgBtApNvgCOt9K/mfZr1Ih9lMJ9xNNEL6rPVM=_19d5384f72c:1250062:ad86dd87",
+                "yZChqzpsA+WkWW3mcxTXaykHtByen3j9nJX+Gy7ELvo=_19d529bd33b:116e552:6bcc37b0",
+                "RYGqWvH2ch5BlPnH0Z4vB5cU6tb1CwsEogCa8HHJGmQ=_19d528df139:30617:520b9183",
+                "iRpm8XR/KvfPFCOrsdMHaruthr7/GnEDlwBQRBxyM98=_19d4f6129ad:a17aeb:ad86dd87",
+                "II2YZ6Nl80iOGiJ+x3cetHEGIVw7JFhxEwiHriW7SRk=_19d4f585ca3:9e71c5:ad86dd87",
+                "VB40NdrMQLk5cYhvIsbHKxxDRzywcMNxNa5cldsMaW8=_19d4ee19165:8bb672:ad86dd87",
+                "PCgw/b3JJ9XygcnMEkQ31zFL5XrrLW23Di6ocvJ9RfY=_19d4e55796a:832c1f:6bcc37b0",
+                "J8uEk5mNStG3pjelDoincW6MFVAH5H4A76KT1bZ2Gzs=_19d4d825a91:61f113:6bcc37b0",
+                "OWdAueWekmNT4lZiA/JcRXf2FvFjPvipmsTMDUwhMls=_19d4d46c38d:4d0d91:ad86dd87",
+                "yZChqzpsA+WkWW3mcxTXaykHtByen3j9nJX+Gy7ELvo=_19d4e21523a:7aeb07:6bcc37b0",
+                "Q4wiXXFi8jS6j6t0RmDrzdtXMuNdo6w12oeV7+BzkPA=_19d4e1566ba:6ecbce:a25f39cb",
+                "+zddi1aqFeS/Lq94ohl2Ub6lSaF5msLdZOdi/tYGOY0=_19d4db543e0:5d4005:ad86dd87"
+            ],
+            "firstMentionedAt": "2026-04-02T08:19:36.461000+00:00",
+            "id": "nlp/f/cyberAttack/b406b5cf-0050-4c30-aa48-0adffa7cf1f7",
+            "industries": [
+                {
+                    "id": "nlp/f/topic/4043",
+                    "label": "Tech Industry",
+                    "type": "industryTopic"
+                }
+            ],
+            "iocs": {
+                "exports": [],
+                "iocs": [],
+                "type2count": {}
+            },
+            "lastMentionedAt": "2026-04-08T09:11:59.097000+00:00",
+            "latestActivity": "Ransomware-focused indexing sites (ransomware.live, RedPacket Security, others) listed PSK WIND/its networks as a Handala victim and indexed the group's dark-web post, characterizing the incident as a ransomware/leak listing (note: these listings caution about verification).",
+            "malwareFamilies": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:mal:f7667c45-9a30-41cb-b90c-a803ac3e7921",
+                        "label": "Handala (Windows)",
+                        "type": "malwareFamily"
+                    }
+                }
+            ],
+            "nMentions": 26,
+            "overview": "Handala, an Iran-linked cyber group that often fronts for state-aligned actors, claims it breached PSK Wind Technologies and exfiltrated sensitive command-and-control and communications files, then said it passed that data to \u201cAxis of Resistance\u201d missile units; the group timed threats around Passover and framed the operation as part of a wider campaign against Israeli military infrastructure [1](https://feedly.com/i/entry/WX7NrcjJEoe%2Fl%2FyaeQkdgN133u29csfG6xZMNRp4N3g%3D_19d54a9dfbc:1620df6:a25f39cb). The timeline shows the claim on Apr 2 and public dumps/facilitated sharing soon after; Handala typically uses supply-chain and phishing-style intrusions to reach defense vendors, allowing them to bypass direct military perimeters [1](https://feedly.com/i/entry/WX7NrcjJEoe%2Fl%2FyaeQkdgN133u29csfG6xZMNRp4N3g%3D_19d54a9dfbc:1620df6:a25f39cb). GBHackers reports the released materials include internal photos, engineering schematics, and product manuals, which creates immediate operational and physical-security risk by exposing facility layouts and device internals [2](https://feedly.com/i/entry/Q4wiXXFi8jS6j6t0RmDrzdtXMuNdo6w12oeV7%2BBzkPA%3D_19d4e1566ba:6ecbce:a25f39cb). This matters because vendors in your supply chain can become entry points to critical systems and leaks that degrade confidence in system integrity and enable kinetic targeting [1](https://feedly.com/i/entry/WX7NrcjJEoe%2Fl%2FyaeQkdgN133u29csfG6xZMNRp4N3g%3D_19d54a9dfbc:1620df6:a25f39cb)[2](https://feedly.com/i/entry/Q4wiXXFi8jS6j6t0RmDrzdtXMuNdo6w12oeV7%2BBzkPA%3D_19d4e1566ba:6ecbce:a25f39cb).\n\nThe campaign fits a pattern of state-aligned hacktivist operations targeting defense contractors to gather intelligence and amplify political effects; expect continued focus on third-party suppliers and dual-use engineering firms (very likely) [1](https://feedly.com/i/entry/WX7NrcjJEoe%2Fl%2FyaeQkdgN133u29csfG6xZMNRp4N3g%3D_19d54a9dfbc:1620df6:a25f39cb). Financially, victims face remediation, incident response, and potential contract loss; operationally, exposed blueprints can force changes to deployment and accelerate costly system hardening or redesigns [2](https://feedly.com/i/entry/Q4wiXXFi8jS6j6t0RmDrzdtXMuNdo6w12oeV7%2BBzkPA%3D_19d4e1566ba:6ecbce:a25f39cb)[1](https://feedly.com/i/entry/WX7NrcjJEoe%2Fl%2FyaeQkdgN133u29csfG6xZMNRp4N3g%3D_19d54a9dfbc:1620df6:a25f39cb). Key takeaways: treat supply-chain vendors as high-risk assets, enforce strict segmentation and zero-trust for vendor access, require multi-party verification for sensitive design docs, and prepare rapid containment and public communication playbooks\u2014these steps will likely reduce exposure and shorten recovery time if you face similar threats [1](https://feedly.com/i/entry/WX7NrcjJEoe%2Fl%2FyaeQkdgN133u29csfG6xZMNRp4N3g%3D_19d54a9dfbc:1620df6:a25f39cb)[2](https://feedly.com/i/entry/Q4wiXXFi8jS6j6t0RmDrzdtXMuNdo6w12oeV7%2BBzkPA%3D_19d4e1566ba:6ecbce:a25f39cb).",
+            "referenceEntries": {
+                "threatIntelligenceReports": []
+            },
+            "shortOverview": "Handala Breaches PSK Wind Technologies' C2 Files",
+            "soWhat": "Schematics, manuals, photos enable targeting, spear\u2011phishing, and remediation costs.",
+            "status": "New",
+            "threatActors": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:ta:7b14f285-86e9-47da-be1a-16ce566c428b",
+                        "label": "Handala",
+                        "type": "threatActor"
+                    }
+                }
+            ],
+            "trendlineUrl": "https://exports.feedly.com/cyber-attacks/trendline/gradient/7a6aa41365df1c907e728340a828a80b.svg",
+            "ttpCount": 0,
+            "types": [
+                {
+                    "id": "SupplyChainCompromises",
+                    "label": "Supply Chain Compromises"
+                },
+                {
+                    "id": "DataBreachesAndExfiltration",
+                    "label": "Data Breaches & Exfiltration"
+                },
+                {
+                    "id": "Ransomware",
+                    "label": "Ransomware Attacks"
+                }
+            ],
+            "victim": {
+                "aliases": [],
+                "countryIso2": "IL",
+                "description": "Supporting Fully integrated subsystem solutions for military and civilian systems, test range services, including design, fabrication, management, construction, supervision and maintenance in their civil, mechanical, electrical and electronic Engineering aspects, shelters and radio Sys, communication towers, masts and structures platforms.",
+                "id": "nlp/f/entity/cyber-attack-target:b406b5cf-0050-4c30-aa48-0adffa7cf1f7",
+                "industries": [
+                    {
+                        "id": "nlp/f/topic/4043",
+                        "label": "Tech Industry",
+                        "type": "industryTopic"
+                    }
+                ],
+                "label": "PSK WIND Technologies",
+                "size": "Small",
+                "type": "org",
+                "websites": [
+                    "psk-wind.com"
+                ]
+            },
+            "what": "Handala likely used supply\u2011chain phishing to breach PSK Wind and exfiltrate C2 and communications files."
+        },
+        {
+            "attackDate": "2026-03-31",
+            "countriesIso": [
+                "DE"
+            ],
+            "countryIso": "DE",
+            "cves": [],
+            "entryIds": [
+                "ROTtd7XiQSCCn/L/RdQQHHwDXS0Yl/rHQxUgXbkZurw=_19d6b22f7a1:7082b8:d367f4ca",
+                "glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM=_19d6b17ca76:6f80eb:d367f4ca",
+                "M8Gg4NxPcIFiWXYuTa0BOmMXnFOE6mjmChTH6mnoetA=_19d6aa4af20:61fcf8:d367f4ca",
+                "MqFr23Isg7CY07Jx9F8/zqo4aOK8wTw6/JsZfvtVUo0=_19d6adb358e:6976a4:21a3885c",
+                "0JZPRgdNB/iFw1TXY+gZzV/nOFnF2xwMDAG4CW8T2Ys=_19d53259224:1173bd5:ad86dd87",
+                "fQ8eHWGWHT2pI4PCRBbbGwyZ/sXCd1a6ttYRnh+3kXw=_19d50b487b0:d00c17:ad86dd87",
+                "a4yzsnzn3wYZ43W/n/wv1sApMEZDESHfF+zM9dVxwD0=_19d48380cce:4e84d9a:df98d885",
+                "ROTtd7XiQSCCn/L/RdQQHHwDXS0Yl/rHQxUgXbkZurw=_19d4416730e:43fe2ef:df98d885",
+                "GNPW3Nua+Wl7qhlEV6bDtrEnhd2GNBMZSkcn615PtUM=_19d44180409:440301c:df98d885",
+                "CqaxwpJJe0bh0TgMsClLOSz411RnU+NOsdbpCcBBVHc=_19d4447e5c1:4496c15:df98d885",
+                "Im9X1fbszxJLtwQy6R5eYSrCHS9WrobFe9xBEdxh0Bw=_19d43aafa29:3dfb9b3:3e74eca8",
+                "mgPAtDdJfNDzrLpWn+9O0jQ7W7s9eserxQmsHZz67XQ=_19d441c93a1:440e020:df98d885",
+                "QhnMA8/fCvwUJaX3pyf15+EH6XtIf4jvESACbb3K100=_19d43ceda6b:3e55e13:3e74eca8",
+                "bYznNbQQeuD8wc6/JPyLp9ne0iE3H5UEY3ZNSA4r5cc=_19d444b2073:3fa134c:3e74eca8",
+                "5X59J20ozF/4LQ3gM1HNO8h048nPyJ8q5YI816vBCT0=_19d4424b37f:428c0fb:516448e8",
+                "MqFr23Isg7CY07Jx9F8/zqo4aOK8wTw6/JsZfvtVUo0=_19d441ac787:4275bb9:516448e8",
+                "glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM=_19d440587b2:3eec714:3e74eca8"
+            ],
+            "firstMentionedAt": "2026-03-31T11:32:51.881000+00:00",
+            "id": "nlp/f/cyberAttack/828af638-3919-4de8-af6d-289afefe634e",
+            "industries": [
+                {
+                    "id": "nlp/f/topic/4022",
+                    "label": "Media & Entertainment Industry",
+                    "type": "industryTopic"
+                }
+            ],
+            "iocs": {
+                "exports": [],
+                "iocs": [],
+                "type2count": {}
+            },
+            "lastMentionedAt": "2026-04-08T03:29:06.977000+00:00",
+            "latestActivity": "Ransomware indexing sites (ransomware.live, RedPacket Security) indexed and published entries for the Handala claim and the subsequent 'publication of photos and personal details' leak; ransomware.live shows a discovery/indexing date of 2026-04-08 for the Apr 3 leak.",
+            "malwareFamilies": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:mal:f7667c45-9a30-41cb-b90c-a803ac3e7921",
+                        "label": "Handala (Windows)",
+                        "type": "malwareFamily"
+                    }
+                }
+            ],
+            "nMentions": 17,
+            "overview": "The Handala group claims it carried out a complex, targeted operation that took control of IranWire\u2019s site and social accounts and exfiltrated a large volume of documents, posting a leak entry on 2026-03-31 that frames the action as aligned with the \u201cAxis of Resistance\u201d [1](https://feedly.com/i/entry/MqFr23Isg7CY07Jx9F8%2Fzqo4aOK8wTw6%2FJsZfvtVUo0%3D_19d441ac787:4275bb9:516448e8). Ransomware.live indexes a follow\u2011on publication (2026-04-03) that lists photos and personal details for ~20 IranWire staff, naming individuals and publishing alleged identifiers [2](https://feedly.com/i/entry/MqFr23Isg7CY07Jx9F8%2Fzqo4aOK8wTw6%2FJsZfvtVUo0%3D_19d6adb358e:6976a4:21a3885c). RedPacket Security flags Handala listings as unverified or possibly fabricated, so confirmatory evidence remains lacking [3](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM%3D_19d440587b2:3eec714:3e74eca8). This matters because a successful data publication or doxxing causes immediate operational disruption, legal/privacy exposure for staff, reputational damage, and escalation risk for organizations operating in contested geopolitical spaces [4,11,3].\n\nBased on the timeline and messaging, this campaign fits politically motivated ransomware/doxxing behavior aimed at media outlets and their contacts; Handala frames actions as intelligence support to Iranian-aligned actors, so similar outlets and diaspora networks remain likely targets [4,11]. Financial ransom demands are not visible in indexed posts, so the primary impact appears operational and personnel risk rather than clear monetization in public feeds [4,3]. Key takeaways: assume targeted social- and web-account compromise, segment admin access, enforce MFA and incident playbooks, and prepare privacy/legal responses for doxxing incidents; anticipate further disclosures or reputational pressure from this actor\u2014very likely in the near term absent independent verification [4,11,3].",
+            "referenceEntries": {
+                "threatIntelligenceReports": []
+            },
+            "shortOverview": "Handala Group Compromises IranWire Site and Accounts",
+            "soWhat": "Photos and identifiers for ~20 staff exposed, enabling targeted doxxing and spear\u2011phishing.",
+            "status": "New",
+            "threatActors": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:ta:7b14f285-86e9-47da-be1a-16ce566c428b",
+                        "label": "Handala",
+                        "type": "threatActor"
+                    }
+                }
+            ],
+            "trendlineUrl": "https://exports.feedly.com/cyber-attacks/trendline/gradient/37013e0548ee2fcc167fc969aecac72b.svg",
+            "ttpCount": 0,
+            "types": [
+                {
+                    "id": "Ransomware",
+                    "label": "Ransomware Attacks"
+                },
+                {
+                    "id": "DataBreachesAndExfiltration",
+                    "label": "Data Breaches & Exfiltration"
+                },
+                {
+                    "id": "WebApplication",
+                    "label": "Web Application Attacks"
+                }
+            ],
+            "victim": {
+                "aliases": [],
+                "countryIso2": "DE",
+                "description": "Iran News Wire is home to true news of the people by the people of Iran. It is a network dedicated to sounding everyday facts of what is happening inside Iran. We hope to cover every kind of news surrounding the people of our country.\n\nEspecially at a time when the regime of Iran fears the Iranian uprising we want to be their voice. You can rely on our updated wires as a news source.\n\nThe network is created by Iranian Opposition supporters from inside the country as well as those outside of Iran.\n\nWe look forward to having our news shared with broader online media to terminate corruption, economic and environmental crisis as well as to protect Human Rights for the Iranian people.",
+                "id": "nlp/f/entity/cyber-attack-target:828af638-3919-4de8-af6d-289afefe634e",
+                "industries": [
+                    {
+                        "id": "nlp/f/topic/4022",
+                        "label": "Media & Entertainment Industry",
+                        "type": "industryTopic"
+                    }
+                ],
+                "label": "Iran News Wire",
+                "size": "Small",
+                "type": "org",
+                "websites": [
+                    "iranwire.org"
+                ]
+            },
+            "what": "Handala likely seized IranWire web and social accounts, exfiltrating staff documents."
+        },
+        {
+            "attackDate": "2026-03-28",
+            "countriesIso": [
+                "US"
+            ],
+            "countryIso": "US",
+            "cves": [],
+            "entryIds": [
+                "glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM=_19d3e05dc76:33f1377:516448e8"
+            ],
+            "firstMentionedAt": "2026-03-30T09:14:24.758000+00:00",
+            "id": "nlp/f/cyberAttack/0e7b9806-b5ef-449c-b7d2-83ae770c5937",
+            "industries": [
+                {
+                    "id": "nlp/f/topic/4025",
+                    "label": "Retail Industry",
+                    "type": "industryTopic"
+                }
+            ],
+            "iocs": {
+                "exports": [],
+                "iocs": [],
+                "type2count": {}
+            },
+            "lastMentionedAt": "2026-03-30T09:14:24.758000+00:00",
+            "latestActivity": "RedPacket Security published an article summarizing the HANDALA leak and the claimed impact to Good Food Store.",
+            "malwareFamilies": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:mal:f7667c45-9a30-41cb-b90c-a803ac3e7921",
+                        "label": "Handala (Windows)",
+                        "type": "malwareFamily"
+                    }
+                }
+            ],
+            "nMentions": 1,
+            "overview": "The HANDALA ransomware group claims responsibility for a destructive incident that wiped roughly 4 terabytes of data and forced a full store shutdown in Missoula, United States, according to the attacker\u2019s leak post dated 2026-03-28 [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM=_19d3e05dc76:33f1377:516448e8). The timeline in the post shows publication on 2026-03-28 and frames the event as a data-destruction (wipe) incident rather than a data-exfiltration ransom demand, with no files or screenshots provided by the actor [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM=_19d3e05dc76:33f1377:516448e8). The primary method reported is data wiping, which immediately suspended store operations and halted normal business activity at the affected Good Food Store location [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM=_19d3e05dc76:33f1377:516448e8). This matters because retail organizations and local critical infrastructure in the United States face direct operational risk from destructive ransomware, and the public posting of a wipe claim signals the group\u2019s intent to demonstrate capability and deter victims from recovery without external support [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM=_19d3e05dc76:33f1377:516448e8).\n\nThe post pattern\u2014public disclosure of a wipe, emphasis on operational disruption, and lack of posted data\u2014aligns with actors who seek to maximize disruption rather than monetize stolen data, suggesting future attacks will likely focus on destructive outcomes for similar targets [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM=_19d3e05dc76:33f1377:516448e8). Financial and operational impacts include lost sales, recovery costs, and reputational damage from a complete store closure, though the post does not list ransom amounts or negotiation details [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM=_19d3e05dc76:33f1377:516448e8). Key takeaways: ensure immutable backups, test disaster recovery plans, and prepare incident response with legal and communications plans; doing so will very likely reduce downtime and limit cascading community impacts if a destructive event occurs [1](https://feedly.com/i/entry/glITqZYXCW5gvtKGGG9BhH2QX3hK1KMinrKr6TuqrRM=_19d3e05dc76:33f1377:516448e8).",
+            "referenceEntries": {
+                "threatIntelligenceReports": []
+            },
+            "shortOverview": "HANDALA Wipes Good Food Store Missoula",
+            "soWhat": "4TB of POS and inventory records destroyed, halting sales and causing measurable recovery costs",
+            "status": "New",
+            "threatActors": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:ta:7b14f285-86e9-47da-be1a-16ce566c428b",
+                        "label": "Handala",
+                        "type": "threatActor"
+                    }
+                }
+            ],
+            "trendlineUrl": "https://exports.feedly.com/cyber-attacks/trendline/gradient/5f6eb54631aed530e5c9045d39055b51.svg",
+            "ttpCount": 0,
+            "types": [
+                {
+                    "id": "Ransomware",
+                    "label": "Ransomware Attacks"
+                }
+            ],
+            "victim": {
+                "aliases": [],
+                "countryIso2": "US",
+                "description": "Good Food Store is a retail establishment that specializes in providing a variety of food products, focusing on quality and customer service.",
+                "id": "nlp/f/entity/cyber-attack-target:0e7b9806-b5ef-449c-b7d2-83ae770c5937",
+                "industries": [
+                    {
+                        "id": "nlp/f/topic/4025",
+                        "label": "Retail Industry",
+                        "type": "industryTopic"
+                    }
+                ],
+                "label": "Good Food Store",
+                "size": "Unknown",
+                "type": "org",
+                "websites": [
+                    "goodfoodstore.com"
+                ]
+            },
+            "what": "HANDALA claimed destructive ransomware wipe of 4TB, shutting Good Food Store"
+        },
+        {
+            "attackDate": "2026-03-28",
+            "countriesIso": [
+                "IL"
+            ],
+            "countryIso": "IL",
+            "cves": [],
+            "entryIds": [
+                "FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d3581a99b:24a1810:df98d885"
+            ],
+            "firstMentionedAt": "2026-03-28T17:33:03.259000+00:00",
+            "id": "nlp/f/cyberAttack/3d0a9834-8a3e-46af-84db-94b26ef1e754",
+            "industries": [
+                {
+                    "id": "nlp/f/topic/4046",
+                    "label": "Education Industry",
+                    "type": "industryTopic"
+                }
+            ],
+            "iocs": {
+                "exports": [],
+                "iocs": [],
+                "type2count": {}
+            },
+            "lastMentionedAt": "2026-03-28T17:33:03.259000+00:00",
+            "latestActivity": "Conquerors Electronic Army publicly claimed responsibility for targeting the website of The College of Management Academic Studies (COLMAN).",
+            "malwareFamilies": [],
+            "nMentions": 1,
+            "overview": "The adversary self-identifies as \u201cConquerors Electronic Army,\u201d shown with an Israeli flag, and claims to have targeted the website of The College of Management Academic Studies (COLMAN) in a DDoS alert posted on social media on March 28, 2026 [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d3581a99b:24a1810:df98d885). The public claim names DDoS as the primary method and states the website as the target, but the source does not provide technical detail, timing beyond the post date, or confirmed downtime [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d3581a99b:24a1810:df98d885). This matters because public claims of disruption signal adversary intent to affect public-facing services and can prompt immediate reputational and operational concern for colleges and other education providers that depend on online access for students and staff; organizations should treat such claims as credible indicators of hostile activity [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d3581a99b:24a1810:df98d885).\n\nThis single report shows a classic web-focused DDoS claim rather than a data-exfiltration or ransomware narrative, so it likely reflects tactics aimed at denial of service rather than theft [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d3581a99b:24a1810:df98d885). Financial or operational impact remains unknown from the post, and attribution beyond the group name and flag remains unverified in the source [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d3581a99b:24a1810:df98d885). Key takeaways: ensure DDoS mitigation controls and incident communications plans are ready, monitor public channels for claims, and assume attackers who publicly claim hits are likely to attempt follow\u2011on disruptions unless deterred.",
+            "referenceEntries": {
+                "threatIntelligenceReports": []
+            },
+            "shortOverview": "Conquerors Electronic Army Targets COLMAN Website",
+            "soWhat": "No data reported; website outage disrupts student/staff access and enables follow\u2011on disruptive operations.",
+            "status": "New",
+            "threatActors": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:ta:20912a84-43b0-4fad-a30b-9ee3253da721",
+                        "label": "Conquerors Electronic Army",
+                        "type": "threatActor"
+                    }
+                }
+            ],
+            "trendlineUrl": "https://exports.feedly.com/cyber-attacks/trendline/gradient/ce5bac5aa6e141549aa1ca7fbb077e93.svg",
+            "ttpCount": 0,
+            "types": [
+                {
+                    "id": "DdosAndServiceDisruption",
+                    "label": "DDoS & Service Disruption Attacks"
+                }
+            ],
+            "victim": {
+                "aliases": [],
+                "countryIso2": "IL",
+                "description": "Established 40 years ago in 1978, the School of Business Administration pioneered academic studies fully recognized by the Israeli Council of Higher Education, yet outside established state-subsidized universities. With 2,500 students enrolled this year, today it is the largest academic business school in Israel.\n\nThe School offers Bachelor\u2019s and Master\u2019s degree programs based on a combination of theoretical and hands-on, dynamic approach, adaptable to changing requirements in terms of both content and methodologies. Accordingly, its faculty comprises leading experts from both the academe and the business world.",
+                "id": "nlp/f/entity/cyber-attack-target:3d0a9834-8a3e-46af-84db-94b26ef1e754",
+                "industries": [
+                    {
+                        "id": "nlp/f/topic/4046",
+                        "label": "Education Industry",
+                        "type": "industryTopic"
+                    }
+                ],
+                "label": "Faculty of Business at The College of Management Academic Studies",
+                "size": "Large",
+                "type": "org",
+                "websites": [
+                    "colman.ac.il"
+                ]
+            },
+            "what": "Conquerors Electronic Army likely DDoS'd COLMAN's public website."
+        },
+        {
+            "attackDate": "2026-03-28",
+            "countriesIso": [
+                "US"
+            ],
+            "countryIso": "US",
+            "cves": [],
+            "entryIds": [
+                "M8Gg4NxPcIFiWXYuTa0BOmMXnFOE6mjmChTH6mnoetA=_19d3debcbfb:3074910:3e74eca8",
+                "LS4K+MInzpRJrLkW3zrRnLDDYGwDcMqpW4uhIdcgZbc=_19d3d65d7fb:2f603e1:3e74eca8",
+                "vEET45ZubI9bNhBLRREfw99LkhEN5vKvGQIv+IKy14k=_19d34ecf5b3:2278842:516448e8",
+                "Im9X1fbszxJLtwQy6R5eYSrCHS9WrobFe9xBEdxh0Bw=_19d34eff00c:237a7c3:df98d885",
+                "fWE90tBxhbCEWJwaVyGflqVMM9EO7bRe7Y3LNTuOEYc=_19d3ec26534:373ab34:df98d885"
+            ],
+            "firstMentionedAt": "2026-03-28T14:50:37.875000+00:00",
+            "id": "nlp/f/cyberAttack/1a2aeb30-a28f-43b8-a5ff-fbe45718d0e2",
+            "industries": [
+                {
+                    "id": "nlp/f/topic/4025",
+                    "label": "Retail Industry",
+                    "type": "industryTopic"
+                }
+            ],
+            "iocs": {
+                "exports": [],
+                "iocs": [],
+                "type2count": {}
+            },
+            "lastMentionedAt": "2026-03-30T12:40:20.532000+00:00",
+            "latestActivity": "ransomware.live indexed the public claim and reported the incident (noting discovery/visibility of the group's public posting) with an estimated attack date of 2026-03-28.",
+            "malwareFamilies": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:mal:f7667c45-9a30-41cb-b90c-a803ac3e7921",
+                        "label": "Handala (Windows)",
+                        "type": "malwareFamily"
+                    }
+                }
+            ],
+            "nMentions": 5,
+            "overview": "The group identifying itself as the Handala Hack Team, which some sources describe as Iranian-affiliated, claimed responsibility for a supply\u2011chain style attack on North Country Business Products (NCBP), a U.S. POS provider [1](https://feedly.com/i/entry/LS4K+MInzpRJrLkW3zrRnLDDYGwDcMqpW4uhIdcgZbc=_19d3d65d7fb:2f603e1:3e74eca8)[2](https://feedly.com/i/entry/vEET45ZubI9bNhBLRREfw99LkhEN5vKvGQIv+IKy14k=_19d34ecf5b3:2278842:516448e8). The group announced a website and Telegram channel as part of the operation, and reported that about 2,680 POS terminals across roughly 110 enterprises and retail chains went dark on March 28, 2026, causing immediate payment and store-operation disruptions [2](https://feedly.com/i/entry/vEET45ZubI9bNhBLRREfw99LkhEN5vKvGQIv+IKy14k=_19d34ecf5b3:2278842:516448e8)[1](https://feedly.com/i/entry/LS4K+MInzpRJrLkW3zrRnLDDYGwDcMqpW4uhIdcgZbc=_19d3d65d7fb:2f603e1:3e74eca8)[3](https://feedly.com/i/entry/M8Gg4NxPcIFiWXYuTa0BOmMXnFOE6mjmChTH6mnoetA=_19d3debcbfb:3074910:3e74eca8). Reports describe the incident as destructive (service disruption rather than data theft) and say stores experienced sudden outages overnight [1](https://feedly.com/i/entry/LS4K+MInzpRJrLkW3zrRnLDDYGwDcMqpW4uhIdcgZbc=_19d3d65d7fb:2f603e1:3e74eca8)[3](https://feedly.com/i/entry/M8Gg4NxPcIFiWXYuTa0BOmMXnFOE6mjmChTH6mnoetA=_19d3debcbfb:3074910:3e74eca8). This matters because compromising a POS vendor can cascade to many retailers at once, forcing emergency audits, halting transactions, and eroding consumer trust, so downstream customers and partners should treat vendor outages as high-impact incidents [2](https://feedly.com/i/entry/vEET45ZubI9bNhBLRREfw99LkhEN5vKvGQIv+IKy14k=_19d34ecf5b3:2278842:516448e8)[1](https://feedly.com/i/entry/LS4K+MInzpRJrLkW3zrRnLDDYGwDcMqpW4uhIdcgZbc=_19d3d65d7fb:2f603e1:3e74eca8).\n\nThe campaign shows a pattern of public claim-making and channel expansion to increase visibility and influence, which suggests the actor seeks operational impact and attention rather than stealthy data theft [2](https://feedly.com/i/entry/vEET45ZubI9bNhBLRREfw99LkhEN5vKvGQIv+IKy14k=_19d34ecf5b3:2278842:516448e8)[4](https://feedly.com/i/entry/Im9X1fbszxJLtwQy6R5eYSrCHS9WrobFe9xBEdxh0Bw=_19d34eff00c:237a7c3:df98d885). Financial losses likely include lost sales and incident response costs; operational effects include store closures and supply\u2011chain interruptions, though exact amounts remain unverified [3](https://feedly.com/i/entry/M8Gg4NxPcIFiWXYuTa0BOmMXnFOE6mjmChTH6mnoetA=_19d3debcbfb:3074910:3e74eca8)[5](https://feedly.com/i/entry/fWE90tBxhbCEWJwaVyGflqVMM9EO7bRe7Y3LNTuOEYc=_19d3ec26534:373ab34:df98d885). It is likely the actor will continue publicity-driven disruptions; defenders should prioritize supply\u2011chain audits, isolate vendor connections, and test offline transaction capabilities promptly [2](https://feedly.com/i/entry/vEET45ZubI9bNhBLRREfw99LkhEN5vKvGQIv+IKy14k=_19d34ecf5b3:2278842:516448e8)[1](https://feedly.com/i/entry/LS4K+MInzpRJrLkW3zrRnLDDYGwDcMqpW4uhIdcgZbc=_19d3d65d7fb:2f603e1:3e74eca8). Key takeaways: validate vendor resilience, monitor adversary communications for claims, and prepare rapid retail-continuity playbooks. [2](https://feedly.com/i/entry/vEET45ZubI9bNhBLRREfw99LkhEN5vKvGQIv+IKy14k=_19d34ecf5b3:2278842:516448e8)[4](https://feedly.com/i/entry/Im9X1fbszxJLtwQy6R5eYSrCHS9WrobFe9xBEdxh0Bw=_19d34eff00c:237a7c3:df98d885)[1](https://feedly.com/i/entry/LS4K+MInzpRJrLkW3zrRnLDDYGwDcMqpW4uhIdcgZbc=_19d3d65d7fb:2f603e1:3e74eca8)[3](https://feedly.com/i/entry/M8Gg4NxPcIFiWXYuTa0BOmMXnFOE6mjmChTH6mnoetA=_19d3debcbfb:3074910:3e74eca8)[5](https://feedly.com/i/entry/fWE90tBxhbCEWJwaVyGflqVMM9EO7bRe7Y3LNTuOEYc=_19d3ec26534:373ab34:df98d885)",
+            "referenceEntries": {
+                "threatIntelligenceReports": []
+            },
+            "shortOverview": "Handala Hack Team Disrupts North Country POS Network",
+            "soWhat": "~2,680 POS at ~110 retailers went offline, halting payments and causing lost sales.",
+            "status": "New",
+            "threatActors": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:ta:7b14f285-86e9-47da-be1a-16ce566c428b",
+                        "label": "Handala",
+                        "type": "threatActor"
+                    }
+                }
+            ],
+            "trendlineUrl": "https://exports.feedly.com/cyber-attacks/trendline/gradient/eae7d6b8f53dfd7f0b4c64e4c67e6c50.svg",
+            "ttpCount": 0,
+            "types": [
+                {
+                    "id": "SupplyChainCompromises",
+                    "label": "Supply Chain Compromises"
+                },
+                {
+                    "id": "FinancialAndPaymentSystem",
+                    "label": "Financial/Payment System Attacks"
+                },
+                {
+                    "id": "Ransomware",
+                    "label": "Ransomware Attacks"
+                }
+            ],
+            "victim": {
+                "aliases": [],
+                "countryIso2": "US",
+                "description": "North Country Business Products, Inc. is a provider of point-of-sale (POS) systems that serves major retail chains across the United States.",
+                "id": "nlp/f/entity/cyber-attack-target:1a2aeb30-a28f-43b8-a5ff-fbe45718d0e2",
+                "industries": [
+                    {
+                        "id": "nlp/f/topic/4025",
+                        "label": "Retail Industry",
+                        "type": "industryTopic"
+                    }
+                ],
+                "label": "North Country Business Products, Inc.",
+                "size": "Unknown",
+                "type": "org",
+                "websites": [
+                    "ncbpinc.com"
+                ]
+            },
+            "what": "Handala Hack Team, likely Iranian-affiliated, launched a destructive supply\u2011chain attack on NCBP."
+        },
+        {
+            "attackDate": "2026-03-26",
+            "countriesIso": [
+                "IL"
+            ],
+            "countryIso": "IL",
+            "cves": [],
+            "entryIds": [
+                "FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d2b263e60:eaa833:516448e8"
+            ],
+            "firstMentionedAt": "2026-03-26T17:16:59.872000+00:00",
+            "id": "nlp/f/cyberAttack/812dac6b-f336-44ed-893b-276e0dd00829",
+            "industries": [
+                {
+                    "id": "nlp/f/topic/4020",
+                    "label": "Insurance Industry",
+                    "type": "industryTopic"
+                },
+                {
+                    "id": "nlp/f/topic/4017",
+                    "label": "Finance Industry",
+                    "type": "industryTopic"
+                }
+            ],
+            "iocs": {
+                "exports": [],
+                "iocs": [],
+                "type2count": {}
+            },
+            "lastMentionedAt": "2026-03-26T17:16:59.872000+00:00",
+            "latestActivity": "Conquerors Electronic Army claimed responsibility for targeting the Israel Bureau of Insurance Agents website.",
+            "malwareFamilies": [],
+            "nMentions": 1,
+            "overview": "Conquerors Electronic Army publicly claimed responsibility for a distributed denial-of-service (DDoS) attack against the Israel Bureau of Insurance Agents\u2019 website (insurance.org.il) in a tweet timestamped 09:43 on Mar 26, 2026; the message specifically states the group targeted that URL and includes an image link [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d2b263e60:eaa833:516448e8). The tweet identifies the adversary and attack type but does not provide technical details, so immediate impact is limited to the claim of targeting rather than confirmed downtime or data loss [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d2b263e60:eaa833:516448e8). This matters because even claims alone can disrupt customer trust, create short-term access issues for members and regulators, and force the organization to allocate IT and communications resources to validate and mitigate any real or perceived outage [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d2b263e60:eaa833:516448e8).\n\nThe campaign pattern here is a public claim of DDoS against an Israeli professional association, which suggests the actor targets Israeli institutions and uses denial-of-service as its primary method in this incident; however, the source does not show broader campaign history or motives beyond this single claim [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d2b263e60:eaa833:516448e8). Financial and operational impacts are likely limited but could include remediation costs and reputational harm if access was blocked or services slowed; follow-on claims or repeat attacks against similar organizations are likely given the public nature of the announcement, though confirmation would require further intelligence [1](https://feedly.com/i/entry/FkUDUVrdZ454A79K5I1b+vKKK8hgma62Sv6pVFuDo8g=_19d2b263e60:eaa833:516448e8). Key takeaways: verify service availability, prepare DDoS mitigation plans, and monitor public channels for adversary claims.",
+            "referenceEntries": {
+                "threatIntelligenceReports": []
+            },
+            "shortOverview": "Conquerors Electronic Army Hits Israeli Insurance Bureau",
+            "soWhat": "Access disruption and remediation costs cause customer outage and extortion leverage.",
+            "status": "New",
+            "threatActors": [
+                {
+                    "entity": {
+                        "id": "nlp/f/entity/gz:ta:20912a84-43b0-4fad-a30b-9ee3253da721",
+                        "label": "Conquerors Electronic Army",
+                        "type": "threatActor"
+                    }
+                }
+            ],
+            "trendlineUrl": "https://exports.feedly.com/cyber-attacks/trendline/gradient/e07467c41bcbc2a67fb44a41a4f0c4d4.svg",
+            "ttpCount": 0,
+            "types": [
+                {
+                    "id": "DdosAndServiceDisruption",
+                    "label": "DDoS & Service Disruption Attacks"
+                }
+            ],
+            "victim": {
+                "aliases": [],
+                "countryIso2": "IL",
+                "description": "The Israel Bureau of Insurance Agents is an organization that represents insurance agents in Israel, providing support and resources for professionals in the insurance industry.",
+                "id": "nlp/f/entity/cyber-attack-target:812dac6b-f336-44ed-893b-276e0dd00829",
+                "industries": [
+                    {
+                        "id": "nlp/f/topic/4020",
+                        "label": "Insurance Industry",
+                        "type": "industryTopic"
+                    },
+                    {
+                        "id": "nlp/f/topic/4017",
+                        "label": "Finance Industry",
+                        "type": "industryTopic"
+                    }
+                ],
+                "label": "Israel Bureau of Insurance Agents",
+                "size": "Unknown",
+                "type": "org",
+                "websites": []
+            },
+            "what": "Conquerors Electronic Army likely claimed a DDoS on insurance.org.il."
+        }
+    ],
+    "continuation": {
+        "page": 2
+    }
+}
