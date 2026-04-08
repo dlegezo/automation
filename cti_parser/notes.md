@@ -29,22 +29,21 @@
 
 
 
-+ fourth report, pdf one
++ five report, including pdf one 
 + metadata[]
     + severity (how interesting is it)
     + confidence
-    + actor in mitre classification
+    + actor in mitre classification where possible, DKnife, Handala aren't indexed in Mitre groups
 + vulns
 + iocs[]
     + .regkey .email .filepath .mutex .cert .pipe .service
 - queries[].iocs/ttps
 + xrefs[].type == follows for ttps, creates for files, uses for domains
-- DKnife, Handala aren't indexed in Mitre groups
 
-Process tree for detection: different type of links for mitre --follows-> mitre and file --uses/creates-> regkey
-TTL for specific IOC and TTP - report date, let's keep in metadata
+- Process tree for detection: different type of links for mitre --follows-> mitre and file --uses/creates-> regkey
+- TTL for specific IOC and TTP - report date, let's keep in metadata
 Xrefs Relationship type should not be creates or uses but rather parent / child - from/to are properties, and follows/uses/creates is another property. from/to is a real alternative for parents/children[] and it's broader
-Sequence of TTP is important (using xrefs relationship) - connect through xref with follows type
-Check how to enrich detection queries from other reports (cross references) - looks like very far shot, not the first epics
-Enrich report output with MITRE name for group => Add tags to Json - metadata.actor is the place, check if all the actors have mitre names (Handala)
-Show if report is relevant scope (geo, industry) - metadata.severity is the place (naming and discrete values)
+- Sequence of TTP is important (using xrefs relationship) - connect through xref with follows type
+- Check how to enrich detection queries from other reports (cross references) - looks like very far shot, not the first epics
+- Enrich report output with MITRE name for group => Add tags to Json - metadata.actor is the place, check if all the actors have mitre names (Handala)
+- Show if report is relevant scope (geo, industry) - metadata.severity is the place (naming and discrete values)

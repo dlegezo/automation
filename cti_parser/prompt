@@ -2,7 +2,12 @@ Read the reports listed in ./inbound/inbound.json, consider it as a main input. 
 
 To provide JSON output strictly follows ./scheme/iocs-schema.json. in ./outbound directory for every report create corresponding <report_name>.JSON file with parsed data. You also should consult iocs-schema.json comments to understand the meaning and possible values of every field
 
-Duplicate from schema
-In reports metadata tags should contain coutries, industries, all actors and malware names. Actor should contain MITRE group name informat GXXXX but only if it exists in MITRE list. Otherwise just use vendors' actor name from report. Severity metadata field means how interesting for the customer, how near to their business this report is
+TODO Duplicate from schema, to decide mention in schema's comments only and link the prompt to it or put it all to prompt itself
 
-ttps should contain all
+Reports' metadata tags should contain coutries, industries, all actors and malware names. Actor should contain MITRE group name informat GXXXX but only if it exists in MITRE list. Otherwise just use vendors' actor name from report. Severity metadata field means how interesting for the customer, how near to their business this report is
+
+Reports' iocs should contain all
+
+Reports' queries should contain all
+
+Reports' xrefs should contain all
