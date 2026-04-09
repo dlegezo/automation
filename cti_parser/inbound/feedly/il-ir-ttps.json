@@ -1,0 +1,25 @@
+{
+  "threatLayers": [
+    [
+      "nlp/f/entity/gz:ta:a29af069-03c3-4534-b78b-7d1a77ea085b",
+      "nlp/f/entity/gz:ta:42be2a84-5a5c-4c6d-9864-3f09d75bb0ba",
+      "nlp/f/entity/gz:mal:c40dbede-490f-4df4-a242-a2461e3cfc4e",
+      "nlp/f/entity/gz:ta:e9a6cbd7-ca27-4894-ae20-9d11c06fdc02",
+      "nlp/f/entity/gz:ta:4f69ec6d-cb6b-42af-b8e2-920a2aa4be10",
+      "nlp/f/entity/gz:ta:35f887ad-6709-4d0b-8e9c-6b3fa09c783f",
+      "nlp/f/entity/gz:ta:f98bac6b-12fd-4cad-be84-c84666932232",
+      "nlp/f/entity/gz:ta:f873db71-3d53-41d5-b141-530675ade27a",
+      "nlp/f/entity/gz:ta:c2c64bd3-a325-446f-91a8-b4c0f173a30b",
+      "nlp/f/entity/gz:ta:066d25c1-71bd-4bd4-8ca7-edbba00063f4",
+      "nlp/f/entity/gz:ta:bfb0bc20-5bdf-47ff-b07f-dbd9a3cb9772",
+      "nlp/f/entity/gz:ta:b8967b3c-3bc9-11e8-8701-8b1ead8c099e",
+      "nlp/f/entity/gz:tat:ir",
+      "nlp/f/entity/gz:tat:il",
+      "nlp/f/entity/gz:ta:7b14f285-86e9-47da-be1a-16ce566c428b"
+    ]
+  ],
+  "period": {
+    "type": "Last7Days",
+    "label": "Last 7 Days"
+  }
+}
