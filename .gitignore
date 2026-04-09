@@ -1,4 +1,5 @@
 __pycache__/*
 vt_hunt/outputs/__pycache__/*
 vt_hunt/sources/__pycache__/*
-cti_parser/utils/__pycache__/utils.cpython-314.pyc
+cti_parser/utils/__pycache__/*
+vt_hunt/__pycache__/*

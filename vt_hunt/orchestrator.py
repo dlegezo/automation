@@ -3,6 +3,7 @@ import json
 import importlib
 import logging
 from typing import Dict
+from pathlib import Path
 
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -10,7 +11,9 @@ logger = logging.getLogger(__name__)
 
 
 def load_config(config_path: str = 'config.json') -> Dict:
-    with open(config_path, 'r') as f:
+    script_dir = Path(__file__).parent
+    file_path = script_dir / "config.json"
+    with open(file_path, 'r') as f:
         return json.load(f)
 
 
